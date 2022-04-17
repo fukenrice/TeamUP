@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">kursachKotlin</string>
+    <string name="password">Пароль</string>
+    <string name="login">Логин</string>
+    <string name="login_button">Войти</string>
+    <string name="register_text">Ещё нет аккаунта?</string>
+    <string name="register_click">Зарегистроваться!</string>
+</resources>

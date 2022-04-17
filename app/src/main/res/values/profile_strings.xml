@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="photo">Фото</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="patronymic">Отчество</string>
+    <string name="specialization">Специализация</string>
+    <string name="description">Описание</string>
+    <string name="cv">Резюме</string>
+    <string name="belbin">Белбин</string>
+    <string name="mbti">Майерс-Бриггс</string>
+    <string name="lsq">Хони-Мамфорд</string>
+    <string name="age">Возраст</string>
+    <string name="city">Город</string>
+    <string name="remote">Удаленная работа</string>
+    <string name="verified">Профиль подтвержден</string>
+    <string name="sex">Пол</string>
+</resources>
