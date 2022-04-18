@@ -1,5 +1,6 @@
 package com.example.kusashkotlin.ui.main.view.login
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,82 +12,70 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.androidnetworking.AndroidNetworking
 import com.example.kusashkotlin.R
+import com.example.kusashkotlin.data.api.ApiHelper
+import com.example.kusashkotlin.data.api.ApiServiceImpl
+import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
 import com.google.android.material.textfield.TextInputEditText
-import java.net.InetAddress
 
 
 class LoginActivity : AppCompatActivity() {
 
     @BindView(R.id.loginButton)
-    public lateinit var loginButton: Button
+    lateinit var loginButton: Button
 
     @BindView(R.id.loginEditText)
-    public lateinit var loginTextEdit: TextInputEditText
+    lateinit var loginTextEdit: TextInputEditText
 
     @BindView(R.id.passwordEditText)
-    public lateinit var passwordTextEdit: EditText
+    lateinit var passwordTextEdit: EditText
 
+    lateinit var save: SharedPreferences
+
+    //var context: Context = this
+
+    var repository = MainRepository(ApiHelper(ApiServiceImpl()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        save = getPreferences(MODE_PRIVATE)
         AndroidNetworking.initialize(getApplicationContext());
 
-        val save: SharedPreferences = getPreferences(MODE_PRIVATE)
-        val token = save.getString("token", "")
+        save.edit().remove("username").commit()
+        val token: String = save.getString("token", "").toString()
+        // Если имя пользователя не пустое, значит токен валидный.
+        val username = repository.getUsernameByToken(token)
 
-        if (token == "") {
-            // Отображаем текущую страницу
+        // Валидный ли токен
+        if (token == "" || username == "") {
+            setContent()
         } else {
-            // Делаем зарпос на получение профиля, если пришел с ошибкой, значит токен невалидный и отображаем текущую
-        }
-
-
-        setContentView(R.layout.activity_login)
-        ButterKnife.bind(this)
-
-        // Проверяем, есть ли логин в бд на сервере, если есть, то запускаем профиль, если нет, то остаемся в текущей активити.
-
-//        loginButton.setOnClickListener {
-//            // Запрос к серверу на поодтверждение данных
-//        }
-
-
-        val gfgThread = Thread {
-            try {
-                Log.d("mytag", isInternetAvailable().toString())
-            } catch (e: java.lang.Exception) {
-                throw e
-            }
-        }
-
-        gfgThread.start()
-
-        loginButton.setOnClickListener {
-            val intent: Intent = Intent(this, UserProfileActivity::class.java)
+            setPreferences(token, username)
+            val intent = Intent(this, UserProfileActivity::class.java)
             startActivity(intent)
         }
 
+
     }
 
-    fun isInternetAvailable(): Boolean {
-        return try {
-            val ipAddr: InetAddress = InetAddress.getByName("google.com")
-            //You can replace it with your name
-            Log.d("mytag", ipAddr.hostName)
-            !ipAddr.equals("")
 
-        } catch (e: Exception) {
-            throw e
-            //false
+    fun setPreferences(token: String, username: String) {
+        val edit: SharedPreferences.Editor = save.edit()
+        edit.putString("username", username)
+        edit.putString("token", token)
+        edit.apply()
+    }
+
+    fun setContent() {
+        setContentView(R.layout.activity_login)
+        ButterKnife.bind(this)
+        ButterKnife.bind(this)
+        loginButton.setOnClickListener {
+            Log.d("login token", repository.getToken(loginTextEdit.text.toString(), passwordTextEdit.text.toString()))
+
+            //val intent: Intent = Intent(this, UserProfileActivity::class.java)
+            //startActivity(intent)
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        val save: SharedPreferences = getPreferences(MODE_PRIVATE)
-        val edit: SharedPreferences.Editor = save.edit()
-        edit.putString("username", "fukenrice")
-        edit.apply()
-    }
 }

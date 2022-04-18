@@ -1,6 +1,8 @@
 package com.example.kusashkotlin.ui.main.viewmodel
 
+import android.content.SharedPreferences
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,44 +13,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ProfileViewModel(private val mainRepository: MainRepository) : ViewModel() {
-    public val profile = MutableLiveData<Resource<Profile>>()
+class ProfileViewModel(private val mainRepository: MainRepository, private val username: String) : ViewModel() {
+    private val profile = MutableLiveData<Resource<Profile>>()
     private val compositeDisposable = CompositeDisposable() // Узнать
 
     init {
-
         fetchProfile()
     }
 
     private fun fetchProfile() {
         profile.postValue(Resource.loading(null))
-//        compositeDisposable.add(
-//            mainRepository.getProfile("test") //Узнать
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({ profileM ->
-//                    profile.postValue(Resource.success(profileM))
-//                }, { throwable ->
-//                    profile.postValue(Resource.error("Something Went Wrong", null))
-//
-//                    Log.d("mytag", throwable.stackTraceToString())
-//                })
-//        )
-
-        val gfgThread = Thread {
-            try {
-                val pr = mainRepository.getProfile("test")
-                val a = pr.subscribe({p -> p.photo})
-                Log.d("mytag", a.toString())
-            } catch (e: java.lang.Exception) {
-                throw e
-            }
-        }
-
-        gfgThread.start()
-
-
-
+        compositeDisposable.add(
+            mainRepository.getProfile(username)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ profileM ->
+                    profile.postValue(Resource.success(profileM))
+                }, { throwable ->
+                    profile.postValue(Resource.error("Something Went Wrong", null))
+                    Log.d("mytag", throwable.stackTraceToString())
+                })
+        )
     }
 
     override fun onCleared() {
