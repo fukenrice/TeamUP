@@ -13,7 +13,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ProfileViewModel(private val mainRepository: MainRepository, private val username: String) : ViewModel() {
+class ProfileViewModel(private val mainRepository: MainRepository, private val username: String) :
+    ViewModel() {
     private val profile = MutableLiveData<Resource<Profile>>()
     private val compositeDisposable = CompositeDisposable() // Узнать
 
@@ -30,7 +31,7 @@ class ProfileViewModel(private val mainRepository: MainRepository, private val u
                 .subscribe({ profileM ->
                     profile.postValue(Resource.success(profileM))
                 }, { throwable ->
-                    profile.postValue(Resource.error("Something Went Wrong", null))
+                    profile.postValue(Resource.error("Something Went Wrong profile", null))
                     Log.d("mytag", throwable.stackTraceToString())
                 })
         )

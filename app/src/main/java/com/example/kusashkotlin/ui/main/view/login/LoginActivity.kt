@@ -1,13 +1,15 @@
 package com.example.kusashkotlin.ui.main.view.login
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
-import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.androidnetworking.AndroidNetworking
@@ -16,7 +18,11 @@ import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
-import com.google.android.material.textfield.TextInputEditText
+import com.example.kusashkotlin.ui.main.viewmodel.LoginTokenViewModel
+import com.example.kusashkotlin.ui.main.viewmodel.LoginUserViewModel
+import com.example.kusashkotlin.utils.Status
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_user_profile.progressBar
 
 
 class LoginActivity : AppCompatActivity() {
@@ -24,58 +30,110 @@ class LoginActivity : AppCompatActivity() {
     @BindView(R.id.loginButton)
     lateinit var loginButton: Button
 
-    @BindView(R.id.loginEditText)
-    lateinit var loginTextEdit: TextInputEditText
+    private lateinit var save: SharedPreferences
 
-    @BindView(R.id.passwordEditText)
-    lateinit var passwordTextEdit: EditText
+    private lateinit var token: String
 
-    lateinit var save: SharedPreferences
+    private lateinit var tokenViewModel: LoginTokenViewModel
 
-    //var context: Context = this
+    private lateinit var userViewModel: LoginUserViewModel
 
-    var repository = MainRepository(ApiHelper(ApiServiceImpl()))
+    lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        save = getPreferences(MODE_PRIVATE)
+        save = getSharedPreferences("APP", MODE_PRIVATE)
         AndroidNetworking.initialize(getApplicationContext());
-
-        save.edit().remove("username").commit()
-        val token: String = save.getString("token", "").toString()
+        token = save.getString("token", "").toString()
         // Если имя пользователя не пустое, значит токен валидный.
-        val username = repository.getUsernameByToken(token)
-
+        username = save.getString("username", "").toString()
         // Валидный ли токен
+        setupUserViewModel()
+        setUpUserObserver()
         if (token == "" || username == "") {
             setContent()
         } else {
-            setPreferences(token, username)
+            //setPreferences(token, username)
             val intent = Intent(this, UserProfileActivity::class.java)
             startActivity(intent)
+            finish()
         }
-
-
     }
 
 
-    fun setPreferences(token: String, username: String) {
+    private fun setPreferences(token: String, username: String) {
         val edit: SharedPreferences.Editor = save.edit()
         edit.putString("username", username)
         edit.putString("token", token)
         edit.apply()
     }
 
-    fun setContent() {
+
+    private fun setContent() {
         setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
-        ButterKnife.bind(this)
         loginButton.setOnClickListener {
-            Log.d("login token", repository.getToken(loginTextEdit.text.toString(), passwordTextEdit.text.toString()))
-
-            //val intent: Intent = Intent(this, UserProfileActivity::class.java)
-            //startActivity(intent)
+            setupTokenViewModel()
+            setTokenObserver()
         }
     }
 
+    private fun setTokenObserver() {
+        tokenViewModel.getToken().observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    progressBar.visibility = View.GONE
+                    loginButton.visibility = View.VISIBLE
+                    Log.d("mytag", it.data?.token ?: "")
+                    token = it.data?.token ?: ""
+                    setPreferences(token, loginEditText.text.toString())
+                    val intent = Intent(this, UserProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                Status.LOADING -> {
+                    loginButton.visibility = View.INVISIBLE
+                    progressBar.visibility = View.VISIBLE
+                }
+                Status.ERROR -> {
+                    loginButton.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
+
+    private fun setUpUserObserver() {
+        userViewModel.getUser().observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    val intent = Intent(this, UserProfileActivity::class.java)
+                    startActivity(intent)
+                }
+                Status.LOADING -> {
+
+                }
+                Status.ERROR -> {
+                    username = ""
+                    setPreferences("", "")
+                }
+            }
+        })
+    }
+
+    private fun setupTokenViewModel() {
+        tokenViewModel = LoginTokenViewModel(
+            MainRepository(ApiHelper(ApiServiceImpl())),
+            loginEditText.text.toString(),
+            passwordEditText.text.toString()
+        )
+    }
+
+    private fun setupUserViewModel() {
+        userViewModel = LoginUserViewModel(
+            MainRepository(ApiHelper(ApiServiceImpl())),
+            token
+        )
+    }
 }

@@ -1,8 +1,9 @@
 package com.example.kusashkotlin.data.repo
 
-import android.util.Log
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.model.Profile
+import com.example.kusashkotlin.data.model.TokenResponse
+import com.example.kusashkotlin.data.model.User
 import io.reactivex.Single
 
 class MainRepository(private val apiHelper: ApiHelper) {
@@ -10,12 +11,11 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.getProfile(username)
     }
 
-    fun getToken(username: String, password: String) : String {
+    fun getToken(username: String, password: String) : Single<TokenResponse> {
         return apiHelper.getToken(username, password)
     }
 
-    fun getUsernameByToken(token: String) : String {
+    fun getUserByToken(token: String) : Single<User> {
         return apiHelper.verifyToken(token)
     }
-
 }

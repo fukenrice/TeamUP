@@ -1,7 +1,10 @@
 package com.example.kusashkotlin.ui.main.view.profile
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -15,9 +18,12 @@ import butterknife.ButterKnife
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.ui.base.ViewModelFactory
+import com.example.kusashkotlin.ui.main.view.login.LoginActivity
 import com.example.kusashkotlin.utils.Status
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
+import kotlinx.android.synthetic.main.activity_user_profile.progressBar
 import kotlinx.android.synthetic.main.item_layout.surnameTextView
 
 
@@ -28,12 +34,15 @@ class UserProfileActivity : AppCompatActivity() {
 
     lateinit var viewModel: ProfileViewModel
 
+    private lateinit var save: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
         ButterKnife.bind(this)
-        setupViewModel()
-        setupObserver()
+        save = getSharedPreferences("APP", MODE_PRIVATE)
+        Log.d("saved login", getPreferences(MODE_PRIVATE).getString("username", "").toString())
+        setContent()
     }
 
     private fun setupObserver() {
@@ -43,7 +52,8 @@ class UserProfileActivity : AppCompatActivity() {
                     progressBar.visibility = View.GONE
                     nameTextView.text = it.data?.user?.firstName ?: ""
                     surnameTextView.text = it.data?.user?.lastName ?: ""
-                    Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).into(avatarImageView)
+                    Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()
+                        .into(avatarImageView)
 
                 }
                 Status.LOADING -> {
@@ -59,11 +69,26 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, ViewModelFactory(ApiHelper(ApiServiceImpl()),
-            getPreferences(MODE_PRIVATE).getString("username", "").toString()))
-            .get(ProfileViewModel::class.java
+        viewModel = ViewModelProvider(
+            this, ViewModelFactory(
+                ApiHelper(ApiServiceImpl()),
+                save.getString("username", "").toString()
+            )
         )
+            .get(ProfileViewModel::class.java)
+        Log.d("mytag", "username " + save.getString("username", "").toString())
     }
 
+    private fun setContent() {
+        setupViewModel()
+        setupObserver()
+
+        logoutButton.setOnClickListener {
+            save.edit().clear().apply()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
+    }
 
 }
