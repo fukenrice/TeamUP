@@ -41,7 +41,6 @@ class UserProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_profile)
         ButterKnife.bind(this)
         save = getSharedPreferences("APP", MODE_PRIVATE)
-        Log.d("saved login", getPreferences(MODE_PRIVATE).getString("username", "").toString())
         setContent()
     }
 
@@ -76,7 +75,6 @@ class UserProfileActivity : AppCompatActivity() {
             )
         )
             .get(ProfileViewModel::class.java)
-        Log.d("mytag", "username " + save.getString("username", "").toString())
     }
 
     private fun setContent() {

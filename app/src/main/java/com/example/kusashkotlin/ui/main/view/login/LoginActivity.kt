@@ -1,6 +1,5 @@
 package com.example.kusashkotlin.ui.main.view.login
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -8,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import butterknife.BindView
@@ -18,6 +18,7 @@ import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
+import com.example.kusashkotlin.ui.main.view.register.RegisterActivity
 import com.example.kusashkotlin.ui.main.viewmodel.LoginTokenViewModel
 import com.example.kusashkotlin.ui.main.viewmodel.LoginUserViewModel
 import com.example.kusashkotlin.utils.Status
@@ -76,6 +77,9 @@ class LoginActivity : AppCompatActivity() {
             setupTokenViewModel()
             setTokenObserver()
         }
+        registerClickableTextView.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun setTokenObserver() {
@@ -98,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
                 Status.ERROR -> {
                     loginButton.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    AlertDialog.Builder(this).setMessage(it.message).create().show()
                 }
             }
         })
@@ -110,6 +114,7 @@ class LoginActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     val intent = Intent(this, UserProfileActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
                 Status.LOADING -> {
 

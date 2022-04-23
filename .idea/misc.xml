@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_login.xml" value="0.55" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_main.xml" value="0.24166666666666667" />
+        <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_register.xml" value="0.4846014492753623" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/item_layout.xml" value="0.41458333333333336" />
+        <entry key="..\:/kusashKotlin/app/src/main/res/layout/register_form.xml" value="0.4846014492753623" />
       </map>
     </option>
   </component>

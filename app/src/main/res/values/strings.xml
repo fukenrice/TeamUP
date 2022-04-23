@@ -5,4 +5,8 @@
     <string name="login_button">Войти</string>
     <string name="register_text">Ещё нет аккаунта?</string>
     <string name="register_click">Зарегистроваться!</string>
+    <string name="email">email</string>
+    <string name="login_text">Имя пользователя</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="register">Зарегистрироваться</string>
 </resources>

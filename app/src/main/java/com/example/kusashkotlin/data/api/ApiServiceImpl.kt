@@ -8,13 +8,13 @@ import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.model.TokenResponse
 import com.example.kusashkotlin.data.model.User
 import io.reactivex.Single
+import com.example.kusashkotlin.data.model.RegisterResponse
 
 class ApiServiceImpl : ApiService {
     private val host = App.getAppResources().getString(R.string.host)
     private val protocol = App.getAppResources().getString(R.string.protocol)
     private val port = App.getAppResources().getString(R.string.port)
     private val url = "${protocol}://${host}:${port}"
-
 
 
     override fun getProfile(username: String): Single<Profile> {
@@ -24,8 +24,7 @@ class ApiServiceImpl : ApiService {
     }
 
     override fun getToken(login: String, password: String): Single<TokenResponse> {
-        Log.d("mytagApi", login + " " + password)
-        return Rx2AndroidNetworking.post("${url}/auth/token/login")
+        return Rx2AndroidNetworking.post("${url}/auth/token/login/")
             .addBodyParameter("username", login)
             .addBodyParameter("password", password)
             .build()
@@ -33,10 +32,22 @@ class ApiServiceImpl : ApiService {
     }
 
     override fun getUserByToken(token: String): Single<User> {
-        var username = ""
-        return Rx2AndroidNetworking.get("${url}/auth/users/me")
+        return Rx2AndroidNetworking.get("${url}/auth/users/me/")
             .addHeaders("Authorization", "Token $token")
             .build()
             .getObjectSingle(User::class.java)
+    }
+
+    override fun registerUser(
+        email: String,
+        username: String,
+        password: String
+    ): Single<RegisterResponse> {
+        return Rx2AndroidNetworking.post("${url}/auth/users/")
+            .addBodyParameter("email", email)
+            .addBodyParameter("username", username)
+            .addBodyParameter("password", password)
+            .build()
+            .getObjectSingle(RegisterResponse::class.java)
     }
 }
