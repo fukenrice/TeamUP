@@ -5,11 +5,14 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import butterknife.BindView
@@ -17,6 +20,7 @@ import butterknife.ButterKnife
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
+import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
 import com.example.kusashkotlin.ui.base.ViewModelFactory
 import com.example.kusashkotlin.ui.main.view.login.LoginActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
@@ -41,12 +45,16 @@ class UserProfileActivity : AppCompatActivity() {
 
     private lateinit var mDrawer: Drawer
 
+    private lateinit var binding: ActivityUserProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_profile)
+//        setContentView(R.layout.activity_user_profile)
+        //binding = ActivityUserProfileBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile)
         ButterKnife.bind(this)
         save = getSharedPreferences("APP", MODE_PRIVATE)
+
         setContent()
     }
 
@@ -54,9 +62,12 @@ class UserProfileActivity : AppCompatActivity() {
         viewModel.getProfile().observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
+
+                    binding.profile = it.data
+
+                    binding.profile?.user?.let { it1 -> Log.d("binding", it1.firstName) }
+
                     progressBar.visibility = View.GONE
-                    nameTextView.text = it.data?.user?.firstName ?: ""
-                    surnameTextView.text = it.data?.user?.lastName ?: ""
                     Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()
                         .into(avatarImageView)
 
@@ -85,11 +96,6 @@ class UserProfileActivity : AppCompatActivity() {
                             // Сетевой запрос на загрузку резюме.
                         }
                     }
-
-                    cityTextView.text = "Город: " + it.data?.city
-                    ageTextView.text = "Возраст: ${it.data?.age ?: ""}"
-                    sexTextView.text = "Пол: ${it.data?.sex}"
-
                 }
                 Status.LOADING -> {
                     progressBar.visibility = View.VISIBLE
@@ -116,6 +122,7 @@ class UserProfileActivity : AppCompatActivity() {
     private fun setContent() {
         setupViewModel()
         setupObserver()
+
 
         logoutButton.setOnClickListener {
             save.edit().clear().apply()
