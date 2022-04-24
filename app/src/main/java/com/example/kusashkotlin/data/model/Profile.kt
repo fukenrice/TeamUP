@@ -19,7 +19,7 @@ data class Profile(
     var executorOffer: ExecutorOffer? = null,
 
     @SerializedName("belbin")
-    var belbin: List<String>? = null,
+    var belbin: ArrayList<String>? = null,
 
     @SerializedName("mbti")
     var mbti: List<String>? = null,
@@ -40,7 +40,7 @@ data class Profile(
     var desctiption: String = "",
 
     @SerializedName("cv")
-    var cv: String = "",
+    var cv: String? = null,
 
     @SerializedName("city")
     var city: String = "",

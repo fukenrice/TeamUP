@@ -2,23 +2,25 @@ package com.example.kusashkotlin.ui.main.view.profile
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ListAdapter
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import butterknife.BindView
-import com.example.kusashkotlin.R
-import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
-import android.widget.TextView
-import android.widget.Toast
 import butterknife.ButterKnife
+import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.ui.base.ViewModelFactory
 import com.example.kusashkotlin.ui.main.view.login.LoginActivity
+import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
 import com.example.kusashkotlin.utils.Status
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
@@ -53,6 +55,35 @@ class UserProfileActivity : AppCompatActivity() {
                     surnameTextView.text = it.data?.user?.lastName ?: ""
                     Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()
                         .into(avatarImageView)
+                    if (it.data?.belbin != null) {
+                        belbinListView.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                            it.data.belbin!!
+                        ))
+                    }
+
+                    if (it.data?.mbti != null) {
+                        mbtiListView.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                            it.data.mbti!!
+                        ))
+                    }
+
+                    if (it.data?.lsq != null) {
+                        lsqListView.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                            it.data.lsq!!
+                        ))
+                    }
+
+                    if (it.data?.cv != null) {
+                        cvTextView.setText("Скачать резюме")
+                        cvTextView.setTextColor(Color.BLUE)
+                        cvTextView.setOnClickListener {
+                            // Сетевой запрос на загрузку резюме.
+                        }
+                    }
+
+                    cityTextView.text = "Город: " + it.data?.city ?: ""
+                    ageTextView.text = "Возраст: ${it.data?.age ?: ""}"
+                    sexTextView.text = "Пол: ${it.data?.sex}"
 
                 }
                 Status.LOADING -> {
@@ -87,6 +118,9 @@ class UserProfileActivity : AppCompatActivity() {
             finish()
         }
 
+        button_toggle.setOnClickListener {
+            button_toggle.setText(if (expandableTextView.isExpanded) R.string.expand else R.string.collapse)
+            expandableTextView.toggle()
+        }
     }
-
 }

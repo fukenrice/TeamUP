@@ -9,4 +9,22 @@
     <string name="login_text">Имя пользователя</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="register">Зарегистрироваться</string>
+    <string name="long_string">asdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsdasdfsafsafsd</string>
+    <string name="expand">V</string>
+    <string name="collapse">^</string>
+    <string name="quit">Выйти</string>
+    <string name="belbin_roles">Роли по Белбину:</string>
+    <string name="mbti_roles">Роли по Майерс-Бриггсу</string>
+    <string name="lsq_roles">Роли по Хони-Мамфорду</string>
+    <string name="title_activity_test_navigation">testNavigation</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>
