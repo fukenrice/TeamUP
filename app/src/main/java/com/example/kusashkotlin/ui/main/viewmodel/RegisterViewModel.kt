@@ -1,5 +1,6 @@
 package com.example.kusashkotlin.ui.main.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,6 +37,7 @@ class RegisterViewModel(
                     if (throwable is ANError && throwable.errorCode == 400) {
                         var message = ""
                         val response = JSONObject(throwable.errorBody)
+                        Log.d("error", response.toString())
                         if (response.has("email")) {
                             val arr = response.getJSONArray("email")
                             for (i in 0 until arr.length()) {

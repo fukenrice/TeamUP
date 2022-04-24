@@ -59,6 +59,7 @@ class UserProfileActivity : AppCompatActivity() {
                     surnameTextView.text = it.data?.user?.lastName ?: ""
                     Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()
                         .into(avatarImageView)
+
                     if (it.data?.belbin != null) {
                         belbinListView.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                             it.data.belbin!!

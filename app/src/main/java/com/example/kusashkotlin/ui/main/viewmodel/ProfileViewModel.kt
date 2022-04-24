@@ -32,7 +32,7 @@ class ProfileViewModel(private val mainRepository: MainRepository, private val u
                     profile.postValue(Resource.success(profileM))
                 }, { throwable ->
                     profile.postValue(Resource.error("Something Went Wrong profile", null))
-                    Log.d("mytag", throwable.stackTraceToString())
+                    //Log.d("mytag", throwable.stackTraceToString())
                 })
         )
     }
