@@ -1,14 +1,16 @@
 package com.example.kusashkotlin.data.api
 
 import android.util.Log
-import com.example.kusashkotlin.data.model.Profile
 import com.rx2androidnetworking.Rx2AndroidNetworking
 import com.example.kusashkotlin.App
 import com.example.kusashkotlin.R
-import com.example.kusashkotlin.data.model.TokenResponse
-import com.example.kusashkotlin.data.model.User
+import com.example.kusashkotlin.data.model.*
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import io.reactivex.Single
-import com.example.kusashkotlin.data.model.RegisterResponse
+import org.json.JSONObject
+import org.json.JSONStringer
 
 class ApiServiceImpl : ApiService {
     private val host = App.getAppResources().getString(R.string.host)
@@ -49,5 +51,13 @@ class ApiServiceImpl : ApiService {
             .addBodyParameter("password", password)
             .build()
             .getObjectSingle(RegisterResponse::class.java)
+    }
+
+    override fun editProfile(update: ProfileUpdate, token: String): Single<String> {
+        return Rx2AndroidNetworking.patch("${url}/api/v1/edit-profile/")
+            .addJSONObjectBody(JSONObject(Gson().toJson(update)))
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
     }
 }

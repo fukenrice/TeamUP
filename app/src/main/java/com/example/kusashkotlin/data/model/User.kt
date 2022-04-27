@@ -11,5 +11,8 @@ data class User(
     var firstName: String = "",
 
     @SerializedName("last_name")
-    var lastName: String = ""
+    var lastName: String = "",
+
+    @SerializedName("email")
+    var email: String = ""
 )

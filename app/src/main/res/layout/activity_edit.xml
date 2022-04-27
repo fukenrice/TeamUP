@@ -6,6 +6,9 @@
 
     <data>
 
+        <variable
+            name="profile"
+            type="com.example.kusashkotlin.data.model.Profile" />
     </data>
 
     <ScrollView
@@ -35,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/surname"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameEditTextView" />
@@ -45,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/patronymic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lastnameEditTextView" />
@@ -55,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/patronymicEditTextView" />
@@ -65,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/photo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailEditTextView" />
@@ -95,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/remote"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/desctiptionEditTextView" />
@@ -105,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/sex"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/remoteEditTextView" />
@@ -125,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/age"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cityEditTextView" />
@@ -135,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/specialization"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ageEditTextView" />
@@ -155,30 +158,172 @@
                 android:id="@+id/editNameEditText"
                 android:layout_width="160dp"
                 android:layout_height="36dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="24dp"
                 android:ems="10"
                 android:hint="@string/name"
                 android:inputType="textPersonName"
+                android:text="@{profile.user.firstName}"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/nameEditTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/lastnameEditEditText"
                 android:layout_width="160dp"
                 android:layout_height="36dp"
-                android:layout_marginStart="64dp"
+                android:layout_marginStart="76dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="@string/surname"
                 android:inputType="textPersonName"
-                android:text="@{}"
+                android:text="@{profile.user.lastName}"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/lastnameEditTextView"
                 app:layout_constraintTop_toBottomOf="@+id/editNameEditText"
                 tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/patronymicEditTextEdit"
+                android:layout_width="160dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/patronymic"
+                android:inputType="textPersonName"
+                android:text="@{profile.patronymic}"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/lastnameEditTextView"
+                app:layout_constraintTop_toBottomOf="@+id/lastnameEditEditText"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/emailEditTextEdit"
+                android:layout_width="160dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:text="@{profile.user.email}"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/lastnameEditTextView"
+                app:layout_constraintTop_toBottomOf="@+id/patronymicEditTextEdit"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/descriptionEditTextEdit"
+                android:layout_width="160dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="92dp"
+                android:ems="10"
+                android:hint="@string/description"
+                android:inputType="textLongMessage"
+                android:text="@{profile.desctiption}"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/lastnameEditTextView"
+                app:layout_constraintTop_toBottomOf="@+id/emailEditTextEdit"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <RadioGroup
+                android:id="@+id/remoteRadioGroup"
+                android:layout_width="226dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/remoteEditTextView"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionEditTextEdit">
+
+                <RadioButton
+                    android:id="@+id/radioYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Да"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <RadioButton
+                    android:id="@+id/radioEmpty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Неважно"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <RadioButton
+                    android:id="@+id/radioNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Нет"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/sexRadioGroup"
+                android:layout_width="258dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="108dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/sexEditTextView"
+                app:layout_constraintTop_toBottomOf="@+id/remoteRadioGroup">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Мужской"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Женский"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/cityEditTextEdit"
+                android:layout_width="160dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/city"
+                android:inputType="textLongMessage"
+                android:text="@{profile.city}"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/lastnameEditTextView"
+                app:layout_constraintTop_toBottomOf="@+id/sexRadioGroup"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/ageEditTextEdit"
+                android:layout_width="160dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/age"
+                android:inputType="number"
+                android:text="@{profile.age}"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/lastnameEditTextView"
+                app:layout_constraintTop_toBottomOf="@+id/cityEditTextEdit"
+                tools:ignore="TouchTargetSizeCheck" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

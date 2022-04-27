@@ -1,13 +1,11 @@
 package com.example.kusashkotlin.data.repo
 
 import com.example.kusashkotlin.data.api.ApiHelper
-import com.example.kusashkotlin.data.model.Profile
-import com.example.kusashkotlin.data.model.RegisterResponse
-import com.example.kusashkotlin.data.model.TokenResponse
-import com.example.kusashkotlin.data.model.User
+import com.example.kusashkotlin.data.model.*
 import io.reactivex.Single
 
 class MainRepository(private val apiHelper: ApiHelper) {
+
     fun getProfile(username: String) : Single<Profile> {
         return apiHelper.getProfile(username)
     }
@@ -22,5 +20,9 @@ class MainRepository(private val apiHelper: ApiHelper) {
 
     fun registerUser(email: String, username: String, password: String) : Single<RegisterResponse> {
         return apiHelper.registerUser(email, username, password)
+    }
+
+    fun editProfile(update: ProfileUpdate, token: String) : Single<String> {
+        return apiHelper.editProfile(update, token)
     }
 }
