@@ -105,10 +105,11 @@ class EditActivity : AppCompatActivity() {
             )
 
 
-            MainRepository(ApiHelper(ApiServiceImpl())).editProfile(update, save.getString("token", "").toString())
+            MainRepository(ApiHelper(ApiServiceImpl())).editProfile(update, token.toString())
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_LONG).show()}, {
+                    Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_LONG).show()
+                           finish()}, {
                     throwable ->
                     if (throwable is ANError) {
                         Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG).show() // Обработать все json теги

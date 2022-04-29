@@ -9,4 +9,5 @@ interface ApiService {
     fun getUserByToken(token: String): Single<User>
     fun registerUser(email: String, username: String, password: String): Single<RegisterResponse>
     fun editProfile(update: ProfileUpdate, token: String): Single<String>
+    fun sendBelbin(belbinModel: BelbinModel, token: String) : Single<String>
 }

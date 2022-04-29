@@ -25,4 +25,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
     fun editProfile(update: ProfileUpdate, token: String) : Single<String> {
         return apiHelper.editProfile(update, token)
     }
+
+    fun sendBelbin(belbinModel: BelbinModel, token: String) : Single<String> {
+        return apiHelper.sendBelbin(belbinModel, token)
+    }
 }

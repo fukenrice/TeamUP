@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="block_1_question_1"></string>
+    <string name="block_1_question_2"></string>
+    <string name="block_1_question_3"></string>
+    <string name="block_1_question_4"></string>
+    <string name="block_1_question_5"></string>
+    <string name="block_1_question_6"></string>
+    <string name="block_1_question_7"></string>
+    <string name="block_1_question_8"></string>
+
+    <string name="block_2_question_1"></string>
+    <string name="block_2_question_2"></string>
+    <string name="block_2_question_3"></string>
+    <string name="block_2_question_4"></string>
+    <string name="block_2_question_5"></string>
+    <string name="block_2_question_6"></string>
+    <string name="block_2_question_7"></string>
+    <string name="block_2_question_8"></string>
+
+    <string name="block_3_question_1"></string>
+    <string name="block_3_question_2"></string>
+    <string name="block_3_question_3"></string>
+    <string name="block_3_question_4"></string>
+    <string name="block_3_question_5"></string>
+    <string name="block_3_question_6"></string>
+    <string name="block_3_question_7"></string>
+    <string name="block_3_question_8"></string>
+
+    <string name="block_4_question_1"></string>
+    <string name="block_4_question_2"></string>
+    <string name="block_4_question_3"></string>
+    <string name="block_4_question_4"></string>
+    <string name="block_4_question_5"></string>
+    <string name="block_4_question_6"></string>
+    <string name="block_4_question_7"></string>
+    <string name="block_4_question_8"></string>
+
+    <string name="block_5_question_1"></string>
+    <string name="block_5_question_2"></string>
+    <string name="block_5_question_3"></string>
+    <string name="block_5_question_4"></string>
+    <string name="block_5_question_5"></string>
+    <string name="block_5_question_6"></string>
+    <string name="block_5_question_7"></string>
+    <string name="block_5_question_8"></string>
+
+    <string name="block_6_question_1"></string>
+    <string name="block_6_question_2"></string>
+    <string name="block_6_question_3"></string>
+    <string name="block_6_question_4"></string>
+    <string name="block_6_question_5"></string>
+    <string name="block_6_question_6"></string>
+    <string name="block_6_question_7"></string>
+    <string name="block_6_question_8"></string>
+
+    <string name="block_7_question_1"></string>
+    <string name="block_7_question_2"></string>
+    <string name="block_7_question_3"></string>
+    <string name="block_7_question_4"></string>
+    <string name="block_7_question_5"></string>
+    <string name="block_7_question_6"></string>
+    <string name="block_7_question_7"></string>
+    <string name="block_7_question_8"></string>
+</resources>

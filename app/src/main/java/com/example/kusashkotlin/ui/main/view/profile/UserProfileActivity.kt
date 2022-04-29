@@ -13,20 +13,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
-import com.example.kusashkotlin.ui.base.ViewModelFactory
-import com.example.kusashkotlin.ui.main.view.login.LoginActivity
+import com.example.kusashkotlin.ui.main.view.auth.LoginActivity
+import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
 import com.example.kusashkotlin.utils.Status
 import com.mikepenz.materialdrawer.Drawer
@@ -36,8 +31,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
-import org.json.JSONObject
-import java.io.File
 
 
 class UserProfileActivity : AppCompatActivity() {
@@ -148,7 +141,8 @@ class UserProfileActivity : AppCompatActivity() {
             .withActionBarDrawerToggle(true)
             .withSelectedItem(-1)
             .addDrawerItems(
-                PrimaryDrawerItem().withIdentifier(1).withName("Редактировать профиль").withSelectable(false)
+                PrimaryDrawerItem().withIdentifier(1).withName("Редактировать профиль").withSelectable(false),
+                PrimaryDrawerItem().withIdentifier(2).withName("Пройти тест Белибна").withSelectable(false)
             ).withOnDrawerItemClickListener(object: Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(
                     view: View?,
@@ -156,7 +150,10 @@ class UserProfileActivity : AppCompatActivity() {
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
                     if (position == 0) {
-                        startActivity(Intent(baseContext, EditActivity::class.java))
+                        startActivity(Intent(applicationContext, EditActivity::class.java))
+                    }
+                    if (position == 1) {
+                        startActivity(Intent(applicationContext, BelbinActivity::class.java))
                     }
                     return true
                 }

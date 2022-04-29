@@ -14,22 +14,21 @@
         android:theme="@style/Theme.KusashKotlin"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.main.view.profile.EditActivity"
+            android:name=".ui.main.view.tests.BelbinActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.view.profile.testNavigation"
-            android:exported="false"
-            android:label="@string/title_activity_test_navigation"
-            android:theme="@style/Theme.KusashKotlin.NoActionBar" />
+            android:name=".ui.main.view.profile.EditActivity"
+            android:exported="false" />
+
         <activity
-            android:name=".ui.main.view.register.RegisterActivity"
+            android:name=".ui.main.view.auth.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.view.profile.UserProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.view.login.LoginActivity"
+            android:name=".ui.main.view.auth.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

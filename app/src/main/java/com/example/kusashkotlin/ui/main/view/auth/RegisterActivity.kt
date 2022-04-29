@@ -1,6 +1,5 @@
-package com.example.kusashkotlin.ui.main.view.register
+package com.example.kusashkotlin.ui.main.view.auth
 
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,9 +16,7 @@ import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.viewmodel.RegisterViewModel
 import com.example.kusashkotlin.utils.Status
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class RegisterActivity : AppCompatActivity() {
 

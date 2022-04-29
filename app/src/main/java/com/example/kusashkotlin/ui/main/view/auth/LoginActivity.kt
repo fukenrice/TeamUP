@@ -1,4 +1,4 @@
-package com.example.kusashkotlin.ui.main.view.login
+package com.example.kusashkotlin.ui.main.view.auth
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -18,7 +17,6 @@ import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
-import com.example.kusashkotlin.ui.main.view.register.RegisterActivity
 import com.example.kusashkotlin.ui.main.viewmodel.LoginTokenViewModel
 import com.example.kusashkotlin.ui.main.viewmodel.LoginUserViewModel
 import com.example.kusashkotlin.utils.Status

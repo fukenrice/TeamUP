@@ -60,4 +60,13 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(String::class.java)
     }
+
+    override fun sendBelbin(belbinModel: BelbinModel, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/process-belbin/")
+            .addJSONObjectBody(JSONObject(Gson().toJson(belbinModel)))
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+
+    }
 }
