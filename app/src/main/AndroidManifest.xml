@@ -14,12 +14,14 @@
         android:theme="@style/Theme.KusashKotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.view.tests.MBTIActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.view.tests.BelbinActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.view.profile.EditActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.main.view.auth.RegisterActivity"
             android:exported="false" />

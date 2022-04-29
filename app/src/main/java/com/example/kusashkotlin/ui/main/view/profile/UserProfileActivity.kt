@@ -22,6 +22,7 @@ import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
 import com.example.kusashkotlin.ui.main.view.auth.LoginActivity
 import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
+import com.example.kusashkotlin.ui.main.view.tests.MBTIActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
 import com.example.kusashkotlin.utils.Status
 import com.mikepenz.materialdrawer.Drawer
@@ -142,7 +143,8 @@ class UserProfileActivity : AppCompatActivity() {
             .withSelectedItem(-1)
             .addDrawerItems(
                 PrimaryDrawerItem().withIdentifier(1).withName("Редактировать профиль").withSelectable(false),
-                PrimaryDrawerItem().withIdentifier(2).withName("Пройти тест Белибна").withSelectable(false)
+                PrimaryDrawerItem().withIdentifier(2).withName("Пройти тест Белибна").withSelectable(false),
+                PrimaryDrawerItem().withIdentifier(3).withName("Пройти тест Майерса-Бриггса").withSelectable(false),
             ).withOnDrawerItemClickListener(object: Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(
                     view: View?,
@@ -154,6 +156,9 @@ class UserProfileActivity : AppCompatActivity() {
                     }
                     if (position == 1) {
                         startActivity(Intent(applicationContext, BelbinActivity::class.java))
+                    }
+                    if (position == 2) {
+                        startActivity(Intent(applicationContext, MBTIActivity::class.java))
                     }
                     return true
                 }
