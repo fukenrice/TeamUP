@@ -69,4 +69,12 @@ class ApiServiceImpl : ApiService {
             .getObjectSingle(String::class.java)
 
     }
+
+    override fun sendMBTI(mbtiModel: MBTIModel, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/process-mbti/")
+            .addJSONObjectBody(JSONObject(Gson().toJson(mbtiModel)))
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
 }

@@ -29,4 +29,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
     fun sendBelbin(belbinModel: BelbinModel, token: String) : Single<String> {
         return apiHelper.sendBelbin(belbinModel, token)
     }
+
+    fun sendMBTI(mbtiModel: MBTIModel, token: String) : Single<String> {
+        return apiHelper.sendMBTI(mbtiModel, token)
+    }
 }
