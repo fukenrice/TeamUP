@@ -86,7 +86,6 @@ class LoginActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     progressBar.visibility = View.GONE
                     loginButton.visibility = View.VISIBLE
-                    Log.d("mytag", it.data?.token ?: "")
                     token = it.data?.token ?: ""
                     setPreferences(token, loginEditText.text.toString())
                     val intent = Intent(this, UserProfileActivity::class.java)

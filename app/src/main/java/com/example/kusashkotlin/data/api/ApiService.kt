@@ -11,4 +11,8 @@ interface ApiService {
     fun editProfile(update: ProfileUpdate, token: String): Single<String>
     fun sendBelbin(belbinModel: BelbinModel, token: String) : Single<String>
     fun sendMBTI(mbtiModel: MBTIModel, token: String) : Single<String>
+    fun updateExecutorOffer(executorOfferSetupModel: ExecutorOfferSetupModel, token: String) : Single<String>
+    fun deleteExecutorOffer(token: String) : Single<String>
+
+
 }

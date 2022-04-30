@@ -136,11 +136,11 @@ class BelbinActivity : AppCompatActivity() {
     private fun sendBelbin() {
         MainRepository(ApiHelper(ApiServiceImpl())).sendBelbin(belbin, token.toString())
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe({response -> Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_LONG).show()
+            .subscribe({response -> Toast.makeText(applicationContext, "Вы прошли тест", Toast.LENGTH_LONG).show()
                        finish()}, {
                     throwable ->
                 if (throwable is ANError) {
-                    Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG).show() // Обработать все json теги
+                    Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG).show() // TODO: Обработать все json теги
                 }
             })
     }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.androidnetworking.error.ANError
 import com.example.kusashkotlin.R
@@ -135,11 +136,11 @@ class MBTIActivity : AppCompatActivity() {
             MainRepository(ApiHelper(ApiServiceImpl())).sendMBTI(mbti, token.toString())
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Вы прошли тест", Toast.LENGTH_LONG).show()
                     finish()}, {
                         throwable ->
                     if (throwable is ANError) {
-                        Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG).show() // Обработать все json теги
+                        Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG).show() // TODO: Обработать все json теги
                     }
                 })
         }

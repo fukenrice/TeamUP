@@ -33,4 +33,12 @@ class MainRepository(private val apiHelper: ApiHelper) {
     fun sendMBTI(mbtiModel: MBTIModel, token: String) : Single<String> {
         return apiHelper.sendMBTI(mbtiModel, token)
     }
+
+    fun updateExecutorOffer(executorOfferSetupModel: ExecutorOfferSetupModel, token: String) : Single<String> {
+        return apiHelper.updateExecutorOffer(executorOfferSetupModel, token)
+    }
+
+    fun deleteExecutorOffer(token: String) : Single<String> {
+        return apiHelper.deleteExecutorOffer(token)
+    }
 }

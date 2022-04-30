@@ -30,4 +30,8 @@
     <string name="confirm_changes">Подтвердить изменения</string>
     <string name="belbin_label">Тест Белбина</string>
     <string name="MBTI_label">Тест Майерс-Бриггса</string>
+    <string name="expected_salary">Ожидаемая зарплата</string>
+    <string name="expected_working_hours">Часы работы в неделю</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="delete">Удалить</string>
 </resources>

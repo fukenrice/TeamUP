@@ -1,6 +1,7 @@
 package com.example.kusashkotlin.data.api
 
 import android.util.Log
+import com.androidnetworking.AndroidNetworking
 import com.rx2androidnetworking.Rx2AndroidNetworking
 import com.example.kusashkotlin.App
 import com.example.kusashkotlin.R
@@ -73,6 +74,24 @@ class ApiServiceImpl : ApiService {
     override fun sendMBTI(mbtiModel: MBTIModel, token: String): Single<String> {
         return Rx2AndroidNetworking.post("${url}/api/v1/process-mbti/")
             .addJSONObjectBody(JSONObject(Gson().toJson(mbtiModel)))
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
+    override fun updateExecutorOffer(
+        executorOfferSetupModel: ExecutorOfferSetupModel,
+        token: String
+    ): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/update-executor-offer/")
+            .addJSONObjectBody(JSONObject(Gson().toJson(executorOfferSetupModel)))
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
+    override fun deleteExecutorOffer(token: String) : Single<String> {
+        return Rx2AndroidNetworking.delete("${url}/api/v1/delete-executor-offer/")
             .addHeaders("Authorization", "Token $token")
             .build()
             .getObjectSingle(String::class.java)

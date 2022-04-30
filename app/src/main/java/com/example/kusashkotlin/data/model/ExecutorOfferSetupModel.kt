@@ -1,9 +1,8 @@
 package com.example.kusashkotlin.data.model
 
-import androidx.annotation.StringRes
 import com.google.gson.annotations.SerializedName
 
-data class ExecutorOffer(
+data class ExecutorOfferSetupModel(
     @SerializedName("description")
     var description: String? = "",
 
@@ -11,5 +10,5 @@ data class ExecutorOffer(
     var salary: Int? = 0,
 
     @SerializedName("work_hours")
-    var workHours: String? = ""
+    var workHours: Int? = 0
 )
