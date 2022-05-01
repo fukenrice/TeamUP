@@ -96,4 +96,16 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(String::class.java)
     }
+
+    override fun getSpecializations(): Single<List<SpecializationModel>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-specialiazations/")
+            .build()
+            .getObjectListSingle(SpecializationModel::class.java)
+    }
+
+    override fun getBelbinRoles(): Single<List<BelbinModel>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-belbin-roles/")
+            .build()
+            .getObjectListSingle(BelbinModel::class.java)
+    }
 }

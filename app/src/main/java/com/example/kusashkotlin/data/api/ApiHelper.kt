@@ -20,4 +20,8 @@ class ApiHelper(private val apiService: ApiService) {
     fun updateExecutorOffer(executorOfferSetupModel: ExecutorOfferSetupModel, token: String) =
         apiService.updateExecutorOffer(executorOfferSetupModel, token)
     fun deleteExecutorOffer(token: String) = apiService.deleteExecutorOffer(token)
+    fun getSpecializations() = apiService.getSpecializations()
+    fun getBelbinRoles() = apiService.getBelbinRoles()
+
+
 }

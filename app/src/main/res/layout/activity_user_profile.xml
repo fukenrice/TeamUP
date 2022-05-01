@@ -101,7 +101,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/long_string"
+                android:text="@{profile.desctiption}"
                 app:animation_duration="750"
                 app:layout_constraintEnd_toStartOf="@+id/button_toggle"
                 app:layout_constraintHorizontal_bias="0.0"

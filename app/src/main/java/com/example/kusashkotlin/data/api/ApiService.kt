@@ -13,6 +13,6 @@ interface ApiService {
     fun sendMBTI(mbtiModel: MBTIModel, token: String) : Single<String>
     fun updateExecutorOffer(executorOfferSetupModel: ExecutorOfferSetupModel, token: String) : Single<String>
     fun deleteExecutorOffer(token: String) : Single<String>
-
-
+    fun getSpecializations() : Single<List<SpecializationModel>>
+    fun getBelbinRoles() : Single<List<BelbinModel>>
 }

@@ -41,4 +41,12 @@ class MainRepository(private val apiHelper: ApiHelper) {
     fun deleteExecutorOffer(token: String) : Single<String> {
         return apiHelper.deleteExecutorOffer(token)
     }
+
+    fun getSpecializations() : Single<List<SpecializationModel>> {
+        return apiHelper.getSpecializations()
+    }
+
+    fun getBelbilnRoles() : Single<List<BelbinModel>> {
+        return apiHelper.getBelbinRoles()
+    }
 }

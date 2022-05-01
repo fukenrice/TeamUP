@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AbsListView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
@@ -22,6 +23,7 @@ import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
 import com.example.kusashkotlin.ui.main.view.auth.LoginActivity
 import com.example.kusashkotlin.ui.main.view.offers.ExecutorOfferActivity
+import com.example.kusashkotlin.ui.main.view.project.EditProjectActivity
 import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
 import com.example.kusashkotlin.ui.main.view.tests.MBTIActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
@@ -123,7 +125,6 @@ class UserProfileActivity : AppCompatActivity() {
         setupViewModel()
         setupObserver()
 
-
         logoutButton.setOnClickListener {
             save.edit().clear().apply()
             startActivity(Intent(this, LoginActivity::class.java))
@@ -149,6 +150,7 @@ class UserProfileActivity : AppCompatActivity() {
                 PrimaryDrawerItem().withIdentifier(2).withName("Пройти тест Белибна").withSelectable(false),
                 PrimaryDrawerItem().withIdentifier(3).withName("Пройти тест Майерса-Бриггса").withSelectable(false),
                 PrimaryDrawerItem().withIdentifier(4).withName("Отредактировать предложение работника").withSelectable(false),
+                PrimaryDrawerItem().withIdentifier(5).withName("Отредактировать проект").withSelectable(false),
             ).withOnDrawerItemClickListener(object: Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(
                     view: View?,
@@ -166,6 +168,9 @@ class UserProfileActivity : AppCompatActivity() {
                     }
                     if (position == 3) {
                         startActivity(Intent(applicationContext, ExecutorOfferActivity::class.java))
+                    }
+                    if (position == 4) {
+                        startActivity(Intent(applicationContext, EditProjectActivity::class.java))
                     }
                     return true
                 }
