@@ -49,5 +49,8 @@ data class Profile(
     var age: String = "",
 
     @SerializedName("verified")
-    var verified: Boolean = false
+    var verified: Boolean = false,
+
+    @SerializedName("project")
+    var project: String = ""
 )

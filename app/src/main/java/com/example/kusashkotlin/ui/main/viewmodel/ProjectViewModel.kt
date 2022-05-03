@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class ProjectEditViewModel(private val mainRepository: MainRepository, private val title: String) : ViewModel() {
+class ProjectViewModel(private val mainRepository: MainRepository, private val title: String) : ViewModel() {
 
     private val project = MutableLiveData<Resource<ProjectModel>>()
     private val compositeDisposable = CompositeDisposable()

@@ -20,12 +20,12 @@ import com.example.kusashkotlin.data.model.RoleModel
 import com.example.kusashkotlin.data.model.SpecializationModel
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityEditProjectBinding
-import com.example.kusashkotlin.ui.main.viewmodel.ProjectEditViewModel
+import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
 import com.example.kusashkotlin.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_belbin.*
 import kotlinx.android.synthetic.main.activity_edit_project.*
+import kotlinx.coroutines.runBlocking
 
 class EditProjectActivity : AppCompatActivity() {
 
@@ -41,13 +41,15 @@ class EditProjectActivity : AppCompatActivity() {
 
     lateinit var selectedSpecializationsIds: List<Int>
 
-    lateinit var viewModel: ProjectEditViewModel
+    lateinit var viewModel: ProjectViewModel
 
     private lateinit var save: SharedPreferences
 
     private var token: String? = null
 
     private lateinit var binding: ActivityEditProjectBinding
+
+    private var projectTitle: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +62,27 @@ class EditProjectActivity : AppCompatActivity() {
     }
 
     @SuppressLint("CheckResult")
+    private fun fetchProjectTitle() {
+        MainRepository(ApiHelper(ApiServiceImpl())).getProfile(
+            save.getString("username", "").toString()
+        ).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ profile ->
+                if (profile.project != null) {
+                    projectTitle = profile.project
+                }
+                setupViewModel()
+                setupObserver()
+            }, { throwable ->
+                Toast.makeText(applicationContext, "Ошибка получения проекта", Toast.LENGTH_LONG)
+                    .show()
+            })
+    }
+
+
+    @SuppressLint("CheckResult")
     fun setContent() {
-        // Сначала получаем тайтл проекта пользователя
-        setupViewModel()
-        setupObserver()
+        fetchProjectTitle()
         projectEditChangeBelbinButton.setOnClickListener {
             showChangeBelbinDialog()
         }
@@ -109,40 +128,37 @@ class EditProjectActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            var project: ProjectModel
-            var new: Boolean = false
-            if (viewModel.getProject().value?.data != null) {
-                project = viewModel.getProject().value?.data!!
+            val project: ProjectModel
+
+            val remote: Boolean?
+            if (projectEditRemoteRadioGroup.indexOfChild(
+                    projectEditRemoteRadioGroup.findViewById(
+                        projectEditRemoteRadioGroup.checkedRadioButtonId
+                    )
+                ) == -1 || projectEditRemoteRadioGroup.indexOfChild(
+                    projectEditRemoteRadioGroup.findViewById(
+                        projectEditRemoteRadioGroup.checkedRadioButtonId
+                    )
+                ) == 0
+            ) {
+                remote = null
             } else {
-                val remote: Boolean?
-                if (projectEditRemoteRadioGroup.indexOfChild(
-                        projectEditRemoteRadioGroup.findViewById(
-                            projectEditRemoteRadioGroup.checkedRadioButtonId
-                        )
-                    ) == -1 || projectEditRemoteRadioGroup.indexOfChild(
-                        projectEditRemoteRadioGroup.findViewById(
-                            projectEditRemoteRadioGroup.checkedRadioButtonId
-                        )
-                    ) == 0
-                ) {
-                    remote = null
-                } else {
-                    remote = projectEditRemoteRadioGroup.indexOfChild(
-                        projectEditRemoteRadioGroup.findViewById(
-                            projectEditRemoteRadioGroup.checkedRadioButtonId
-                        )
-                    ) == 1
-                }
-                project = ProjectModel(
-                    title = projectEditProjectTitleTextEdit.text.toString(),
-                    description = projectEditDescriptionTextEdit.text.toString(),
-                    vacant = projectEditVacantTextEdit.text.toString().toIntOrNull(),
-                    city = projectEditCityTextEdit.text.toString(),
-                    online = remote,
-                    requiredSpecialization = selectedSpecializationsIds,
-                    requiredBelbin = selectedRolesIds
-                )
+                remote = projectEditRemoteRadioGroup.indexOfChild(
+                    projectEditRemoteRadioGroup.findViewById(
+                        projectEditRemoteRadioGroup.checkedRadioButtonId
+                    )
+                ) == 1
             }
+            project = ProjectModel(
+                title = projectEditProjectTitleTextEdit.text.toString(),
+                description = projectEditDescriptionTextEdit.text.toString(),
+                vacant = projectEditVacantTextEdit.text.toString().toIntOrNull(),
+                city = projectEditCityTextEdit.text.toString(),
+                online = remote,
+                requiredSpecialization = selectedSpecializationsIds,
+                requiredBelbin = selectedRolesIds
+            )
+
 
             MainRepository(ApiHelper(ApiServiceImpl())).updateProject(project, token.toString())
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -155,6 +171,7 @@ class EditProjectActivity : AppCompatActivity() {
                     finish()
                 }, { throwable ->
                     if (throwable is ANError) {
+                        Log.d("error", projectTitle)
                         Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG)
                             .show() // TODO: Обработать все json теги
                     }
@@ -272,9 +289,9 @@ class EditProjectActivity : AppCompatActivity() {
     }
 
     fun setupViewModel() {
-        viewModel = ProjectEditViewModel(
+        viewModel = ProjectViewModel(
             MainRepository(ApiHelper(ApiServiceImpl())),
-            save.getString("project_title", "").toString()
+            projectTitle
         )
     }
 
@@ -319,6 +336,9 @@ class EditProjectActivity : AppCompatActivity() {
 
                     projectEditBelbinListView.adapter =
                         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, belbinRoles)
+
+                    selectedSpecializationsIds = it.data.requiredSpecialization
+                    selectedRolesIds = it.data.requiredBelbin
 
                     val specializations: MutableList<String> =
                         it.data.requiredSpecialization.let { it1 ->
