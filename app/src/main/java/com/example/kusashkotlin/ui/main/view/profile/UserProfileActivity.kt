@@ -1,5 +1,7 @@
 package com.example.kusashkotlin.ui.main.view.profile
 
+import android.content.DialogInterface
+import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -7,10 +9,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AbsListView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -78,7 +80,7 @@ class UserProfileActivity : AppCompatActivity() {
 
                     it.data?.let { it1 -> save.edit().putInt("id",  it1.id) }
 
-                    binding.profile?.user?.let { it1 -> Log.d("binding", it1.firstName) }
+                    // binding.profile?.user?.let { it1 -> Log.d("binding", it1.firstName) }
 
                     progressBar.visibility = View.GONE
                     Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()

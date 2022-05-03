@@ -1,9 +1,6 @@
 package com.example.kusashkotlin.data.api
 
-import com.example.kusashkotlin.data.model.BelbinModel
-import com.example.kusashkotlin.data.model.ExecutorOfferSetupModel
-import com.example.kusashkotlin.data.model.MBTIModel
-import com.example.kusashkotlin.data.model.ProfileUpdate
+import com.example.kusashkotlin.data.model.*
 
 class ApiHelper(private val apiService: ApiService) {
     fun getProfile(username: String) = apiService.getProfile(username)
@@ -22,6 +19,8 @@ class ApiHelper(private val apiService: ApiService) {
     fun deleteExecutorOffer(token: String) = apiService.deleteExecutorOffer(token)
     fun getSpecializations() = apiService.getSpecializations()
     fun getBelbinRoles() = apiService.getBelbinRoles()
-
+    fun updateProject(projectModel: ProjectModel, token: String) = apiService.updateProject(projectModel, token)
+    fun getProject(title: String) = apiService.getProject(title)
+    fun deleteProject(token: String) = apiService.deleteProject(token)
 
 }

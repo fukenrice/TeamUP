@@ -14,6 +14,9 @@
         android:theme="@style/Theme.KusashKotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.view.project.Project"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.view.project.EditProjectActivity"
             android:exported="false" />
         <activity

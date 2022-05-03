@@ -14,5 +14,8 @@ interface ApiService {
     fun updateExecutorOffer(executorOfferSetupModel: ExecutorOfferSetupModel, token: String) : Single<String>
     fun deleteExecutorOffer(token: String) : Single<String>
     fun getSpecializations() : Single<List<SpecializationModel>>
-    fun getBelbinRoles() : Single<List<BelbinModel>>
+    fun getBelbinRoles() : Single<List<RoleModel>>
+    fun updateProject(projectModel: ProjectModel, token: String) : Single<String>
+    fun getProject(title: String) : Single<ProjectModel>
+    fun deleteProject(token: String) : Single<String>
 }

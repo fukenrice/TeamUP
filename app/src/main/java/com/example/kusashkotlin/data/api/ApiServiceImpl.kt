@@ -103,9 +103,30 @@ class ApiServiceImpl : ApiService {
             .getObjectListSingle(SpecializationModel::class.java)
     }
 
-    override fun getBelbinRoles(): Single<List<BelbinModel>> {
+    override fun getBelbinRoles(): Single<List<RoleModel>> {
         return Rx2AndroidNetworking.get("${url}/api/v1/get-belbin-roles/")
             .build()
-            .getObjectListSingle(BelbinModel::class.java)
+            .getObjectListSingle(RoleModel::class.java)
+    }
+
+    override fun updateProject(projectModel: ProjectModel, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/update-project/")
+            .addHeaders("Authorization", "Token $token")
+            .addJSONObjectBody(JSONObject(Gson().toJson(projectModel)))
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
+    override fun getProject(title: String): Single<ProjectModel> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-project/${title}")
+            .build()
+            .getObjectSingle(ProjectModel::class.java)
+    }
+
+    override fun deleteProject(token: String): Single<String> {
+        return Rx2AndroidNetworking.delete("${url}/api/v1/delete-project/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
     }
 }

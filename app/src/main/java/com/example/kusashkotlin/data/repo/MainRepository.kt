@@ -46,7 +46,20 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.getSpecializations()
     }
 
-    fun getBelbilnRoles() : Single<List<BelbinModel>> {
+    fun getBelbilnRoles() : Single<List<RoleModel>> {
         return apiHelper.getBelbinRoles()
     }
+
+    fun updateProject(projectModel: ProjectModel, token: String) : Single<String> {
+        return apiHelper.updateProject(projectModel, token)
+    }
+
+    fun getProject(title: String) : Single<ProjectModel> {
+        return apiHelper.getProject(title)
+    }
+
+    fun deleteProject(token: String) : Single<String> {
+        return apiHelper.deleteProject(token)
+    }
+
 }
