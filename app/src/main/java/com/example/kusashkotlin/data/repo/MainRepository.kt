@@ -62,4 +62,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.deleteProject(token)
     }
 
+    fun getProjects() : Single<List<ProjectModel>> {
+        return apiHelper.getProjects()
+    }
+
 }

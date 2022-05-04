@@ -14,13 +14,16 @@
         android:theme="@style/Theme.KusashKotlin"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.main.view.project.Project"
+            android:name=".ui.main.view.project.ProjectListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.view.project.ProjectActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.view.project.EditProjectActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.view.offers.ExecutorOfferActivity"
+            android:name=".ui.main.view.offers.ExecutorOfferEditActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.view.tests.MBTIActivity"

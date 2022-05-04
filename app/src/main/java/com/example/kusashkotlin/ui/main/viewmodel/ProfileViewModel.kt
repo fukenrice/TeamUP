@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 class ProfileViewModel(private val mainRepository: MainRepository, private val username: String) :
     ViewModel() {
     private val profile = MutableLiveData<Resource<Profile>>()
-    private val compositeDisposable = CompositeDisposable() // Узнать
+    private val compositeDisposable = CompositeDisposable() // TODO: Узнать
 
     init {
         fetchProfile()

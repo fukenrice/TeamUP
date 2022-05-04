@@ -1,18 +1,14 @@
 package com.example.kusashkotlin.ui.main.view.profile
 
-import android.content.DialogInterface
-import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -24,7 +20,7 @@ import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
 import com.example.kusashkotlin.ui.main.view.auth.LoginActivity
-import com.example.kusashkotlin.ui.main.view.offers.ExecutorOfferActivity
+import com.example.kusashkotlin.ui.main.view.offers.ExecutorOfferEditActivity
 import com.example.kusashkotlin.ui.main.view.project.EditProjectActivity
 import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
 import com.example.kusashkotlin.ui.main.view.tests.MBTIActivity
@@ -35,7 +31,6 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
 
 
@@ -169,7 +164,7 @@ class UserProfileActivity : AppCompatActivity() {
                         startActivity(Intent(applicationContext, MBTIActivity::class.java))
                     }
                     if (position == 3) {
-                        startActivity(Intent(applicationContext, ExecutorOfferActivity::class.java))
+                        startActivity(Intent(applicationContext, ExecutorOfferEditActivity::class.java))
                     }
                     if (position == 4) {
                         startActivity(Intent(applicationContext, EditProjectActivity::class.java))

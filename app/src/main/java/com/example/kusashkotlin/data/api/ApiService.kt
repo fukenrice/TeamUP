@@ -18,4 +18,5 @@ interface ApiService {
     fun updateProject(projectModel: ProjectModel, token: String) : Single<String>
     fun getProject(title: String) : Single<ProjectModel>
     fun deleteProject(token: String) : Single<String>
+    fun getProjects() : Single<List<ProjectModel>>
 }

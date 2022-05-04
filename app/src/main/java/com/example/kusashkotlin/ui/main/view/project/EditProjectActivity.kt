@@ -171,14 +171,11 @@ class EditProjectActivity : AppCompatActivity() {
                     finish()
                 }, { throwable ->
                     if (throwable is ANError) {
-                        Log.d("error", projectTitle)
                         Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG)
                             .show() // TODO: Обработать все json теги
                     }
                 })
         }
-
-
     }
 
 
@@ -205,7 +202,6 @@ class EditProjectActivity : AppCompatActivity() {
                     newBelbin.add(allBelbinRoles[i].id)
                 }
             }
-            Log.d("belbin", newBelbin[0].toString())
             viewModel.getProject().value?.data?.requiredBelbin = newBelbin
             selectedRolesIds = newBelbin
             val roles = getBelbinListByIndex(newBelbin)

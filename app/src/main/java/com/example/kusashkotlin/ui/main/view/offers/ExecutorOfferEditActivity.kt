@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_executor_offer.*
 
-class ExecutorOfferActivity : AppCompatActivity() {
+class ExecutorOfferEditActivity : AppCompatActivity() {
 
 
     private lateinit var save: SharedPreferences

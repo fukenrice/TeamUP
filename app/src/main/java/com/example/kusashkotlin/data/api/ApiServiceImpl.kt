@@ -129,4 +129,10 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(String::class.java)
     }
+
+    override fun getProjects(): Single<List<ProjectModel>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-projects/")
+            .build()
+            .getObjectListSingle(ProjectModel::class.java)
+    }
 }

@@ -66,6 +66,8 @@ dependencies {
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'at.blogc:expandabletextview:1.0.5'
     implementation "com.mikepenz:materialdrawer:7.0.0"
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 //required support lib modules
     implementation "androidx.recyclerview:recyclerview:1.2.1"
