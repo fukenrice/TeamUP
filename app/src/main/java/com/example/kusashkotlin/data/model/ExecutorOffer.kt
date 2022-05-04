@@ -11,5 +11,8 @@ data class ExecutorOffer(
     var salary: Int? = 0,
 
     @SerializedName("work_hours")
-    var workHours: String? = ""
+    var workHours: String? = "",
+
+    @SerializedName("username")
+    var username: String? = null
 )

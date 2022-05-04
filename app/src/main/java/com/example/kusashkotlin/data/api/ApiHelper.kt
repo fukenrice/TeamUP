@@ -23,4 +23,5 @@ class ApiHelper(private val apiService: ApiService) {
     fun getProject(title: String) = apiService.getProject(title)
     fun deleteProject(token: String) = apiService.deleteProject(token)
     fun getProjects() = apiService.getProjects()
+    fun getExecutorOffers() = apiService.getExecutorOffers()
 }

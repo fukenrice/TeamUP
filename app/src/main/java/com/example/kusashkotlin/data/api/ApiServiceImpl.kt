@@ -90,7 +90,7 @@ class ApiServiceImpl : ApiService {
             .getObjectSingle(String::class.java)
     }
 
-    override fun deleteExecutorOffer(token: String) : Single<String> {
+    override fun deleteExecutorOffer(token: String): Single<String> {
         return Rx2AndroidNetworking.delete("${url}/api/v1/delete-executor-offer/")
             .addHeaders("Authorization", "Token $token")
             .build()
@@ -134,5 +134,11 @@ class ApiServiceImpl : ApiService {
         return Rx2AndroidNetworking.get("${url}/api/v1/get-projects/")
             .build()
             .getObjectListSingle(ProjectModel::class.java)
+    }
+
+    override fun getExecutorOffers(): Single<List<ExecutorOffer>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-executor-offers/")
+            .build()
+            .getObjectListSingle(ExecutorOffer::class.java)
     }
 }

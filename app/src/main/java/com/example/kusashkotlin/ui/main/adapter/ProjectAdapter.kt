@@ -16,17 +16,18 @@ class ProjectAdapter(private val projects: MutableList<ProjectModel>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(project: ProjectModel) {
-            itemView.projectSmallTitleTextView.text = project.title
+            itemView.projectSmallTitleTextView.text = "Проект " + project.title
             itemView.projectSmallDescriptionTextView.text = project.description
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.project_small_layout, parent, false)
-        )
+        LayoutInflater.from(parent.context)
+            .inflate(R.layout.project_small_layout, parent, false)
+    )
 
-    override fun onBindViewHolder(holder: ProjectAdapter.ViewHolder, position: Int) = holder.bind(projects[position])
+    override fun onBindViewHolder(holder: ProjectAdapter.ViewHolder, position: Int) =
+        holder.bind(projects[position])
 
     override fun getItemCount(): Int = projects.size
 

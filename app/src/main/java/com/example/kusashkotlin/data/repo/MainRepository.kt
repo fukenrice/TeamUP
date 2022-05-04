@@ -66,4 +66,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.getProjects()
     }
 
+    fun getExecutorOffers() : Single<List<ExecutorOffer>> {
+        return apiHelper.getExecutorOffers()
+    }
+
 }

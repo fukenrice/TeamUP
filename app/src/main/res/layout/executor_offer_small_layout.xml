@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/executorOfferCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/md_green_100"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:contentPadding="4dp">
+
+
+        <RelativeLayout
+            android:id="@+id/executorOfferSmallLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/executorOfferSmallNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/executorOfferSmallDescriptionTextView"
+                android:layout_width="341dp"
+                android:layout_height="67dp"
+                android:layout_below="@+id/executorOfferSmallNameTextView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="19dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/executorOfferSmallNameTextView"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/executorOfferSmallSalaryTextView"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/executorOfferSmallDescriptionTextView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="19dp"/>
+
+            <TextView
+                android:id="@+id/executorOfferSmallHoursTextView"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/executorOfferSmallSalaryTextView"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="19dp" />
+
+        </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

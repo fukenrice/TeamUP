@@ -21,7 +21,9 @@ import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
 import com.example.kusashkotlin.ui.main.view.auth.LoginActivity
 import com.example.kusashkotlin.ui.main.view.offers.ExecutorOfferEditActivity
+import com.example.kusashkotlin.ui.main.view.offers.ExecutorOffersListActivity
 import com.example.kusashkotlin.ui.main.view.project.EditProjectActivity
+import com.example.kusashkotlin.ui.main.view.project.ProjectListActivity
 import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
 import com.example.kusashkotlin.ui.main.view.tests.MBTIActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
@@ -115,7 +117,11 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel = ProfileViewModel(MainRepository(ApiHelper(ApiServiceImpl())), save.getString("username", "").toString())
+        if (intent.getStringExtra("username") == null) {
+            viewModel = ProfileViewModel(MainRepository(ApiHelper(ApiServiceImpl())), save.getString("username", "").toString())
+        } else {
+            viewModel = ProfileViewModel(MainRepository(ApiHelper(ApiServiceImpl())), intent.getStringExtra("username").toString())
+        }
     }
 
     private fun setContent() {
@@ -148,6 +154,8 @@ class UserProfileActivity : AppCompatActivity() {
                 PrimaryDrawerItem().withIdentifier(3).withName("Пройти тест Майерса-Бриггса").withSelectable(false),
                 PrimaryDrawerItem().withIdentifier(4).withName("Отредактировать предложение работника").withSelectable(false),
                 PrimaryDrawerItem().withIdentifier(5).withName("Отредактировать проект").withSelectable(false),
+                PrimaryDrawerItem().withIdentifier(6).withName("Посмотреть проекты").withSelectable(false),
+                PrimaryDrawerItem().withIdentifier(7).withName("Посмотреть работников").withSelectable(false),
             ).withOnDrawerItemClickListener(object: Drawer.OnDrawerItemClickListener {
                 override fun onItemClick(
                     view: View?,
@@ -168,6 +176,12 @@ class UserProfileActivity : AppCompatActivity() {
                     }
                     if (position == 4) {
                         startActivity(Intent(applicationContext, EditProjectActivity::class.java))
+                    }
+                    if (position == 5) {
+                        startActivity(Intent(applicationContext, ProjectListActivity::class.java))
+                    }
+                    if (position == 6) {
+                        startActivity(Intent(applicationContext, ExecutorOffersListActivity::class.java))
                     }
                     return true
                 }
