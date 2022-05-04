@@ -10,18 +10,27 @@ import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.model.ProjectModel
 import kotlinx.android.synthetic.main.project_small_layout.view.*
 
-class ProjectAdapter(private val projects: MutableList<ProjectModel>) :
+class ProjectAdapter(private val onItemClicked: (position: Int) -> Unit, private val projects: MutableList<ProjectModel>) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun bind(project: ProjectModel) {
             itemView.projectSmallTitleTextView.text = "Проект " + project.title
             itemView.projectSmallDescriptionTextView.text = project.description
         }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            onItemClicked(position)
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(onItemClicked,
         LayoutInflater.from(parent.context)
             .inflate(R.layout.project_small_layout, parent, false)
     )

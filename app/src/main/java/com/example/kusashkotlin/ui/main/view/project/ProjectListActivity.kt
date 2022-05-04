@@ -1,5 +1,6 @@
 package com.example.kusashkotlin.ui.main.view.project
 
+import android.content.Intent
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.model.ProjectModel
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.adapter.ProjectAdapter
+import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProjectListViewModel
 import com.example.kusashkotlin.utils.Status
 import kotlinx.android.synthetic.main.activity_project_list.*
@@ -30,13 +32,11 @@ class ProjectListActivity : AppCompatActivity() {
         setupUI()
         setupViewModel()
         setupObserver()
-        // TODO: Обрабатывать нажатие на элемент и запускать активити просмотра
     }
-
 
     private fun setupUI() {
         projectListRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ProjectAdapter(mutableListOf())
+        adapter = ProjectAdapter({position ->  onListItemClick(position)}, mutableListOf())
         projectListRecyclerView.adapter = adapter
     }
 
@@ -69,5 +69,10 @@ class ProjectListActivity : AppCompatActivity() {
         viewModel = ProjectListViewModel(MainRepository(ApiHelper(ApiServiceImpl())))
     }
 
+    private fun onListItemClick(position: Int) {
+        val intent: Intent = Intent(this, ProjectActivity::class.java)
+        intent.putExtra("title", viewModel.getProjects().value?.data?.get(position)?.title)
+        startActivity(intent)
+    }
 
 }

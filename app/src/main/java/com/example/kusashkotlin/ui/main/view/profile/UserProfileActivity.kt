@@ -100,7 +100,7 @@ class UserProfileActivity : AppCompatActivity() {
                         cvTextView.setText("Скачать резюме")
                         cvTextView.setTextColor(Color.BLUE)
                         cvTextView.setOnClickListener {
-                            // Сетевой запрос на загрузку резюме.
+                            // TODO: Сетевой запрос на загрузку резюме.
                         }
                     }
                 }

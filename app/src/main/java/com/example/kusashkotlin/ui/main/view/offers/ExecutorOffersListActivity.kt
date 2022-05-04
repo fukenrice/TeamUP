@@ -1,5 +1,6 @@
 package com.example.kusashkotlin.ui.main.view.offers
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,13 +11,12 @@ import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.model.ExecutorOffer
-import com.example.kusashkotlin.data.model.ProjectModel
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.adapter.ExecutorOfferAdapter
+import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ExecutorOfferListViewModel
 import com.example.kusashkotlin.utils.Status
 import kotlinx.android.synthetic.main.activity_executor_offers_list.*
-import kotlinx.android.synthetic.main.activity_project_list.*
 
 class ExecutorOffersListActivity : AppCompatActivity() {
 
@@ -33,8 +33,9 @@ class ExecutorOffersListActivity : AppCompatActivity() {
 
     private fun setupUI() {
         executorOffersListRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ExecutorOfferAdapter(mutableListOf())
+        adapter = ExecutorOfferAdapter({position -> onListItemClick(position)}, mutableListOf())
         executorOffersListRecyclerView.adapter = adapter
+
     }
 
 
@@ -67,6 +68,9 @@ class ExecutorOffersListActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-
-
+    private fun onListItemClick(position: Int) {
+        val intent: Intent = Intent(this, UserProfileActivity::class.java)
+        intent.putExtra("username", viewModel.getOffers().value?.data?.get(position)?.username)
+        startActivity(intent)
+    }
 }

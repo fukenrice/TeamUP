@@ -8,10 +8,18 @@ import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.model.ExecutorOffer
 import kotlinx.android.synthetic.main.executor_offer_small_layout.view.*
 
-class ExecutorOfferAdapter(private val offers: MutableList<ExecutorOffer>) :
+class ExecutorOfferAdapter(
+    private val onItemClicked: (position: Int) -> Unit,
+    private val offers: MutableList<ExecutorOffer>
+) :
     RecyclerView.Adapter<ExecutorOfferAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, private val onItemClicked: (position: Int) -> Unit) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun bind(offer: ExecutorOffer) {
             itemView.executorOfferSmallNameTextView.text = offer.username
@@ -21,6 +29,11 @@ class ExecutorOfferAdapter(private val offers: MutableList<ExecutorOffer>) :
             itemView.executorOfferSmallHoursTextView.text =
                 "Хочет работать: ${offer.workHours.toString()}"
         }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            onItemClicked(position)
+        }
     }
 
 
@@ -29,15 +42,15 @@ class ExecutorOfferAdapter(private val offers: MutableList<ExecutorOffer>) :
         viewType: Int
     ): ExecutorOfferAdapter.ViewHolder = ViewHolder(
         LayoutInflater.from(parent.context)
-            .inflate(R.layout.executor_offer_small_layout, parent, false)
+            .inflate(R.layout.executor_offer_small_layout, parent, false), onItemClicked
     )
 
-    override fun onBindViewHolder(holder: ExecutorOfferAdapter.ViewHolder, position: Int) = holder.bind(offers[position])
+    override fun onBindViewHolder(holder: ExecutorOfferAdapter.ViewHolder, position: Int) =
+        holder.bind(offers[position])
 
     override fun getItemCount(): Int = offers.size
 
     fun addData(list: List<ExecutorOffer>) {
         offers.addAll(list)
     }
-
 }
