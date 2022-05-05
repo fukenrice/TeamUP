@@ -1,5 +1,6 @@
 package com.example.kusashkotlin.ui.main.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidnetworking.error.ANError
@@ -33,6 +34,7 @@ class ProjectListViewModel(private val mainRepository: MainRepository) : ViewMod
                         projects.postValue(Resource.error(message, null))
                     } else {
                         projects.postValue(Resource.error("Ошибка", null))
+                        Log.d("error", throwable.toString())
                     }
 
                 })

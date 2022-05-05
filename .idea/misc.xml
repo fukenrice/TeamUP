@@ -6,6 +6,7 @@
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_belbin.xml" value="0.22627537026878772" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_edit.xml" value="0.33" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_edit_project.xml" value="0.33" />
+        <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_edit_worker_slot.xml" value="0.67" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_executor_offer.xml" value="0.33" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_executor_offers_list.xml" value="0.4088541666666667" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_login.xml" value="0.55" />
@@ -15,6 +16,7 @@
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_project_list.xml" value="0.4630208333333333" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_register.xml" value="0.4846014492753623" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_user_profile.xml" value="0.1" />
+        <entry key="..\:/kusashKotlin/app/src/main/res/layout/activity_worker_slot.xml" value="0.5" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/content_test_navigation.xml" value="0.3029891304347826" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/executor_offer_small_layout.xml" value="0.3808876811594203" />
         <entry key="..\:/kusashKotlin/app/src/main/res/layout/item_layout.xml" value="0.41458333333333336" />

@@ -13,6 +13,6 @@ data class ExecutorOffer(
     @SerializedName("work_hours")
     var workHours: String? = "",
 
-    @SerializedName("username")
+    @SerializedName("profile")
     var username: String? = null
 )

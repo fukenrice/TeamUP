@@ -128,6 +128,10 @@ class UserProfileActivity : AppCompatActivity() {
         setupViewModel()
         setupObserver()
 
+        if (intent.getStringExtra("username") != null) {
+            logoutButton.visibility = View.GONE
+        }
+
         logoutButton.setOnClickListener {
             save.edit().clear().apply()
             startActivity(Intent(this, LoginActivity::class.java))
@@ -143,49 +147,79 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setDrawer() {
-        mDrawer = DrawerBuilder()
-            .withActivity(this)
-            .withToolbar(toolbar)
-            .withActionBarDrawerToggle(true)
-            .withSelectedItem(-1)
-            .addDrawerItems(
-                PrimaryDrawerItem().withIdentifier(1).withName("Редактировать профиль").withSelectable(false),
-                PrimaryDrawerItem().withIdentifier(2).withName("Пройти тест Белибна").withSelectable(false),
-                PrimaryDrawerItem().withIdentifier(3).withName("Пройти тест Майерса-Бриггса").withSelectable(false),
-                PrimaryDrawerItem().withIdentifier(4).withName("Отредактировать предложение работника").withSelectable(false),
-                PrimaryDrawerItem().withIdentifier(5).withName("Отредактировать проект").withSelectable(false),
-                PrimaryDrawerItem().withIdentifier(6).withName("Посмотреть проекты").withSelectable(false),
-                PrimaryDrawerItem().withIdentifier(7).withName("Посмотреть работников").withSelectable(false),
-            ).withOnDrawerItemClickListener(object: Drawer.OnDrawerItemClickListener {
-                override fun onItemClick(
-                    view: View?,
-                    position: Int,
-                    drawerItem: IDrawerItem<*>
-                ): Boolean {
-                    if (position == 0) {
-                        startActivity(Intent(applicationContext, EditActivity::class.java))
+
+        if (intent.getStringExtra("username") == null) {
+            mDrawer = DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withActionBarDrawerToggle(true)
+                .withSelectedItem(-1)
+                .addDrawerItems(
+                    PrimaryDrawerItem().withIdentifier(1).withName("Редактировать профиль")
+                        .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(2).withName("Пройти тест Белибна")
+                        .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(3).withName("Пройти тест Майерса-Бриггса")
+                        .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(4)
+                        .withName("Отредактировать предложение работника").withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(5).withName("Отредактировать проект")
+                        .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(6).withName("Посмотреть проекты")
+                        .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(7).withName("Посмотреть работников")
+                        .withSelectable(false),
+                ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
+                    override fun onItemClick(
+                        view: View?,
+                        position: Int,
+                        drawerItem: IDrawerItem<*>
+                    ): Boolean {
+                        if (position == 0) {
+                            startActivity(Intent(applicationContext, EditActivity::class.java))
+                        }
+                        if (position == 1) {
+                            startActivity(Intent(applicationContext, BelbinActivity::class.java))
+                        }
+                        if (position == 2) {
+                            startActivity(Intent(applicationContext, MBTIActivity::class.java))
+                        }
+                        if (position == 3) {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    ExecutorOfferEditActivity::class.java
+                                )
+                            )
+                        }
+                        if (position == 4) {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    EditProjectActivity::class.java
+                                )
+                            )
+                        }
+                        if (position == 5) {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    ProjectListActivity::class.java
+                                )
+                            )
+                        }
+                        if (position == 6) {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    ExecutorOffersListActivity::class.java
+                                )
+                            )
+                        }
+                        return true
                     }
-                    if (position == 1) {
-                        startActivity(Intent(applicationContext, BelbinActivity::class.java))
-                    }
-                    if (position == 2) {
-                        startActivity(Intent(applicationContext, MBTIActivity::class.java))
-                    }
-                    if (position == 3) {
-                        startActivity(Intent(applicationContext, ExecutorOfferEditActivity::class.java))
-                    }
-                    if (position == 4) {
-                        startActivity(Intent(applicationContext, EditProjectActivity::class.java))
-                    }
-                    if (position == 5) {
-                        startActivity(Intent(applicationContext, ProjectListActivity::class.java))
-                    }
-                    if (position == 6) {
-                        startActivity(Intent(applicationContext, ExecutorOffersListActivity::class.java))
-                    }
-                    return true
-                }
-            })
-            .build()
+                })
+                .build()
+        }
     }
 }
