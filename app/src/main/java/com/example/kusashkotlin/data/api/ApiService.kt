@@ -20,4 +20,9 @@ interface ApiService {
     fun deleteProject(token: String) : Single<String>
     fun getProjects() : Single<List<ProjectModel>>
     fun getExecutorOffers() : Single<List<ExecutorOffer>>
+    fun getWorkerSlot(id: Int) : Single<WorkerSlot>
+    fun updateWorkerSlot(id: Int, token: String, workerSlot: WorkerSlot) : Single<String>
+    fun inviteProfile(username: String, slotId: Int, token: String) : Single<String>
+    fun declineProfile(username: String, slotId: Int, token: String) : Single<String>
+    fun deleteWorkerSlot(id: Int, token: String) : Single<String>
 }

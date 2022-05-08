@@ -19,9 +19,7 @@ import com.example.kusashkotlin.data.model.ProfileUpdate
 import com.example.kusashkotlin.data.model.User
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityEditBinding
-import com.example.kusashkotlin.ui.base.ViewModelFactory
 import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
-import com.example.kusashkotlin.utils.Resource
 import com.example.kusashkotlin.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -43,6 +41,7 @@ class EditActivity : AppCompatActivity() {
         save = getSharedPreferences("APP", MODE_PRIVATE)
         token = save.getString("token", "")
         setContent()
+        // TODO: Сделать изменение пароля
     }
 
 
@@ -108,11 +107,13 @@ class EditActivity : AppCompatActivity() {
             MainRepository(ApiHelper(ApiServiceImpl())).editProfile(update, token.toString())
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_LONG).show()
-                           finish()}, {
-                    throwable ->
+                    Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_LONG)
+                        .show()
+                    finish()
+                }, { throwable ->
                     if (throwable is ANError) {
-                        Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG).show() // Обработать все json теги
+                        Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG)
+                            .show() // Обработать все json теги
                     }
                 })
         }
@@ -129,12 +130,9 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(
-            this, ViewModelFactory(
-                ApiHelper(ApiServiceImpl()),
-                save.getString("username", "").toString()
-            )
+        viewModel = ProfileViewModel(
+            MainRepository(ApiHelper(ApiServiceImpl())),
+            save.getString("username", "").toString()
         )
-            .get(ProfileViewModel::class.java)
     }
 }

@@ -8,12 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.model.ProjectModel
+import kotlinx.android.synthetic.main.profile_small_layout.view.*
 import kotlinx.android.synthetic.main.project_small_layout.view.*
 
-class ProjectAdapter(private val onItemClicked: (position: Int) -> Unit, private val projects: MutableList<ProjectModel>) :
+class ProjectAdapter(
+    private val onItemClicked: (position: Int) -> Unit,
+    private val projects: MutableList<ProjectModel>
+) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -30,7 +35,8 @@ class ProjectAdapter(private val onItemClicked: (position: Int) -> Unit, private
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(onItemClicked,
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        onItemClicked,
         LayoutInflater.from(parent.context)
             .inflate(R.layout.project_small_layout, parent, false)
     )

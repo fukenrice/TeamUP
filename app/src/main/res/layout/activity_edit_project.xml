@@ -228,7 +228,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.177"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/projectEditChangeBelbinButton" />
+                app:layout_constraintTop_toBottomOf="@+id/projectEditAddWorkerSlotButton" />
 
             <Button
                 android:id="@+id/projectEditDeleteButton"
@@ -239,7 +239,7 @@
                 android:backgroundTint="@android:color/holo_red_dark"
                 android:text="@string/delete"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/projectEditChangeBelbinButton" />
+                app:layout_constraintTop_toBottomOf="@+id/projectEditAddWorkerSlotButton" />
 
             <Button
                 android:id="@+id/projectEditSpecializationChangeButton"
@@ -263,6 +263,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/projectEditBelbinListView" />
 
+
+            <TextView
+                android:id="@+id/projectEditWorkerSlotsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/worker_slots"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/projectEditChangeBelbinButton" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/projectEditWorkerSlotsRecyclerView"
+                android:layout_width="340dp"
+                android:layout_height="123dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.352"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/projectEditWorkerSlotsTextView" />
+
+            <Button
+                android:id="@+id/projectEditAddWorkerSlotButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/projectEditWorkerSlotsRecyclerView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

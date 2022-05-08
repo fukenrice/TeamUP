@@ -42,4 +42,9 @@
     <string name="required_specializations">Требуемые специализации</string>
     <string name="required_belbin_roles">Требуемые роли по Белбину</string>
     <string name="change">Изменить</string>
+    <string name="worker_slots">Слоты работников</string>
+    <string name="add">Добавить</string>
+    <string name="pretendings">Претенденты</string>
+    <string name="deny">Отклонить</string>
+    <string name="apply">Принять</string>
 </resources>

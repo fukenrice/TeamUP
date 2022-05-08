@@ -141,4 +141,39 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectListSingle(ExecutorOffer::class.java)
     }
+
+    override fun getWorkerSlot(id: Int): Single<WorkerSlot> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-worker-slot/${id}/")
+            .build()
+            .getObjectSingle(WorkerSlot::class.java)
+    }
+
+    override fun updateWorkerSlot(id: Int, token: String, workerSlot: WorkerSlot): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/update-worker-slot/${id}")
+            .addHeaders("Authorization", "Token $token")
+            .addJSONObjectBody(JSONObject(Gson().toJson(workerSlot)))
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
+    override fun inviteProfile(username: String, slotId: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/invite-profile/${username}/${slotId}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
+    override fun declineProfile(username: String, slotId: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/decline-apply-slot/${username}/${slotId}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
+    override fun deleteWorkerSlot(id: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.delete("${url}/api/v1/delete-worker-slot/${id}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
 }

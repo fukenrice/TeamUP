@@ -114,6 +114,7 @@
                 android:layout_marginTop="28dp"
                 android:ems="10"
                 android:inputType="number"
+                android:text='@{slot.salary == null ? "" : String.valueOf(slot.salary)}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +128,7 @@
                 android:layout_marginTop="28dp"
                 android:ems="10"
                 android:inputType="number"
+                android:text='@{slot.workingHours == null ? "" : String.valueOf(slot.workingHours)}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +166,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.098"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditChangeRolesButton" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditPretendingUesrsRecyclerView" />
 
             <Button
                 android:id="@+id/workerSlotEditDeleteButton"
@@ -175,7 +177,29 @@
                 android:text="@string/delete"
                 android:backgroundTint="@android:color/holo_red_dark"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditPretendingUesrsRecyclerView" />
+
+            <TextView
+                android:id="@+id/workerSlotEditPretendingUsersTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/pretendings"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/workerSlotEditChangeRolesButton" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/workerSlotEditPretendingUesrsRecyclerView"
+                android:layout_width="345dp"
+                android:layout_height="141dp"
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditPretendingUsersTextView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,7 @@ package com.example.kusashkotlin.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class WorkerSlot(
+data class  WorkerSlot(
     @SerializedName("id")
     var id: Int? = null,
 
@@ -16,7 +16,7 @@ data class WorkerSlot(
     var workingHours: Int? = null,
 
     @SerializedName("profile")
-    var profile: Int? = null,
+    var profile: String? = null,
 
     @SerializedName("project")
     var project: Int? = null,

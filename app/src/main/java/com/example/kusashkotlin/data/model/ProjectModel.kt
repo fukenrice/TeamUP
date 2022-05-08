@@ -7,7 +7,7 @@ data class ProjectModel(
     var id: Int? = null,
 
     @SerializedName("team")
-    var team: List<Int>? = null,
+    var team: List<WorkerSlot> = listOf(),
 
     @SerializedName("title")
     var title: String = "",
@@ -28,7 +28,7 @@ data class ProjectModel(
     var verified: Boolean? = null,
 
     @SerializedName("owner")
-    var owner: Int? = null,
+    var owner: String? = null,
 
     @SerializedName("required_specialization")
     var requiredSpecialization: List<Int> = listOf(),

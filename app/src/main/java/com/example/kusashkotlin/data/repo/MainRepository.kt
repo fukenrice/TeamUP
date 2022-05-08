@@ -70,4 +70,23 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.getExecutorOffers()
     }
 
+    fun getWorkerSlot(id: Int) : Single<WorkerSlot> {
+        return apiHelper.getWorkerSlot(id)
+    }
+    fun updateWorkerSlot(id: Int, token: String, workerSlot: WorkerSlot) : Single<String> {
+        return apiHelper.updateWorkerSlot(id, token, workerSlot)
+    }
+
+    fun inviteProfile(username: String, slotId: Int, token: String) : Single<String> {
+        return apiHelper.inviteProfile(username, slotId, token)
+    }
+
+    fun declineProfile(username: String, slotId: Int, token: String) : Single<String> {
+        return apiHelper.declineProfile(username, slotId, token)
+    }
+
+    fun deleteWorkerSlot(id: Int, token: String) : Single<String> {
+        return apiHelper.deleteWorkerSlot(id, token)
+    }
+
 }

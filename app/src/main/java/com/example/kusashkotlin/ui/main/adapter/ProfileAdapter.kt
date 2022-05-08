@@ -8,41 +8,49 @@ import com.bumptech.glide.Glide
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.model.Profile
 import kotlinx.android.synthetic.main.item_layout.view.*
+import kotlinx.android.synthetic.main.profile_small_layout.view.*
+
+class ProfileAdapter(
+    private val onApplyClick: (username: String, slotId: Int) -> Unit,
+    private val onDenyClick: (username: String, slotId: Int) -> Unit,
+    private val onItemClicked: (position: Int) -> Unit,
+    private val profiles: MutableList<Profile>,
+    private val slotId: Int
+) :
+    RecyclerView.Adapter<ProfileAdapter.DataViewHolder>() {
 
 
-class ProfileAdapter(private val profile: Profile) : RecyclerView.Adapter<ProfileAdapter.DataViewHolder>() {
-
-
-    class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DataViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
         fun bind(profile: Profile) {
-            itemView.nameTextView.text = profile.user.firstName
-            itemView.surnameTextView.text = profile.user.lastName
-            Glide.with(itemView.avatarImageView.context)
-                .load(profile.photo)
-                .into(itemView.avatarImageView)
+            itemView.profileSmallNameTextView.text =
+                profile.user.firstName + " " + profile.user.lastName
+            itemView.profileSmallDescriptionTextView.text = profile.desctiption
+            itemView.profileSmallApplyButton.setOnClickListener { onApplyClick(profiles[adapterPosition].user.username, slotId) }
+            itemView.profileSmallDenyButton.setOnClickListener { onDenyClick(profiles[adapterPosition].user.username, slotId) }
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            onItemClicked(position)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        DataViewHolder(
+        DataViewHolder(onItemClicked,
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_layout, parent,
+                R.layout.profile_small_layout, parent,
                 false
             )
         )
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(profiles[position])
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+    override fun getItemCount(): Int = profiles.size
+
+    fun addData(list: List<Profile>) {
+        profiles.addAll(list)
     }
-//
-//    override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
-//        holder.bind(users[position])
-//
-//    fun addData(list: List<User>) {
-//        users.addAll(list)
-//    }
 }

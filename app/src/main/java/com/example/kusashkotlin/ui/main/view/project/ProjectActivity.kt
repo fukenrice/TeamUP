@@ -16,11 +16,13 @@ import com.example.kusashkotlin.data.model.RoleModel
 import com.example.kusashkotlin.data.model.SpecializationModel
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityEditProjectBinding
+import com.example.kusashkotlin.databinding.ActivityProjectBinding
 import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
 import com.example.kusashkotlin.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_project.*
+import kotlinx.android.synthetic.main.activity_project.*
 
 class ProjectActivity : AppCompatActivity() {
 
@@ -30,7 +32,7 @@ class ProjectActivity : AppCompatActivity() {
 
     private var token: String? = null
 
-    private lateinit var binding: ActivityEditProjectBinding
+    private lateinit var binding: ActivityProjectBinding
 
     lateinit var allSpecializations: List<SpecializationModel>
 
@@ -42,7 +44,7 @@ class ProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         save = getSharedPreferences("APP", MODE_PRIVATE)
         token = save.getString("token", "")
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_project)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_project)
         getBelbinRoles()
         getSpecializations()
         setContent()
@@ -122,7 +124,7 @@ class ProjectActivity : AppCompatActivity() {
                             )
                         }!!
 
-                    projectEditSpecializationsListView.adapter = ArrayAdapter<String>(
+                    projectViewRequiredSpecializationsListView.adapter = ArrayAdapter<String>(
                         this,
                         android.R.layout.simple_list_item_1,
                         specializations
@@ -134,7 +136,7 @@ class ProjectActivity : AppCompatActivity() {
                         )
                     }
 
-                    projectEditBelbinListView.adapter =
+                    projectViewRequiredRolesListView.adapter =
                         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, belbinRoles)
                 }
             }

@@ -1,6 +1,7 @@
 package com.example.kusashkotlin.ui.main.view.project
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidnetworking.error.ANError
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
@@ -18,8 +20,12 @@ import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.model.ProjectModel
 import com.example.kusashkotlin.data.model.RoleModel
 import com.example.kusashkotlin.data.model.SpecializationModel
+import com.example.kusashkotlin.data.model.WorkerSlot
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityEditProjectBinding
+import com.example.kusashkotlin.ui.main.adapter.ProjectAdapter
+import com.example.kusashkotlin.ui.main.adapter.WorkerSlotAdapter
+import com.example.kusashkotlin.ui.main.view.slots.EditWorkerSlotActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
 import com.example.kusashkotlin.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -51,6 +57,8 @@ class EditProjectActivity : AppCompatActivity() {
 
     private var projectTitle: String = ""
 
+    lateinit var adapter: WorkerSlotAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         save = getSharedPreferences("APP", MODE_PRIVATE)
@@ -58,6 +66,10 @@ class EditProjectActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_project)
         getBelbinRoles()
         getSpecializations()
+    }
+
+    override fun onResume() {
+        super.onResume()
         setContent()
     }
 
@@ -83,11 +95,20 @@ class EditProjectActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     fun setContent() {
         fetchProjectTitle()
+        projectEditWorkerSlotsRecyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = WorkerSlotAdapter({position -> onClickWorkerSlot(position) }, mutableListOf())
+        projectEditWorkerSlotsRecyclerView.adapter = adapter
         projectEditChangeBelbinButton.setOnClickListener {
             showChangeBelbinDialog()
         }
         projectEditSpecializationChangeButton.setOnClickListener {
             showChangeSpecializationsDialog()
+        }
+
+        projectEditAddWorkerSlotButton.setOnClickListener {
+            val intent = Intent(this, EditWorkerSlotActivity::class.java)
+            intent.putExtra("mode", "create")
+            startActivity(intent)
         }
 
         projectEditDeleteButton.setOnClickListener {
@@ -333,6 +354,10 @@ class EditProjectActivity : AppCompatActivity() {
                     projectEditBelbinListView.adapter =
                         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, belbinRoles)
 
+                    adapter.addData(it.data.team)
+
+
+
                     selectedSpecializationsIds = it.data.requiredSpecialization
                     selectedRolesIds = it.data.requiredBelbin
 
@@ -352,5 +377,11 @@ class EditProjectActivity : AppCompatActivity() {
         })
     }
 
+    fun onClickWorkerSlot(position: Int) {
+        val intent: Intent = Intent(this, EditWorkerSlotActivity::class.java)
+        intent.putExtra("mode", "edit")
+        intent.putExtra("id", viewModel.getProject().value?.data?.team?.get(position)?.id)
+        startActivity(intent)
+    }
 
 }
