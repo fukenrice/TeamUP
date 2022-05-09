@@ -97,4 +97,16 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.applyToSlot(id, token)
     }
 
+    fun getAppliedSlots(token: String): Single<List<WorkerSlot>> {
+        return apiHelper.getAppliedSlots(token)
+    }
+
+    fun acceptInvite(id: Int, token: String) : Single<String> {
+        return apiHelper.acceptInvite(id, token)
+    }
+
+    fun declineInvite(id: Int, token: String) : Single<String> {
+        return apiHelper.declineInvite(id, token)
+    }
+
 }

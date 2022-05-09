@@ -1,6 +1,7 @@
 package com.example.kusashkotlin.data.api
 
 import com.example.kusashkotlin.data.model.*
+import io.reactivex.Single
 
 class ApiHelper(private val apiService: ApiService) {
     fun getProfile(username: String) = apiService.getProfile(username)
@@ -40,4 +41,7 @@ class ApiHelper(private val apiService: ApiService) {
     fun deleteWorkerSlot(id: Int, token: String) = apiService.deleteWorkerSlot(id, token)
     fun getSlotApplies(id: Int, token: String) = apiService.getSlotApplies(id, token)
     fun applyToSlot(id: Int, token: String) = apiService.applyToWorkerSlot(id, token)
+    fun getAppliedSlots(token: String) = apiService.getAppliedSlots(token)
+    fun acceptInvite(id: Int, token: String) = apiService.acceptInvite(id, token)
+    fun declineInvite(id: Int, token: String) = apiService.declineInvite(id, token)
 }

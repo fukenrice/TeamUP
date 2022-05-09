@@ -24,8 +24,10 @@ import com.example.kusashkotlin.ui.main.view.offers.ExecutorOfferEditActivity
 import com.example.kusashkotlin.ui.main.view.offers.ExecutorOffersListActivity
 import com.example.kusashkotlin.ui.main.view.project.EditProjectActivity
 import com.example.kusashkotlin.ui.main.view.project.ProjectListActivity
+import com.example.kusashkotlin.ui.main.view.slots.AppliedWorkerSLotsActivity
 import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
 import com.example.kusashkotlin.ui.main.view.tests.MBTIActivity
+import com.example.kusashkotlin.ui.main.viewmodel.AppliedSlotsViewModel
 import com.example.kusashkotlin.ui.main.viewmodel.ProfileViewModel
 import com.example.kusashkotlin.utils.Status
 import com.mikepenz.materialdrawer.Drawer
@@ -69,13 +71,16 @@ class UserProfileActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
 
                     if (it.data?.lsq != null) {
-                        lsqListView.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                            it.data.lsq!!
-                        ))
+                        lsqListView.setAdapter(
+                            ArrayAdapter<String>(
+                                this, android.R.layout.simple_list_item_1,
+                                it.data.lsq!!
+                            )
+                        )
                     }
                     binding.profile = it.data
 
-                    it.data?.let { it1 -> save.edit().putInt("id",  it1.id) }
+                    it.data?.let { it1 -> save.edit().putInt("id", it1.id) }
 
                     // binding.profile?.user?.let { it1 -> Log.d("binding", it1.firstName) }
 
@@ -84,15 +89,21 @@ class UserProfileActivity : AppCompatActivity() {
                         .into(avatarImageView)
 
                     if (it.data?.belbin != null) {
-                        belbinListView.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                            it.data.belbin!!
-                        ))
+                        belbinListView.setAdapter(
+                            ArrayAdapter<String>(
+                                this, android.R.layout.simple_list_item_1,
+                                it.data.belbin!!
+                            )
+                        )
                     }
 
                     if (it.data?.mbti != null) {
-                        mbtiListView.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                            it.data.mbti!!
-                        ))
+                        mbtiListView.setAdapter(
+                            ArrayAdapter<String>(
+                                this, android.R.layout.simple_list_item_1,
+                                it.data.mbti!!
+                            )
+                        )
                     }
 
 
@@ -118,9 +129,15 @@ class UserProfileActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         if (intent.getStringExtra("username") == null) {
-            viewModel = ProfileViewModel(MainRepository(ApiHelper(ApiServiceImpl())), save.getString("username", "").toString())
+            viewModel = ProfileViewModel(
+                MainRepository(ApiHelper(ApiServiceImpl())),
+                save.getString("username", "").toString()
+            )
         } else {
-            viewModel = ProfileViewModel(MainRepository(ApiHelper(ApiServiceImpl())), intent.getStringExtra("username").toString())
+            viewModel = ProfileViewModel(
+                MainRepository(ApiHelper(ApiServiceImpl())),
+                intent.getStringExtra("username").toString()
+            )
         }
     }
 
@@ -169,6 +186,8 @@ class UserProfileActivity : AppCompatActivity() {
                         .withSelectable(false),
                     PrimaryDrawerItem().withIdentifier(7).withName("Посмотреть работников")
                         .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(8).withName("Посмотреть приглашения")
+                        .withSelectable(false),
                 ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                     override fun onItemClick(
                         view: View?,
@@ -213,6 +232,14 @@ class UserProfileActivity : AppCompatActivity() {
                                 Intent(
                                     applicationContext,
                                     ExecutorOffersListActivity::class.java
+                                )
+                            )
+                        }
+                        if (position == 7) {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    AppliedWorkerSLotsActivity::class.java
                                 )
                             )
                         }

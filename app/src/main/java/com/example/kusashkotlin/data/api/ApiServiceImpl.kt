@@ -190,4 +190,25 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(String::class.java)
     }
+
+    override fun getAppliedSlots(token: String): Single<List<WorkerSlot>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-invited-slots/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectListSingle(WorkerSlot::class.java)
+    }
+
+    override fun acceptInvite(id: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/accept-invite/${id}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
+    override fun declineInvite(id: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/decline-invite/${id}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
 }

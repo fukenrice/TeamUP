@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appliedWorkerSlotCardView"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/md_green_100"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:contentPadding="4dp">
+
+    <RelativeLayout
+        android:id="@+id/appliedWorkerSlotLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/appliedWorkerSlotProjectNameTextView"
+            android:layout_width="210dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="146dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/appliedWorkerSlotDescriptionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="63dp"
+            android:layout_below="@+id/appliedWorkerSlotProjectNameTextView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="148dp"
+            android:inputType="textMultiLine"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/appliedWorkerSlotProjectNameTextView"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/appliedWorkerSlotApplyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="18dp"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:text="@string/apply" />
+
+        <Button
+            android:id="@+id/appliedWorkerSlotDenyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appliedWorkerSlotApplyButton"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="-8dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="@string/deny" />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
