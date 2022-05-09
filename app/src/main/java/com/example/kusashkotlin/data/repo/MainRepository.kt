@@ -73,8 +73,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
     fun getWorkerSlot(id: Int) : Single<WorkerSlot> {
         return apiHelper.getWorkerSlot(id)
     }
-    fun updateWorkerSlot(id: Int, token: String, workerSlot: WorkerSlot) : Single<String> {
-        return apiHelper.updateWorkerSlot(id, token, workerSlot)
+    fun updateWorkerSlot(token: String, workerSlot: WorkerSlot) : Single<String> {
+        return apiHelper.updateWorkerSlot(token, workerSlot)
     }
 
     fun inviteProfile(username: String, slotId: Int, token: String) : Single<String> {
@@ -87,6 +87,10 @@ class MainRepository(private val apiHelper: ApiHelper) {
 
     fun deleteWorkerSlot(id: Int, token: String) : Single<String> {
         return apiHelper.deleteWorkerSlot(id, token)
+    }
+
+    fun getSlotApplies(id: Int, token: String) : Single<List<Profile>> {
+        return apiHelper.getSlotApplies(id, token)
     }
 
 }

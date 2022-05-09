@@ -19,9 +19,13 @@ class ProfileAdapter(
 ) :
     RecyclerView.Adapter<ProfileAdapter.DataViewHolder>() {
 
-
     inner class DataViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         fun bind(profile: Profile) {
             itemView.profileSmallNameTextView.text =
                 profile.user.firstName + " " + profile.user.lastName

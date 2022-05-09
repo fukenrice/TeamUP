@@ -28,8 +28,8 @@ class ApiHelper(private val apiService: ApiService) {
     fun getProjects() = apiService.getProjects()
     fun getExecutorOffers() = apiService.getExecutorOffers()
     fun getWorkerSlot(id: Int) = apiService.getWorkerSlot(id)
-    fun updateWorkerSlot(id: Int, token: String, workerSlot: WorkerSlot) =
-        apiService.updateWorkerSlot(id, token, workerSlot)
+    fun updateWorkerSlot(token: String, workerSlot: WorkerSlot) =
+        apiService.updateWorkerSlot(token, workerSlot)
 
     fun inviteProfile(username: String, slotId: Int, token: String) =
         apiService.inviteProfile(username, slotId, token)
@@ -38,4 +38,5 @@ class ApiHelper(private val apiService: ApiService) {
         apiService.declineProfile(username, slotId, token)
 
     fun deleteWorkerSlot(id: Int, token: String) = apiService.deleteWorkerSlot(id, token)
+    fun getSlotApplies(id: Int, token: String) = apiService.getSlotApplies(id, token)
 }

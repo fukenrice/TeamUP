@@ -16,12 +16,21 @@ import kotlinx.android.synthetic.main.worker_slot_small_layout.view.*
 class WorkerSlotAdapter(private val onItemClicked: (position: Int) -> Unit, private val slots: MutableList<WorkerSlot>) : RecyclerView.Adapter<WorkerSlotAdapter.DataViewHolder>() {
 
     class DataViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         fun bind(slot: WorkerSlot) {
-            itemView.workerSlotSmallEmployeeName.text = slot.profile.toString()
+            if (slot.profile == null) {
+                itemView.workerSlotSmallEmployeeName.text = "Место свободно"
+            } else {
+                itemView.workerSlotSmallEmployeeName.text = slot.profile.toString()
+            }
             itemView.workerSlotSmallDescriptionTextView.text = slot.description.toString()
         }
 
-        override fun onClick(p0: View?) {
+        override fun onClick(v: View?) {
             val position = adapterPosition
             onItemClicked(position)
         }

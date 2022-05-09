@@ -118,7 +118,7 @@ class ApiServiceImpl : ApiService {
     }
 
     override fun getProject(title: String): Single<ProjectModel> {
-        return Rx2AndroidNetworking.get("${url}/api/v1/get-project/${title}")
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-project/${title}/")
             .build()
             .getObjectSingle(ProjectModel::class.java)
     }
@@ -148,8 +148,8 @@ class ApiServiceImpl : ApiService {
             .getObjectSingle(WorkerSlot::class.java)
     }
 
-    override fun updateWorkerSlot(id: Int, token: String, workerSlot: WorkerSlot): Single<String> {
-        return Rx2AndroidNetworking.post("${url}/api/v1/update-worker-slot/${id}")
+    override fun updateWorkerSlot(token: String, workerSlot: WorkerSlot): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/update-worker-slot/")
             .addHeaders("Authorization", "Token $token")
             .addJSONObjectBody(JSONObject(Gson().toJson(workerSlot)))
             .build()
@@ -175,5 +175,12 @@ class ApiServiceImpl : ApiService {
             .addHeaders("Authorization", "Token $token")
             .build()
             .getObjectSingle(String::class.java)
+    }
+
+    override fun getSlotApplies(id: Int, token: String): Single<List<Profile>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-slot-applies/${id}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectListSingle(Profile::class.java)
     }
 }

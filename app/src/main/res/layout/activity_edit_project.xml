@@ -278,8 +278,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/projectEditWorkerSlotsRecyclerView"
-                android:layout_width="340dp"
-                android:layout_height="123dp"
+                android:layout_width="415dp"
+                android:layout_height="139dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.352"

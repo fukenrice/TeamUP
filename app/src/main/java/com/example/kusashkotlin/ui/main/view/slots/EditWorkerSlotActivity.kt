@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -12,29 +13,24 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isEmpty
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidnetworking.error.ANError
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
+import com.example.kusashkotlin.data.model.Profile
 import com.example.kusashkotlin.data.model.RoleModel
 import com.example.kusashkotlin.data.model.SpecializationModel
 import com.example.kusashkotlin.data.model.WorkerSlot
 import com.example.kusashkotlin.data.repo.MainRepository
-import com.example.kusashkotlin.databinding.ActivityEditProjectBinding
 import com.example.kusashkotlin.databinding.ActivityEditWorkerSlotBinding
 import com.example.kusashkotlin.ui.main.adapter.ProfileAdapter
 import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
-import com.example.kusashkotlin.ui.main.view.project.ProjectActivity
-import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
 import com.example.kusashkotlin.ui.main.viewmodel.WorkerSlotViewModel
-import com.example.kusashkotlin.utils.Resource
 import com.example.kusashkotlin.utils.Status
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_edit_project.*
 import kotlinx.android.synthetic.main.activity_edit_worker_slot.*
-import kotlin.properties.Delegates
 
 class EditWorkerSlotActivity : AppCompatActivity() {
 
@@ -62,7 +58,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
 
     private lateinit var adapter: ProfileAdapter
 
-    private var id by Delegates.notNull<Int>()
+    private var id: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,23 +66,44 @@ class EditWorkerSlotActivity : AppCompatActivity() {
         token = save.getString("token", "")
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_worker_slot)
         mode = intent.getStringExtra("mode")
+    }
+
+    override fun onResume() {
+        super.onResume()
         getBelbinRoles()
         getSpecializations()
+        setContent()
     }
 
     @SuppressLint("CheckResult")
     fun setContent() {
+
         if (mode == "create") {
             workerSlotEditPretendingUsersTextView.visibility = View.GONE
             workerSlotEditPretendingUesrsRecyclerView.visibility = View.GONE
             workerSlotEditDeleteButton.visibility = View.GONE
-        } else {
-            id = intent.getIntExtra("id", -1)
             setupViewModel()
-            setupObserver()
+        } else {
+            workerSlotEditPretendingUesrsRecyclerView.layoutManager = LinearLayoutManager(this)
+            id = intent.getIntExtra("id", -1)
+            adapter = ProfileAdapter({ username, slotId -> applyUser(username, slotId) },
+                { username, slotId -> declineUser(username, slotId) },
+                { position -> onListItemClick(position) }, mutableListOf(), id)
+            workerSlotEditPretendingUesrsRecyclerView.adapter = adapter
+            setupViewModel()
+            setupAppliesObserver()
+
+            workerSlotEditEmployeeTextView.setOnClickListener {
+                val intent: Intent = Intent(this, UserProfileActivity::class.java)
+                intent.putExtra("username",
+                    viewModel.getWorkerSlot().value?.data?.profile
+                )
+                startActivity(intent)
+            }
         }
 
         workerSlotEditChangeRolesButton.setOnClickListener {
+
             showChangeBelbinDialog()
         }
         workerSlotEditChangeSpecializationsButton.setOnClickListener {
@@ -112,13 +129,12 @@ class EditWorkerSlotActivity : AppCompatActivity() {
                 AlertDialog.Builder(this).setMessage(message).create().show()
                 return@setOnClickListener
             }
-            var id: Int = -1
             val slot: WorkerSlot
             if (mode == "create") {
                 slot = WorkerSlot(
                     id = null,
                     description = workerSlotEditDescriptionTextEdit.text.toString(),
-                    salary = workerSlotEditSalaryTextView.text.toString().toIntOrNull(),
+                    salary = workerSlotEditSalaryTextEdit.text.toString().toIntOrNull(),
                     workingHours = workerSlotEditWorkingHoursTextEdit.text.toString().toIntOrNull(),
                     roles = selectedRolesIds,
                     specializations = selectedSpecializationsIds
@@ -127,17 +143,18 @@ class EditWorkerSlotActivity : AppCompatActivity() {
                 slot = viewModel.getWorkerSlot().value?.data!!
                 id = slot.id!!
                 slot.description = workerSlotEditDescriptionTextEdit.text.toString()
-                slot.salary = workerSlotEditSalaryTextView.text.toString().toIntOrNull()
+                slot.salary = workerSlotEditSalaryTextEdit.text.toString().toIntOrNull()
                 slot.workingHours = workerSlotEditWorkingHoursTextEdit.text.toString().toIntOrNull()
                 slot.roles = selectedRolesIds
                 slot.specializations = selectedSpecializationsIds
             }
 
-            MainRepository(ApiHelper(ApiServiceImpl())).updateWorkerSlot(id, token.toString(), slot)
+            MainRepository(ApiHelper(ApiServiceImpl())).updateWorkerSlot(token.toString(), slot)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     Toast.makeText(this, response.toString(), Toast.LENGTH_LONG).show()
+                    finish()
                 }, { throwable ->
                     if (throwable is ANError) {
                         AlertDialog.Builder(this).setMessage(throwable.errorBody).show()
@@ -152,6 +169,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     Toast.makeText(this, response.toString(), Toast.LENGTH_LONG).show()
+                    finish()
                 }, { throwable ->
                     if (throwable is ANError) {
                         AlertDialog.Builder(this).setMessage(throwable.errorBody).show()
@@ -161,17 +179,20 @@ class EditWorkerSlotActivity : AppCompatActivity() {
 
     }
 
-    fun setupObserver() {
+    fun setupWorkerSlotObserver() {
         viewModel.getWorkerSlot().observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.slot = it.data
-
+                    it.data?.let { it1 -> Log.d("mytag", it1.description) }
                     val belbinRoles: MutableList<String> = it.data?.roles?.let { it1 ->
                         getBelbinListByIndex(
                             it1
                         )
                     }!!
+
+                    selectedRolesIds = it.data.roles
+                    selectedSpecializationsIds = it.data.specializations
 
                     workerSlotEditRolesListView.adapter =
                         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, belbinRoles)
@@ -188,14 +209,25 @@ class EditWorkerSlotActivity : AppCompatActivity() {
                         specializations
                     )
 
-                    adapter = it.data.id?.let { it1 ->
-                        ProfileAdapter(
-                            { username, slotId -> applyUser(username, slotId) },
-                            { username, slotId -> declineUser(username, slotId) },
-                            { position -> onListItemClick(position) }, mutableListOf(), it1
-                        )
-                    }!!
+                    if (it.data.profile == null) {
+                        workerSlotEditEmployeeTextView.visibility = View.GONE
+                    }
 
+
+                }
+            }
+        })
+    }
+
+    fun setupAppliesObserver() {
+        viewModel.getApplies(token.toString()).observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    Log.d("mytag", it.data.toString())
+                    it.data?.let { it1 -> renderList(it1) }
+                }
+                Status.ERROR -> {
+                    Log.d("mytag", id.toString())
                 }
             }
         })
@@ -215,7 +247,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
             .subscribe({ response ->
                 Toast.makeText(
                     applicationContext,
-                    "Пользователь принят на слот работника",
+                    "Пользователю отправлено приглашение на слот работника",
                     Toast.LENGTH_LONG
                 ).show()
                 finish()
@@ -284,6 +316,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
             )
         }
         builderMultiply.show()
+        Log.d("mytag", "show velbin")
     }
 
     fun showChangeSpecializationsDialog() {
@@ -346,6 +379,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
             .subscribe({ response ->
                 allSpecializations = response
                 selectedSpecializations = BooleanArray(allSpecializations.size)
+                setupWorkerSlotObserver()
             }, { throwable ->
                 if (throwable is ANError) {
                     Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG)
@@ -380,9 +414,16 @@ class EditWorkerSlotActivity : AppCompatActivity() {
         return specializations
     }
 
+    private fun renderList(profiles: List<Profile>) {
+        adapter.addData(profiles)
+        adapter.notifyDataSetChanged()
+    }
+
     private fun onListItemClick(position: Int) {
         val intent: Intent = Intent(this, UserProfileActivity::class.java)
-        intent.putExtra("username", viewModel.getWorkerSlot().value?.data?.profile)
+        intent.putExtra("username",
+            viewModel.getApplies(token.toString()).value?.data?.get(position)?.user?.username
+        )
         startActivity(intent)
     }
 

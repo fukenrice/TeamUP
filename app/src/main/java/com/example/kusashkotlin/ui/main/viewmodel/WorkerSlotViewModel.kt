@@ -3,7 +3,7 @@ package com.example.kusashkotlin.ui.main.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.kusashkotlin.data.model.ProjectModel
+import com.example.kusashkotlin.data.model.Profile
 import com.example.kusashkotlin.data.model.WorkerSlot
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.utils.Resource
@@ -15,8 +15,24 @@ class WorkerSlotViewModel(private val mainRepository: MainRepository, private va
     private val slot = MutableLiveData<Resource<WorkerSlot>>()
     private val compositeDisposable = CompositeDisposable()
 
+    private val pretenders = MutableLiveData<Resource<List<Profile>>>()
+
     init {
         fetchWorkerSlot()
+    }
+
+    private fun getSlotApplies(token: String) {
+        pretenders.postValue(Resource.loading(null))
+        compositeDisposable.add(
+            mainRepository.getSlotApplies(id, token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    pretenders.postValue(Resource.success(response))
+                }, { throwable ->
+                    pretenders.postValue(Resource.error("Something Went Wrong worker slot pretendents", null))
+                })
+        )
     }
 
     private fun fetchWorkerSlot() {
@@ -40,6 +56,11 @@ class WorkerSlotViewModel(private val mainRepository: MainRepository, private va
 
     fun getWorkerSlot() : LiveData<Resource<WorkerSlot>> {
         return slot
+    }
+
+    fun getApplies(token: String) : LiveData<Resource<List<Profile>>> {
+        getSlotApplies(token)
+        return pretenders
     }
 
 }

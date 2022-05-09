@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -23,7 +24,6 @@ import com.example.kusashkotlin.data.model.SpecializationModel
 import com.example.kusashkotlin.data.model.WorkerSlot
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityEditProjectBinding
-import com.example.kusashkotlin.ui.main.adapter.ProjectAdapter
 import com.example.kusashkotlin.ui.main.adapter.WorkerSlotAdapter
 import com.example.kusashkotlin.ui.main.view.slots.EditWorkerSlotActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
@@ -31,7 +31,6 @@ import com.example.kusashkotlin.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_project.*
-import kotlinx.coroutines.runBlocking
 
 class EditProjectActivity : AppCompatActivity() {
 
@@ -82,7 +81,11 @@ class EditProjectActivity : AppCompatActivity() {
             .subscribe({ profile ->
                 if (profile.project != null) {
                     projectTitle = profile.project
+                } else {
+                    projectEditAddWorkerSlotButton.visibility = View.GONE
+                    projectEditWorkerSlotsRecyclerView.visibility = View.GONE
                 }
+                Log.d("mytag", projectTitle)
                 setupViewModel()
                 setupObserver()
             }, { throwable ->
@@ -95,6 +98,7 @@ class EditProjectActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     fun setContent() {
         fetchProjectTitle()
+
         projectEditWorkerSlotsRecyclerView.layoutManager = LinearLayoutManager(this)
         adapter = WorkerSlotAdapter({position -> onClickWorkerSlot(position) }, mutableListOf())
         projectEditWorkerSlotsRecyclerView.adapter = adapter
@@ -343,8 +347,6 @@ class EditProjectActivity : AppCompatActivity() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.project = it.data
-
-                    // создаем массивы стрингов для отображения в лист вью
                     val belbinRoles: MutableList<String> = it.data?.requiredBelbin?.let { it1 ->
                         getBelbinListByIndex(
                             it1
@@ -354,8 +356,7 @@ class EditProjectActivity : AppCompatActivity() {
                     projectEditBelbinListView.adapter =
                         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, belbinRoles)
 
-                    adapter.addData(it.data.team)
-
+                    renderList(it.data.team)
 
 
                     selectedSpecializationsIds = it.data.requiredSpecialization
@@ -373,8 +374,16 @@ class EditProjectActivity : AppCompatActivity() {
                         specializations
                     )
                 }
+                Status.ERROR -> {
+                    Log.d("mytag", it.message.toString())
+                }
             }
         })
+    }
+
+    private fun renderList(slots: List<WorkerSlot>) {
+        adapter.addData(slots)
+        adapter.notifyDataSetChanged()
     }
 
     fun onClickWorkerSlot(position: Int) {

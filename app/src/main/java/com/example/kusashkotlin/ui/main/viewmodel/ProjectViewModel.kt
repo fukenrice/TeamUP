@@ -1,8 +1,10 @@
 package com.example.kusashkotlin.ui.main.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.androidnetworking.error.ANError
 import com.example.kusashkotlin.data.model.ProjectModel
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.utils.Resource
@@ -28,7 +30,10 @@ class ProjectViewModel(private val mainRepository: MainRepository, private val t
                 .subscribe({ response ->
                     project.postValue(Resource.success(response))
                 }, { throwable ->
-                    project.postValue(Resource.error("Something Went Wrong profile", null))
+                    if (throwable is ANError) {
+                        project.postValue(Resource.error(throwable.toString(), null))
+                    }
+
                 })
         )
     }
