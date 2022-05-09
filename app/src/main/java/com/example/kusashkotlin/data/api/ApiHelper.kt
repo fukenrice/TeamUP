@@ -39,4 +39,5 @@ class ApiHelper(private val apiService: ApiService) {
 
     fun deleteWorkerSlot(id: Int, token: String) = apiService.deleteWorkerSlot(id, token)
     fun getSlotApplies(id: Int, token: String) = apiService.getSlotApplies(id, token)
+    fun applyToSlot(id: Int, token: String) = apiService.applyToWorkerSlot(id, token)
 }

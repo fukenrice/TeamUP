@@ -27,7 +27,7 @@ class WorkerSlotAdapter(private val onItemClicked: (position: Int) -> Unit, priv
             } else {
                 itemView.workerSlotSmallEmployeeName.text = slot.profile.toString()
             }
-            itemView.workerSlotSmallDescriptionTextView.text = slot.description.toString()
+            itemView.workerSlotSmallDescriptionTextView.text = slot.description
         }
 
         override fun onClick(v: View?) {
@@ -54,5 +54,4 @@ class WorkerSlotAdapter(private val onItemClicked: (position: Int) -> Unit, priv
     fun addData(list: List<WorkerSlot>) {
         slots.addAll(list)
     }
-
 }

@@ -93,4 +93,8 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.getSlotApplies(id, token)
     }
 
+    fun applyToSlot(id: Int, token: String) : Single<String> {
+        return apiHelper.applyToSlot(id, token)
+    }
+
 }

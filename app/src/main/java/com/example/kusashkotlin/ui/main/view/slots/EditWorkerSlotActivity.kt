@@ -184,7 +184,6 @@ class EditWorkerSlotActivity : AppCompatActivity() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.slot = it.data
-                    it.data?.let { it1 -> Log.d("mytag", it1.description) }
                     val belbinRoles: MutableList<String> = it.data?.roles?.let { it1 ->
                         getBelbinListByIndex(
                             it1
@@ -223,11 +222,9 @@ class EditWorkerSlotActivity : AppCompatActivity() {
         viewModel.getApplies(token.toString()).observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.d("mytag", it.data.toString())
                     it.data?.let { it1 -> renderList(it1) }
                 }
                 Status.ERROR -> {
-                    Log.d("mytag", id.toString())
                 }
             }
         })
@@ -316,7 +313,6 @@ class EditWorkerSlotActivity : AppCompatActivity() {
             )
         }
         builderMultiply.show()
-        Log.d("mytag", "show velbin")
     }
 
     fun showChangeSpecializationsDialog() {

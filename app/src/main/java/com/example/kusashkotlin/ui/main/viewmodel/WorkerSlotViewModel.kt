@@ -1,8 +1,11 @@
 package com.example.kusashkotlin.ui.main.viewmodel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.androidnetworking.error.ANError
 import com.example.kusashkotlin.data.model.Profile
 import com.example.kusashkotlin.data.model.WorkerSlot
 import com.example.kusashkotlin.data.repo.MainRepository
@@ -11,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class WorkerSlotViewModel(private val mainRepository: MainRepository, private val id: Int) : ViewModel() {
+class WorkerSlotViewModel(private val mainRepository: MainRepository, private val id: Int, private val context: Context? = null) : ViewModel() {
     private val slot = MutableLiveData<Resource<WorkerSlot>>()
     private val compositeDisposable = CompositeDisposable()
 
@@ -45,6 +48,20 @@ class WorkerSlotViewModel(private val mainRepository: MainRepository, private va
                     slot.postValue(Resource.success(response))
                 }, { throwable ->
                     slot.postValue(Resource.error("Something Went Wrong worker slot", null))
+                })
+        )
+    }
+
+    fun applyToWorkerSlot(token: String) {
+        compositeDisposable.add(
+            mainRepository.applyToSlot(id, token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    Toast.makeText(context, response, Toast.LENGTH_LONG).show()
+                }, { throwable ->
+                    if (throwable is ANError) {
+                        Toast.makeText(context, throwable.errorBody, Toast.LENGTH_LONG).show()
+                    }
                 })
         )
     }

@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/workerSlotUserNameTextView" />
 
             <at.blogc.android.views.ExpandableTextView
-                android:id="@+id/workerSlotEditDescriptionTextVeiw"
+                android:id="@+id/workerSlotDescriptionTextVeiw"
                 android:layout_width="307dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="32dp"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/workerSlotEmailTextView" />
 
             <TextView
-                android:id="@+id/workerSlotEditSalaryTextView"
+                android:id="@+id/workerSlotSalaryTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
@@ -65,56 +65,56 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditDescriptionTextVeiw" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotDescriptionTextVeiw" />
 
             <TextView
-                android:id="@+id/workerSlotEditWorkingHoursTextView"
+                android:id="@+id/workerSlotWorkingHoursTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditSalaryTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotSalaryTextView" />
 
             <TextView
-                android:id="@+id/workerSlotEditSpecializationsTextView"
+                android:id="@+id/workerSlotSpecializationsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/required_specializations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditWorkingHoursTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotWorkingHoursTextView" />
 
             <ListView
-                android:id="@+id/workerSlotEditSpecializationsListView"
+                android:id="@+id/workerSlotSpecializationsListView"
                 android:layout_width="325dp"
                 android:layout_height="91dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditSpecializationsTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotSpecializationsTextView" />
 
             <TextView
-                android:id="@+id/workerSlotEditRolesTextView"
+                android:id="@+id/workerSlotRolesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:text="@string/required_belbin_roles"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditSpecializationsListView" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotSpecializationsListView" />
 
             <ListView
-                android:id="@+id/workerSlotEditRolesListView"
+                android:id="@+id/workerSlotRolesListView"
                 android:layout_width="330dp"
                 android:layout_height="94dp"
                 android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.493"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditRolesTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotRolesTextView" />
 
             <Button
                 android:id="@+id/workerSlotRequestButton"
@@ -125,7 +125,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEditRolesListView" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotRolesListView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

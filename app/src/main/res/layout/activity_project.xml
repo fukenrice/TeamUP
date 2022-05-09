@@ -164,8 +164,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/projectViewWorkerSlotsRecyclerView"
-                android:layout_width="272dp"
-                android:layout_height="128dp"
+                android:layout_width="421dp"
+                android:layout_height="101dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

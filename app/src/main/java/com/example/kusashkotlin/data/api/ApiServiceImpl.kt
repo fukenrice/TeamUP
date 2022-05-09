@@ -183,4 +183,11 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectListSingle(Profile::class.java)
     }
+
+    override fun applyToWorkerSlot(id: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/apply-slot/${id}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
 }

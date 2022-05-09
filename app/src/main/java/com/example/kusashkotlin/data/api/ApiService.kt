@@ -26,4 +26,5 @@ interface ApiService {
     fun declineProfile(username: String, slotId: Int, token: String) : Single<String>
     fun deleteWorkerSlot(id: Int, token: String) : Single<String>
     fun getSlotApplies(id: Int, token: String) : Single<List<Profile>>
+    fun applyToWorkerSlot(id: Int, token: String) : Single<String>
 }
