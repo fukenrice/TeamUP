@@ -30,4 +30,6 @@ interface ApiService {
     fun getAppliedSlots(token: String) : Single<List<WorkerSlot>>
     fun acceptInvite(id: Int, token: String) : Single<String>
     fun declineInvite(id: Int, token: String) : Single<String>
+    fun getCurrentProjects(token: String) : Single<List<ProjectModel>>
+    fun leaveWorkerSlot(id: Int, token: String) : Single<String>
 }

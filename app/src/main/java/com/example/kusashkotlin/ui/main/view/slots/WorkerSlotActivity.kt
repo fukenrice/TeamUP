@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -59,10 +60,15 @@ class WorkerSlotActivity : AppCompatActivity() {
         workerSlotRequestButton.setOnClickListener {
             viewModel.applyToWorkerSlot(token.toString())
         }
+        workerSlotLeaveButton.setOnClickListener {
+            viewModel.leaveWorkerSlot(token.toString())
+            finish()
+        }
     }
 
     fun setupViewModel() {
-        viewModel = WorkerSlotViewModel(MainRepository(ApiHelper(ApiServiceImpl())), id, context = this)
+        viewModel =
+            WorkerSlotViewModel(MainRepository(ApiHelper(ApiServiceImpl())), id, context = this)
     }
 
     fun setupObserver() {
@@ -86,6 +92,14 @@ class WorkerSlotActivity : AppCompatActivity() {
                         specializations
                     )
 
+                    if (it.data.profile == save.getString("username", "")) {
+                        workerSlotRequestButton.visibility = View.GONE
+                        workerSlotLeaveButton.visibility = View.VISIBLE
+                    } else {
+                        workerSlotRequestButton.visibility = View.VISIBLE
+                        workerSlotLeaveButton.visibility = View.GONE
+                    }
+
                     val belbinRoles: MutableList<String> = it.data.roles.let { it1 ->
                         getBelbinListByIndex(
                             it1
@@ -93,8 +107,7 @@ class WorkerSlotActivity : AppCompatActivity() {
                     }
 
                     workerSlotRolesListView.adapter =
-                        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, belbinRoles)
-
+                        ArrayAdapter(this, android.R.layout.simple_list_item_1, belbinRoles)
                 }
             }
         })

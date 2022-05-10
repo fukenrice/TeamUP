@@ -44,4 +44,6 @@ class ApiHelper(private val apiService: ApiService) {
     fun getAppliedSlots(token: String) = apiService.getAppliedSlots(token)
     fun acceptInvite(id: Int, token: String) = apiService.acceptInvite(id, token)
     fun declineInvite(id: Int, token: String) = apiService.declineInvite(id, token)
+    fun getCurrentProjects(token: String) = apiService.getCurrentProjects(token)
+    fun leaveWorkerSlot(id: Int, token: String) = apiService.leaveWorkerSlot(id, token)
 }

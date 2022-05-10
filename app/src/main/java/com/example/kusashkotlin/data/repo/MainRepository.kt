@@ -109,4 +109,12 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.declineInvite(id, token)
     }
 
+    fun getCurrentProjects(token: String) : Single<List<ProjectModel>> {
+        return apiHelper.getCurrentProjects(token)
+    }
+
+    fun leaveWorkerSlot(id: Int, token: String) : Single<String> {
+        return apiHelper.leaveWorkerSlot(id, token)
+    }
+
 }

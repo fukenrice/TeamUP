@@ -66,6 +66,20 @@ class WorkerSlotViewModel(private val mainRepository: MainRepository, private va
         )
     }
 
+    fun leaveWorkerSlot(token: String) {
+        compositeDisposable.add(
+            mainRepository.leaveWorkerSlot(id, token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    Toast.makeText(context, response, Toast.LENGTH_LONG).show()
+                }, { throwable ->
+                    if (throwable is ANError) {
+                        Toast.makeText(context, throwable.errorBody, Toast.LENGTH_LONG).show()
+                    }
+                })
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()

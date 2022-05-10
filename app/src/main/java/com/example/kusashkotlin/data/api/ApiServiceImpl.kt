@@ -211,4 +211,19 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectSingle(String::class.java)
     }
+
+    override fun getCurrentProjects(token: String): Single<List<ProjectModel>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-current-projects/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectListSingle(ProjectModel::class.java)
+    }
+
+    override fun leaveWorkerSlot(id: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/leave-slot/${id}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
 }
