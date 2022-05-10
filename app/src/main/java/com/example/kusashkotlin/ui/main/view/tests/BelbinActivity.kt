@@ -127,7 +127,6 @@ class BelbinActivity : AppCompatActivity() {
                         )
                     )
                 )
-            Log.d("belbin points", belbin.value.get(6).answer0.toString())
             sendBelbin()
         }
     }

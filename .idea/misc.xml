@@ -5,12 +5,17 @@
       <map>
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.173" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_applied_worker_slots.xml" value="0.22" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_belbin.xml" value="0.13677536231884058" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_current_projects.xml" value="0.14945652173913043" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_edit.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_edit.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_edit_project.xml" value="0.15942028985507245" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_edit_worker_slot.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_executor_offer.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_executor_offers_list.xml" value="0.13677536231884058" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_main.xml" value="0.13677536231884058" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_mbti.xml" value="0.13677536231884058" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_project.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_project_list.xml" value="0.13677536231884058" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_project_worker_slot_list.xml" value="0.10416666666666667" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_sent_requests_workers_slots.xml" value="0.10144927536231885" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/kursachKotilin/app/src/main/res/layout/activity_user_profile.xml" value="0.22" />

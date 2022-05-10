@@ -1,7 +1,9 @@
 package com.example.kusashkotlin.ui.main.view.slots
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,6 +20,7 @@ import com.example.kusashkotlin.data.model.SpecializationModel
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityProjectBinding
 import com.example.kusashkotlin.databinding.ActivityWorkerSlotBinding
+import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
 import com.example.kusashkotlin.ui.main.viewmodel.WorkerSlotViewModel
 import com.example.kusashkotlin.utils.Status
@@ -64,6 +67,9 @@ class WorkerSlotActivity : AppCompatActivity() {
             viewModel.leaveWorkerSlot(token.toString())
             finish()
         }
+        workerSlotDescriptionTextVeiw.setOnClickListener {
+            workerSlotDescriptionTextVeiw.toggle()
+        }
     }
 
     fun setupViewModel() {
@@ -76,6 +82,15 @@ class WorkerSlotActivity : AppCompatActivity() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.slot = it.data
+
+                    if (it.data?.profile != null) {
+                        workerSlotUserNameTextView.setTextColor(Color.BLUE)
+                        workerSlotUserNameTextView.setOnClickListener {
+                            var intent = Intent(this, UserProfileActivity::class.java)
+                            intent.putExtra("username", binding.slot?.profile)
+                            startActivity(intent)
+                        }
+                    }
 
                     workerSlotRolesListView.adapter
 

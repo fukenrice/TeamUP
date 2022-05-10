@@ -26,6 +26,7 @@ import com.example.kusashkotlin.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_project.*
+import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class ProjectActivity : AppCompatActivity() {
 
@@ -63,6 +64,9 @@ class ProjectActivity : AppCompatActivity() {
         title = intent.getStringExtra("title").toString()
         setupViewModel()
         setupObserver()
+        projectViewDescriptionContentTextView.setOnClickListener {
+            projectViewDescriptionContentTextView.toggle()
+        }
     }
 
     fun setupAdaprer() {

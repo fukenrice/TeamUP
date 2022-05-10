@@ -87,8 +87,6 @@ class UserProfileActivity : AppCompatActivity() {
 
                     it.data?.let { it1 -> save.edit().putInt("id", it1.id) }
 
-                    // binding.profile?.user?.let { it1 -> Log.d("binding", it1.firstName) }
-
                     progressBar.visibility = View.GONE
                     Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()
                         .into(avatarImageView)
@@ -100,6 +98,13 @@ class UserProfileActivity : AppCompatActivity() {
                                 it.data.belbin!!
                             )
                         )
+                    }
+
+                    if (it.data?.specialzation != null) {
+                        profileViewSpecializationsListView.setAdapter(ArrayAdapter<String>(
+                            this, android.R.layout.simple_list_item_1,
+                            it.data.specialzation!!
+                        ))
                     }
 
                     if (it.data?.mbti != null) {

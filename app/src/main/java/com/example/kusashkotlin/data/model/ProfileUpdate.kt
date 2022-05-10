@@ -10,7 +10,7 @@ data class ProfileUpdate(
     var isMale: Boolean? = null,
 
     @SerializedName("specialization")
-    var specialization: Int? = null,
+    var specialization: List<Int>? = null,
 
 
     @SerializedName("patronymic")

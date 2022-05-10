@@ -85,7 +85,6 @@ class EditProjectActivity : AppCompatActivity() {
                     projectEditAddWorkerSlotButton.visibility = View.GONE
                     projectEditWorkerSlotsRecyclerView.visibility = View.GONE
                 }
-                Log.d("mytag", projectTitle)
                 setupViewModel()
                 setupObserver()
             }, { throwable ->

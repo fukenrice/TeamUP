@@ -27,21 +27,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="44dp"
-                android:text="TextView"
+                android:text='@{slot.profile == "" ? "Место свободно" : slot.profile}'
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/workerSlotEmailTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotUserNameTextView" />
+
 
             <at.blogc.android.views.ExpandableTextView
                 android:id="@+id/workerSlotDescriptionTextVeiw"
@@ -54,14 +48,16 @@
                 app:animation_duration="750"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/workerSlotEmailTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/workerSlotUserNameTextView" />
 
             <TextView
                 android:id="@+id/workerSlotSalaryTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:text="TextView"
+                android:text='@{slot.salary == 0 || slot.salary == null ? "Зарплата не указана" : (String.valueOf(slot.salary) + " рублей")}'
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="TextView"
+                android:text='@{slot.workingHours == 0 || slot.workingHours == null ? "Часы работы не указаны" : (slot.workingHours + " часов")}'
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/workerSlotSalaryTextView" />
@@ -83,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/required_specializations"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/workerSlotWorkingHoursTextView" />
@@ -102,6 +102,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:text="@string/required_belbin_roles"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/workerSlotSpecializationsListView" />
