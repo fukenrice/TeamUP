@@ -53,6 +53,10 @@ class ProjectActivity : AppCompatActivity() {
         save = getSharedPreferences("APP", MODE_PRIVATE)
         token = save.getString("token", "")
         binding = DataBindingUtil.setContentView(this, R.layout.activity_project)
+    }
+
+    override fun onResume() {
+        super.onResume()
         getBelbinRoles()
         getSpecializations()
         setupAdaprer()
@@ -170,6 +174,7 @@ class ProjectActivity : AppCompatActivity() {
     }
 
     private fun renderList(slots: List<WorkerSlot>) {
+        adapter.clear()
         adapter.addData(slots)
         adapter.notifyDataSetChanged()
     }

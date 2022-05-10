@@ -36,6 +36,11 @@ class AppliedWorkerSLotsActivity : AppCompatActivity() {
         save = getSharedPreferences("APP", MODE_PRIVATE)
         token = save.getString("token", "")
         setContentView(R.layout.activity_applied_worker_slots);
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         setupUI()
         setupViewModel()
         setupObserver()
@@ -58,12 +63,6 @@ class AppliedWorkerSLotsActivity : AppCompatActivity() {
 
     private fun setupUI() {
         appliedWorkerSlotsRecyclerView.layoutManager = LinearLayoutManager(this)
-//        adapter = AppliedWorkerSlotAdapter({ slotId -> viewModel.acceptInvite(slotId) },
-//            { slotId ->
-//                viewModel.declineInvite(slotId) },
-//            { position -> onItemClicked(position) },
-//            mutableListOf()
-//        )
 
         adapter = AppliedWorkerSlotAdapter(
             { slotId, position ->
@@ -101,6 +100,7 @@ class AppliedWorkerSLotsActivity : AppCompatActivity() {
     }
 
     private fun renderList(slots: List<WorkerSlot>) {
+        adapter.clear()
         adapter.addData(slots)
         adapter.notifyDataSetChanged()
     }

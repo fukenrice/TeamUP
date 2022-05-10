@@ -50,4 +50,8 @@ class ProjectAdapter(
         projects.addAll(list)
     }
 
+    fun clear() {
+        projects.clear()
+    }
+
 }

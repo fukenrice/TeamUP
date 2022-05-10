@@ -57,4 +57,8 @@ class ProfileAdapter(
     fun addData(list: List<Profile>) {
         profiles.addAll(list)
     }
+
+    fun clear() {
+        profiles.clear()
+    }
 }

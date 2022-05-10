@@ -22,6 +22,7 @@ import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
 import com.example.kusashkotlin.ui.main.view.auth.LoginActivity
 import com.example.kusashkotlin.ui.main.view.offers.ExecutorOfferEditActivity
 import com.example.kusashkotlin.ui.main.view.offers.ExecutorOffersListActivity
+import com.example.kusashkotlin.ui.main.view.project.CurrentProjectsActivity
 import com.example.kusashkotlin.ui.main.view.project.EditProjectActivity
 import com.example.kusashkotlin.ui.main.view.project.ProjectListActivity
 import com.example.kusashkotlin.ui.main.view.slots.AppliedWorkerSLotsActivity
@@ -188,6 +189,8 @@ class UserProfileActivity : AppCompatActivity() {
                         .withSelectable(false),
                     PrimaryDrawerItem().withIdentifier(8).withName("Посмотреть приглашения")
                         .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(9).withName("Посмотреть свои проекты")
+                        .withSelectable(false),
                 ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                     override fun onItemClick(
                         view: View?,
@@ -240,6 +243,14 @@ class UserProfileActivity : AppCompatActivity() {
                                 Intent(
                                     applicationContext,
                                     AppliedWorkerSLotsActivity::class.java
+                                )
+                            )
+                        }
+                        if (position == 8) {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    CurrentProjectsActivity::class.java
                                 )
                             )
                         }

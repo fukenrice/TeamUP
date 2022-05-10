@@ -1,6 +1,7 @@
 package com.example.kusashkotlin.ui.main.view.project
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,13 +24,19 @@ import kotlinx.android.synthetic.main.activity_project_list.*
 
 class ProjectListActivity : AppCompatActivity() {
 
-    lateinit var viewModel: ProjectListViewModel
-    lateinit var adapter: ProjectAdapter
+    private lateinit var viewModel: ProjectListViewModel
+    private lateinit var adapter: ProjectAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_list)
         setupUI()
+        setupViewModel()
+        setupObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
         setupViewModel()
         setupObserver()
     }
@@ -60,6 +67,7 @@ class ProjectListActivity : AppCompatActivity() {
     }
 
     private fun renderList(projects: List<ProjectModel>) {
+        adapter.clear()
         adapter.addData(projects)
         adapter.notifyDataSetChanged()
     }

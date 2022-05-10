@@ -222,6 +222,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
         viewModel.getApplies(token.toString()).observe(this, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
+
                     it.data?.let { it1 -> renderList(it1) }
                 }
                 Status.ERROR -> {
@@ -411,6 +412,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
     }
 
     private fun renderList(profiles: List<Profile>) {
+        adapter.clear()
         adapter.addData(profiles)
         adapter.notifyDataSetChanged()
     }

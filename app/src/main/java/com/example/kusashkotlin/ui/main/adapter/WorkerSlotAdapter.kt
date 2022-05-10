@@ -54,4 +54,8 @@ class WorkerSlotAdapter(private val onItemClicked: (position: Int) -> Unit, priv
     fun addData(list: List<WorkerSlot>) {
         slots.addAll(list)
     }
+
+    fun clear() {
+        slots.clear()
+    }
 }

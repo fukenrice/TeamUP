@@ -26,6 +26,10 @@ class ExecutorOffersListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_executor_offers_list)
+    }
+
+    override fun onResume() {
+        super.onResume()
         setupUI()
         setupViewModel()
         setupObserver()
@@ -64,6 +68,7 @@ class ExecutorOffersListActivity : AppCompatActivity() {
     }
 
     private fun renderList(offers: List<ExecutorOffer>) {
+        adapter.clear()
         adapter.addData(offers)
         adapter.notifyDataSetChanged()
     }

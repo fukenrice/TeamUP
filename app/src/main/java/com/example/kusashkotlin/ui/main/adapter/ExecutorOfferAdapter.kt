@@ -53,4 +53,8 @@ class ExecutorOfferAdapter(
     fun addData(list: List<ExecutorOffer>) {
         offers.addAll(list)
     }
+
+    fun clear() {
+        offers.clear()
+    }
 }

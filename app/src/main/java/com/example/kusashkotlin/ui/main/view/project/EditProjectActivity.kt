@@ -63,12 +63,12 @@ class EditProjectActivity : AppCompatActivity() {
         save = getSharedPreferences("APP", MODE_PRIVATE)
         token = save.getString("token", "")
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_project)
-        getBelbinRoles()
-        getSpecializations()
     }
 
     override fun onResume() {
         super.onResume()
+        getBelbinRoles()
+        getSpecializations()
         setContent()
     }
 
@@ -382,6 +382,7 @@ class EditProjectActivity : AppCompatActivity() {
     }
 
     private fun renderList(slots: List<WorkerSlot>) {
+        adapter.clear()
         adapter.addData(slots)
         adapter.notifyDataSetChanged()
     }

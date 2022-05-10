@@ -49,5 +49,4 @@ class ProjectListViewModel(private val mainRepository: MainRepository) : ViewMod
     fun getProjects() : MutableLiveData<Resource<List<ProjectModel>>> {
         return projects
     }
-
 }

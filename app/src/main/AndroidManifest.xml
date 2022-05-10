@@ -14,6 +14,9 @@
         android:theme="@style/Theme.KusashKotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.view.project.CurrentProjectsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.view.slots.AppliedWorkerSLotsActivity"
             android:exported="false" />
         <activity

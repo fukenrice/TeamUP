@@ -64,4 +64,8 @@ class AppliedWorkerSlotAdapter(
         slots.removeAt(position)
     }
 
+    fun clear() {
+        slots.clear()
+    }
+
 }
