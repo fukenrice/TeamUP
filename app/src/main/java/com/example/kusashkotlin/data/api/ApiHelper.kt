@@ -46,4 +46,6 @@ class ApiHelper(private val apiService: ApiService) {
     fun declineInvite(id: Int, token: String) = apiService.declineInvite(id, token)
     fun getCurrentProjects(token: String) = apiService.getCurrentProjects(token)
     fun leaveWorkerSlot(id: Int, token: String) = apiService.leaveWorkerSlot(id, token)
+    fun getRequestedSlots(token: String) = apiService.getRequestedSlots(token)
+    fun retractRequest(id: Int, token: String) = apiService.retractRequest(id, token)
 }

@@ -32,4 +32,6 @@ interface ApiService {
     fun declineInvite(id: Int, token: String) : Single<String>
     fun getCurrentProjects(token: String) : Single<List<ProjectModel>>
     fun leaveWorkerSlot(id: Int, token: String) : Single<String>
+    fun getRequestedSlots(token: String) : Single<List<WorkerSlot>>
+    fun retractRequest(id: Int, token: String) : Single<String>
 }

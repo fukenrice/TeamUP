@@ -26,6 +26,7 @@ import com.example.kusashkotlin.ui.main.view.project.CurrentProjectsActivity
 import com.example.kusashkotlin.ui.main.view.project.EditProjectActivity
 import com.example.kusashkotlin.ui.main.view.project.ProjectListActivity
 import com.example.kusashkotlin.ui.main.view.slots.AppliedWorkerSLotsActivity
+import com.example.kusashkotlin.ui.main.view.slots.SentRequestsWorkersSlotsActivity
 import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
 import com.example.kusashkotlin.ui.main.view.tests.MBTIActivity
 import com.example.kusashkotlin.ui.main.viewmodel.AppliedSlotsViewModel
@@ -191,6 +192,8 @@ class UserProfileActivity : AppCompatActivity() {
                         .withSelectable(false),
                     PrimaryDrawerItem().withIdentifier(9).withName("Посмотреть свои проекты")
                         .withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(10).withName("Посмотреть неодобренные заявки")
+                        .withSelectable(false),
                 ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                     override fun onItemClick(
                         view: View?,
@@ -251,6 +254,14 @@ class UserProfileActivity : AppCompatActivity() {
                                 Intent(
                                     applicationContext,
                                     CurrentProjectsActivity::class.java
+                                )
+                            )
+                        }
+                        if (position == 9) {
+                            startActivity(
+                                Intent(
+                                    applicationContext,
+                                    SentRequestsWorkersSlotsActivity::class.java
                                 )
                             )
                         }

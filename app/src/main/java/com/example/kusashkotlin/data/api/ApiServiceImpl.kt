@@ -226,4 +226,18 @@ class ApiServiceImpl : ApiService {
             .getObjectSingle(String::class.java)
     }
 
+    override fun getRequestedSlots(token: String): Single<List<WorkerSlot>> {
+        return Rx2AndroidNetworking.get("${url}/api/v1/get-applied-slots/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectListSingle(WorkerSlot::class.java)
+    }
+
+    override fun retractRequest(id: Int, token: String): Single<String> {
+        return Rx2AndroidNetworking.post("${url}/api/v1/retract-apply/${id}/")
+            .addHeaders("Authorization", "Token $token")
+            .build()
+            .getObjectSingle(String::class.java)
+    }
+
 }

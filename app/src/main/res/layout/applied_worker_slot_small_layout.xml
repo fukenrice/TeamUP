@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appliedWorkerSlotCardView"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/md_green_100"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:contentPadding="4dp">
+
+    <RelativeLayout
+        android:id="@+id/appliedWorkerSlotSmallLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/appliedWorkerSlotSmallEmployeeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/appliedWorkerSlotSmallDescriptionTextView"
+            android:layout_width="341dp"
+            android:layout_height="67dp"
+            android:layout_below="@+id/appliedWorkerSlotSmallEmployeeName"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="17dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/appliedWorkerSlotSmallEmployeeName"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/appliedWorkerSlotSmallRetractButton"
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appliedWorkerSlotSmallDescriptionTextView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="7dp"
+            android:text="@string/retract_request"
+            android:backgroundTint="@android:color/holo_red_dark"/>
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
