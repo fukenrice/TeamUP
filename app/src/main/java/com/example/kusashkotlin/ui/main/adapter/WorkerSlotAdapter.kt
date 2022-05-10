@@ -13,9 +13,13 @@ import io.reactivex.Scheduler
 import kotlinx.android.synthetic.main.item_layout.view.*
 import kotlinx.android.synthetic.main.worker_slot_small_layout.view.*
 
-class WorkerSlotAdapter(private val onItemClicked: (position: Int) -> Unit, private val slots: MutableList<WorkerSlot>) : RecyclerView.Adapter<WorkerSlotAdapter.DataViewHolder>() {
+class WorkerSlotAdapter(
+    private val onItemClicked: (position: Int) -> Unit,
+    private val slots: MutableList<WorkerSlot>,
+) : RecyclerView.Adapter<WorkerSlotAdapter.DataViewHolder>() {
 
-    class DataViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    class DataViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
             itemView.setOnClickListener(this)
@@ -40,7 +44,8 @@ class WorkerSlotAdapter(private val onItemClicked: (position: Int) -> Unit, priv
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): WorkerSlotAdapter.DataViewHolder = DataViewHolder(onItemClicked,
+    ): WorkerSlotAdapter.DataViewHolder = DataViewHolder(
+        onItemClicked,
         LayoutInflater.from(parent.context)
             .inflate(R.layout.worker_slot_small_layout, parent, false)
     )

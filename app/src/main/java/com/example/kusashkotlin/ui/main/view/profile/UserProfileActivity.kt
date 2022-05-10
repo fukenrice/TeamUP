@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -17,6 +18,7 @@ import butterknife.ButterKnife
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
+import com.example.kusashkotlin.data.model.Profile
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.databinding.ActivityUserProfileBinding
 import com.example.kusashkotlin.ui.main.view.auth.LoginActivity
@@ -26,6 +28,7 @@ import com.example.kusashkotlin.ui.main.view.project.CurrentProjectsActivity
 import com.example.kusashkotlin.ui.main.view.project.EditProjectActivity
 import com.example.kusashkotlin.ui.main.view.project.ProjectListActivity
 import com.example.kusashkotlin.ui.main.view.slots.AppliedWorkerSLotsActivity
+import com.example.kusashkotlin.ui.main.view.slots.ProjectWorkerSlotListActivity
 import com.example.kusashkotlin.ui.main.view.slots.SentRequestsWorkersSlotsActivity
 import com.example.kusashkotlin.ui.main.view.tests.BelbinActivity
 import com.example.kusashkotlin.ui.main.view.tests.MBTIActivity
@@ -53,13 +56,13 @@ class UserProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserProfileBinding
 
+    private var observerProfile: Profile? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile)
         ButterKnife.bind(this)
         save = getSharedPreferences("APP", MODE_PRIVATE)
-
-
     }
 
     override fun onResume() {
@@ -149,7 +152,32 @@ class UserProfileActivity : AppCompatActivity() {
 
         if (intent.getStringExtra("username") != null) {
             logoutButton.visibility = View.GONE
+            profileInviteButton.visibility = View.VISIBLE
+            viewModel.getOtherProfile(save.getString("username", "").toString())
+            viewModel.getObserverProfile().observe(this, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        observerProfile = it.data
+                    }
+                }
+            })
         }
+
+        profileInviteButton.setOnClickListener {
+            if (observerProfile?.project ?: "" != "") {
+                val intent: Intent =
+                    Intent(this, ProjectWorkerSlotListActivity::class.java)
+                intent.putExtra(
+                    "username", viewModel.getProfile().value?.data?.user?.username
+                )
+                intent.putExtra("project_title", observerProfile?.project)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Сначала создайте проект", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
 
         logoutButton.setOnClickListener {
             save.edit().clear().apply()
@@ -192,7 +220,8 @@ class UserProfileActivity : AppCompatActivity() {
                         .withSelectable(false),
                     PrimaryDrawerItem().withIdentifier(9).withName("Посмотреть свои проекты")
                         .withSelectable(false),
-                    PrimaryDrawerItem().withIdentifier(10).withName("Посмотреть неодобренные заявки")
+                    PrimaryDrawerItem().withIdentifier(10)
+                        .withName("Посмотреть неодобренные заявки")
                         .withSelectable(false),
                 ).withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
                     override fun onItemClick(

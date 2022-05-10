@@ -14,12 +14,10 @@ import com.androidnetworking.error.ANError
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
-import com.example.kusashkotlin.data.model.ProjectModel
 import com.example.kusashkotlin.data.model.RoleModel
 import com.example.kusashkotlin.data.model.SpecializationModel
 import com.example.kusashkotlin.data.model.WorkerSlot
 import com.example.kusashkotlin.data.repo.MainRepository
-import com.example.kusashkotlin.databinding.ActivityEditProjectBinding
 import com.example.kusashkotlin.databinding.ActivityProjectBinding
 import com.example.kusashkotlin.ui.main.adapter.WorkerSlotAdapter
 import com.example.kusashkotlin.ui.main.view.slots.WorkerSlotActivity
@@ -27,7 +25,6 @@ import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
 import com.example.kusashkotlin.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_edit_project.*
 import kotlinx.android.synthetic.main.activity_project.*
 
 class ProjectActivity : AppCompatActivity() {

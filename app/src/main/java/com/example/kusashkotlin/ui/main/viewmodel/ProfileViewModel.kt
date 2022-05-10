@@ -1,8 +1,5 @@
 package com.example.kusashkotlin.ui.main.viewmodel
 
-import android.content.SharedPreferences
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +13,7 @@ import io.reactivex.schedulers.Schedulers
 class ProfileViewModel(private val mainRepository: MainRepository, private val username: String) :
     ViewModel() {
     private val profile = MutableLiveData<Resource<Profile>>()
+    private val observerProfile = MutableLiveData<Resource<Profile>>()
     private val compositeDisposable = CompositeDisposable() // TODO: Узнать
 
     init {
@@ -34,6 +32,24 @@ class ProfileViewModel(private val mainRepository: MainRepository, private val u
                     profile.postValue(Resource.error("Something Went Wrong profile", null))
                 })
         )
+    }
+
+    fun getOtherProfile(observerUsername: String) {
+        profile.postValue(Resource.loading(null))
+        compositeDisposable.add(
+            mainRepository.getProfile(observerUsername)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ profileM ->
+                    observerProfile.postValue(Resource.success(profileM))
+                }, { throwable ->
+                    observerProfile.postValue(Resource.error("Something Went Wrong profile", null))
+                })
+        )
+    }
+
+    fun getObserverProfile() : LiveData<Resource<Profile>> {
+        return observerProfile
     }
 
     override fun onCleared() {
