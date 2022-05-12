@@ -26,11 +26,11 @@ class MainRepository(private val apiHelper: ApiHelper) {
         return apiHelper.editProfile(update, token)
     }
 
-    fun sendBelbin(belbinModel: BelbinModel, token: String): Single<String> {
+    fun sendBelbin(belbinModel: BelbinModel, token: String): Single<List<String>> {
         return apiHelper.sendBelbin(belbinModel, token)
     }
 
-    fun sendMBTI(mbtiModel: MBTIModel, token: String): Single<String> {
+    fun sendMBTI(mbtiModel: MBTIModel, token: String): Single<List<String>> {
         return apiHelper.sendMBTI(mbtiModel, token)
     }
 

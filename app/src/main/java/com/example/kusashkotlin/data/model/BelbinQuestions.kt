@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class BelbinQuestions(
     @SerializedName("answer0")
-    var answer0: Int = 0,
+    var answer0: Int? = 0,
 
     @SerializedName("answer1")
-    var answer1: Int = 0,
+    var answer1: Int? = 0,
 
     @SerializedName("answer2")
-    var answer2: Int = 0,
+    var answer2: Int? = 0,
 
     @SerializedName("answer3")
     var answer3: Int = 0,

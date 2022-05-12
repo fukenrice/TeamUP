@@ -17,7 +17,7 @@ class ApiServiceImpl : ApiService {
     private val host = App.getAppResources().getString(R.string.host)
     private val protocol = App.getAppResources().getString(R.string.protocol)
     private val port = App.getAppResources().getString(R.string.port)
-    private val url = "${protocol}://${host}:${port}"
+    private val url = "${protocol}://${host}"
 
 
     override fun getProfile(username: String): Single<Profile> {
@@ -62,21 +62,21 @@ class ApiServiceImpl : ApiService {
             .getObjectSingle(String::class.java)
     }
 
-    override fun sendBelbin(belbinModel: BelbinModel, token: String): Single<String> {
+    override fun sendBelbin(belbinModel: BelbinModel, token: String): Single<List<String>> {
         return Rx2AndroidNetworking.post("${url}/api/v1/process-belbin/")
             .addJSONObjectBody(JSONObject(Gson().toJson(belbinModel)))
             .addHeaders("Authorization", "Token $token")
             .build()
-            .getObjectSingle(String::class.java)
+            .getObjectListSingle(String::class.java)
 
     }
 
-    override fun sendMBTI(mbtiModel: MBTIModel, token: String): Single<String> {
+    override fun sendMBTI(mbtiModel: MBTIModel, token: String): Single<List<String>> {
         return Rx2AndroidNetworking.post("${url}/api/v1/process-mbti/")
             .addJSONObjectBody(JSONObject(Gson().toJson(mbtiModel)))
             .addHeaders("Authorization", "Token $token")
             .build()
-            .getObjectSingle(String::class.java)
+            .getObjectListSingle(String::class.java)
     }
 
     override fun updateExecutorOffer(

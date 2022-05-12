@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -30,13 +31,11 @@ class ProjectListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_list)
-        setupUI()
-        setupViewModel()
-        setupObserver()
     }
 
     override fun onResume() {
         super.onResume()
+        setupUI()
         setupViewModel()
         setupObserver()
     }
@@ -80,6 +79,7 @@ class ProjectListActivity : AppCompatActivity() {
     private fun onListItemClick(position: Int) {
         val intent: Intent = Intent(this, ProjectActivity::class.java)
         intent.putExtra("title", viewModel.getProjects().value?.data?.get(position)?.title)
+        viewModel.getProjects().value?.data?.get(position)?.title?.let { Log.d("mytag", it) }
         startActivity(intent)
     }
 

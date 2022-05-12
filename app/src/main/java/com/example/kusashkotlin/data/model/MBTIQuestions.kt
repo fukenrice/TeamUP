@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class MBTIQuestions(
     @SerializedName("answer1")
-    var answer1: Int = 0,
+    var answer1: Int? = null,
 
     @SerializedName("answer2")
     var answer2: Int = 0,

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">kursachKotlin</string>
+    <string name="app_name">TeamUp</string>
     <string name="password">Пароль</string>
     <string name="login">Логин</string>
     <string name="login_button">Войти</string>

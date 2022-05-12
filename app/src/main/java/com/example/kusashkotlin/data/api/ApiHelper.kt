@@ -11,8 +11,7 @@ class ApiHelper(private val apiService: ApiService) {
         apiService.registerUser(email, username, password)
 
     fun editProfile(update: ProfileUpdate, token: String) = apiService.editProfile(update, token)
-    fun sendBelbin(belbinModel: BelbinModel, token: String) =
-        apiService.sendBelbin(belbinModel, token)
+    fun sendBelbin(belbinModel: BelbinModel, token: String) = apiService.sendBelbin(belbinModel, token)
 
     fun sendMBTI(mbtiModel: MBTIModel, token: String) = apiService.sendMBTI(mbtiModel, token)
     fun updateExecutorOffer(executorOfferSetupModel: ExecutorOfferSetupModel, token: String) =

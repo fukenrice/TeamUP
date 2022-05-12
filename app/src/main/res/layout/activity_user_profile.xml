@@ -49,7 +49,7 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text='@{profile.user.firstName == null ? "zxc" : profile.user.firstName}'
+                android:text='@{profile.user.firstName == null ? "" : profile.user.firstName}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/avatarImageView"
@@ -134,6 +134,7 @@
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -237,7 +238,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
-                android:text='@{"Пол: " + profile.sex}'
+                android:text='@{profile.sex == null ? "" : "Пол: " + profile.sex}'
                 app:layout_constraintStart_toEndOf="@+id/cityTextView"
                 app:layout_constraintTop_toBottomOf="@+id/lsqRolesTextView" />
 
@@ -247,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
-                android:text='@{"Возраст: " + profile.age}'
+                android:text='@{profile.age == null ? "" : "Возраст: " + profile.age}'
                 app:layout_constraintStart_toEndOf="@+id/sexTextView"
                 app:layout_constraintTop_toBottomOf="@+id/lsqRolesTextView" />
 

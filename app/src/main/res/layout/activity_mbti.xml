@@ -34,13 +34,13 @@
             android:id="@+id/mbtiBlock1TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
             android:text="Блок 1:"
             android:textStyle="bold"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.101"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mbtiLabelTextVeiw" />
+            app:layout_constraintTop_toBottomOf="@+id/mbtiTestGuide" />
 
         <TextView
             android:id="@+id/mbtiBlock1Que1TextView"
@@ -2432,6 +2432,16 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mbtiBlock10Ans7RadioGroup" />
+
+        <TextView
+            android:id="@+id/mbtiTestGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Здесь будет инструкция"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mbtiLabelTextVeiw" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
