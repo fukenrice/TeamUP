@@ -83,6 +83,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
             workerSlotEditPretendingUesrsRecyclerView.visibility = View.GONE
             workerSlotEditDeleteButton.visibility = View.GONE
             setupViewModel()
+            setupWorkerSlotObserver()
         } else {
             workerSlotEditPretendingUesrsRecyclerView.layoutManager = LinearLayoutManager(this)
             id = intent.getIntExtra("id", -1)
@@ -91,6 +92,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
                 { position -> onListItemClick(position) }, mutableListOf(), id)
             workerSlotEditPretendingUesrsRecyclerView.adapter = adapter
             setupViewModel()
+            setupWorkerSlotObserver()
             setupAppliesObserver()
 
             workerSlotEditEmployeeTextView.setOnClickListener {
@@ -103,7 +105,6 @@ class EditWorkerSlotActivity : AppCompatActivity() {
         }
 
         workerSlotEditChangeRolesButton.setOnClickListener {
-
             showChangeBelbinDialog()
         }
         workerSlotEditChangeSpecializationsButton.setOnClickListener {
@@ -383,7 +384,7 @@ class EditWorkerSlotActivity : AppCompatActivity() {
             .subscribe({ response ->
                 allSpecializations = response
                 selectedSpecializations = BooleanArray(allSpecializations.size)
-                setupWorkerSlotObserver()
+                setContent()
             }, { throwable ->
                 if (throwable is ANError) {
                     Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG)

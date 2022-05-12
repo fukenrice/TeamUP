@@ -69,7 +69,6 @@ class EditProjectActivity : AppCompatActivity() {
         super.onResume()
         getBelbinRoles()
         getSpecializations()
-        setContent()
     }
 
     @SuppressLint("CheckResult")
@@ -300,6 +299,7 @@ class EditProjectActivity : AppCompatActivity() {
             .subscribe({ response ->
                 allSpecializations = response
                 selectedSpecializations = BooleanArray(allSpecializations.size)
+                setContent()
             }, { throwable ->
                 if (throwable is ANError) {
                     Toast.makeText(applicationContext, throwable.errorBody, Toast.LENGTH_LONG)
