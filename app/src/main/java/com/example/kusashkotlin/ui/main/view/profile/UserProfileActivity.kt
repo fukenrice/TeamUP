@@ -124,6 +124,8 @@ class UserProfileActivity : AppCompatActivity() {
                             // TODO: Сетевой запрос на загрузку резюме.
                         }
                     }
+                    setSupportActionBar(toolbar)
+                    setDrawer()
                 }
                 Status.LOADING -> {
                     progressBar.visibility = View.VISIBLE
@@ -194,8 +196,7 @@ class UserProfileActivity : AppCompatActivity() {
             button_toggle.setText(if (expandableTextView.isExpanded) R.string.expand else R.string.collapse)
             expandableTextView.toggle()
         }
-        setSupportActionBar(toolbar)
-        setDrawer()
+
     }
 
     private fun setDrawer() {

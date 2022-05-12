@@ -210,6 +210,13 @@ class EditWorkerSlotActivity : AppCompatActivity() {
 
                     if (it.data.profile == null) {
                         workerSlotEditEmployeeTextView.visibility = View.GONE
+                    } else {
+                        val name = it.data.profile
+                        workerSlotEditEmployeeTextView.setOnClickListener {
+                            val intent: Intent = Intent(this, UserProfileActivity::class.java)
+                            intent.putExtra("username", name)
+                            startActivity(intent)
+                        }
                     }
 
 
