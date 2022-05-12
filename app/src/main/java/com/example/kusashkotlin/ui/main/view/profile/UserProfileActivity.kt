@@ -88,8 +88,16 @@ class UserProfileActivity : AppCompatActivity() {
                     it.data?.let { it1 -> save.edit().putInt("id", it1.id) }
 
                     progressBar.visibility = View.GONE
-                    Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()
-                        .into(avatarImageView)
+
+                    if (it.data?.photo ?: "" == "") {
+                        Picasso.with(this)
+                            .load(Uri.parse("android.resource://${packageName}/${R.raw.empty}"))
+                            .fit().centerCrop()
+                            .into(avatarImageView)
+                    } else {
+                        Picasso.with(this).load(Uri.parse(it.data?.photo ?: "")).fit().centerCrop()
+                            .into(avatarImageView)
+                    }
 
                     if (it.data?.belbin != null) {
                         belbinListView.setAdapter(
@@ -101,10 +109,12 @@ class UserProfileActivity : AppCompatActivity() {
                     }
 
                     if (it.data?.specialzation != null) {
-                        profileViewSpecializationsListView.setAdapter(ArrayAdapter<String>(
-                            this, android.R.layout.simple_list_item_1,
-                            it.data.specialzation!!
-                        ))
+                        profileViewSpecializationsListView.setAdapter(
+                            ArrayAdapter<String>(
+                                this, android.R.layout.simple_list_item_1,
+                                it.data.specialzation!!
+                            )
+                        )
                     }
 
                     if (it.data?.mbti != null) {
