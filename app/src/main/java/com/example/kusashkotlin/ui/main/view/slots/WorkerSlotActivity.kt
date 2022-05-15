@@ -92,8 +92,6 @@ class WorkerSlotActivity : AppCompatActivity() {
                         }
                     }
 
-                    workerSlotRolesListView.adapter
-
                     val specializations: MutableList<String> =
                         it.data?.specializations?.let { it1 ->
                             getSpecializationsListByIndex(
@@ -101,7 +99,7 @@ class WorkerSlotActivity : AppCompatActivity() {
                             )
                         }!!
 
-                    workerSlotRolesListView.adapter = ArrayAdapter<String>(
+                    workerSlotSpecializationsListView.adapter = ArrayAdapter<String>(
                         this,
                         android.R.layout.simple_list_item_1,
                         specializations
