@@ -52,4 +52,5 @@
     <string name="retract_request">Отозавть заявку</string>
     <string name="invite_to_project">Пригласить в проект</string>
     <string name="invite">Пригласить</string>
+    <string name="filters">Фильтры</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="host">project-teamup.azurewebsites.net</string>
+    <string name="host">10.0.2.2</string>
     <string name="port">8000</string>
-    <string name="protocol">https</string>
+    <string name="protocol">http</string>
 </resources>

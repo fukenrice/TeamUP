@@ -32,7 +32,6 @@ class LoginTokenViewModel(
     }
 
     private fun fetchToken() {
-        Log.d("mytagViewModel", username + " " + password)
         tokenLiveData.postValue(Resource.loading(null))
 
         compositeDisposable.add(
@@ -52,6 +51,7 @@ class LoginTokenViewModel(
                         )
                     } else {
                         tokenLiveData.postValue(Resource.error("Ошибка авторизации", null))
+                        Log.d("mytag", throwable.toString())
                     }
                 })
         )

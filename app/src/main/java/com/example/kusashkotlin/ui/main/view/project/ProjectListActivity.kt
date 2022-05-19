@@ -1,36 +1,42 @@
 package com.example.kusashkotlin.ui.main.view.project
 
 import android.content.Intent
-import android.content.SharedPreferences
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.model.ProjectModel
+import com.example.kusashkotlin.data.model.SpecializationModel
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.adapter.ProjectAdapter
-import com.example.kusashkotlin.ui.main.view.profile.UserProfileActivity
 import com.example.kusashkotlin.ui.main.viewmodel.ProjectListViewModel
 import com.example.kusashkotlin.utils.Status
+import kotlinx.android.synthetic.main.activity_edit_worker_slot.*
 import kotlinx.android.synthetic.main.activity_project_list.*
 
 class ProjectListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ProjectListViewModel
     private lateinit var adapter: ProjectAdapter
+    private lateinit var projects: List<ProjectModel>
+    private lateinit var allSpecializations: List<SpecializationModel>
+    private lateinit var selectedSpecializations: BooleanArray
+    private var selectedSpecializationsIds: List<Int> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_list)
+        projectListFilterButton.setOnClickListener {
+            showFilterDialog()
+        }
     }
 
     override fun onResume() {
@@ -51,7 +57,8 @@ class ProjectListActivity : AppCompatActivity() {
             when (it.status) {
                 Status.SUCCESS -> {
                     projectsListProgressBar.visibility = View.GONE
-                    it.data?.let { it1 -> renderList(it1) }
+                    projects = it.data!!
+                    it.data.let { it1 -> renderList(it1) }
                 }
                 Status.LOADING -> {
                     projectsListProgressBar.visibility = View.VISIBLE
@@ -63,6 +70,55 @@ class ProjectListActivity : AppCompatActivity() {
                 }
             }
         })
+
+        viewModel.getSpecializations().observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    projectListFilterButton.visibility = View.VISIBLE
+                    allSpecializations = it.data!!
+                    selectedSpecializations = BooleanArray(allSpecializations.size)
+                }
+            }
+        })
+
+    }
+
+    private fun filterProjects(allProjects: List<ProjectModel>, requiresSpecializationsIds: List<Int>) : List<ProjectModel> {
+        if (requiresSpecializationsIds.isEmpty()) {
+            return allProjects
+        }
+        return allProjects.filter {
+            it.requiredSpecialization.toSet().intersect(requiresSpecializationsIds).isNotEmpty()
+        }
+    }
+
+    private fun showFilterDialog() {
+        val tmpSelectedSpecializations = BooleanArray(allSpecializations.size)
+        for (i in selectedSpecializations.indices) {
+            tmpSelectedSpecializations[i] = selectedSpecializations[i]
+        }
+        val specializationArr =
+            Array<String>(allSpecializations.size) { i -> allSpecializations[i].name }
+
+        val builderMultiply = AlertDialog.Builder(this)
+        builderMultiply.setTitle("Выберите специализации")
+        builderMultiply.setMultiChoiceItems(
+            specializationArr,
+            tmpSelectedSpecializations
+        ) { dialog, which, isChecked ->
+            selectedSpecializations[which] = isChecked
+        }
+        builderMultiply.setPositiveButton("Подтвердить") { dialog, id ->
+            val newSpecialization: MutableList<Int> = listOf<Int>().toMutableList()
+            for (i in selectedSpecializations.indices) {
+                if (selectedSpecializations[i]) {
+                    newSpecialization.add(allSpecializations[i].id)
+                }
+            }
+            selectedSpecializationsIds = newSpecialization
+            renderList(filterProjects(projects, selectedSpecializationsIds))
+        }
+        builderMultiply.show()
     }
 
     private fun renderList(projects: List<ProjectModel>) {

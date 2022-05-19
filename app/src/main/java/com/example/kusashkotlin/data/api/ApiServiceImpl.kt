@@ -17,7 +17,7 @@ class ApiServiceImpl : ApiService {
     private val host = App.getAppResources().getString(R.string.host)
     private val protocol = App.getAppResources().getString(R.string.protocol)
     private val port = App.getAppResources().getString(R.string.port)
-    private val url = "${protocol}://${host}"
+    private val url = "${protocol}://${host}:${port}"
 
 
     override fun getProfile(username: String): Single<Profile> {
