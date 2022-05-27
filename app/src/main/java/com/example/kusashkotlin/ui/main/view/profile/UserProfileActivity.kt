@@ -225,8 +225,8 @@ class UserProfileActivity : AppCompatActivity() {
                     PrimaryDrawerItem().withIdentifier(3).withName("Пройти тест Майерса-Бриггса")
                         .withSelectable(false),
                     PrimaryDrawerItem().withIdentifier(4)
-                        .withName("Отредактировать предложение работника").withSelectable(false),
-                    PrimaryDrawerItem().withIdentifier(5).withName("Отредактировать проект")
+                        .withName("Управление предложением работника").withSelectable(false),
+                    PrimaryDrawerItem().withIdentifier(5).withName("Управление проектом")
                         .withSelectable(false),
                     PrimaryDrawerItem().withIdentifier(6).withName("Посмотреть проекты")
                         .withSelectable(false),
