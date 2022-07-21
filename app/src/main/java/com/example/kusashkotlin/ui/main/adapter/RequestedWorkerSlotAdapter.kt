@@ -9,6 +9,7 @@ import com.example.kusashkotlin.data.model.WorkerSlot
 import kotlinx.android.synthetic.main.applied_worker_slot_layout.view.*
 import kotlinx.android.synthetic.main.applied_worker_slot_small_layout.view.*
 
+/// Аналогичные коментарии что и для других адаптеров
 class RequestedWorkerSlotAdapter(
     private val onDenyClick: (slotId: Int, position: Int) -> Unit,
     private val onItemClicked: (position: Int) -> Unit,

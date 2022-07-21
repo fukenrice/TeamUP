@@ -13,6 +13,7 @@ import io.reactivex.Scheduler
 import kotlinx.android.synthetic.main.item_layout.view.*
 import kotlinx.android.synthetic.main.worker_slot_small_layout.view.*
 
+/// Аналогичные коментарии что и для других адаптеров
 class WorkerSlotAdapter(
     private val onItemClicked: (position: Int) -> Unit,
     private val slots: MutableList<WorkerSlot>,

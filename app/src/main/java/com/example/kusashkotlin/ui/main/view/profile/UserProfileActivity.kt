@@ -42,7 +42,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_user_profile.*
 
-
+/// Не буду повторяться тут все тоже самое token, репоззиторий, константы, строки
 class UserProfileActivity : AppCompatActivity() {
 
     @BindView(R.id.nameTextView)

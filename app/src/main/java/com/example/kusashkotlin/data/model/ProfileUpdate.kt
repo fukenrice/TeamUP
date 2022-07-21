@@ -20,7 +20,7 @@ data class ProfileUpdate(
     var city: String?= null,
 
     @SerializedName("age")
-    var age: Int? = null,
+    var age: Int? = null, // а тут уже Int
 
     @SerializedName("description")
     var description: String?= null,

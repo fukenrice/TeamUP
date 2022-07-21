@@ -2,6 +2,8 @@ package com.example.kusashkotlin.utils
 
 import android.text.InputFilter
 import android.text.Spanned
+import java.lang.Integer.max
+import kotlin.math.min
 
 
 class InputFilterMinMax : InputFilter {
@@ -36,7 +38,9 @@ class InputFilterMinMax : InputFilter {
         return ""
     }
 
-    private fun isInRange(a: Int, b: Int, c: Int): Boolean {
+    private fun isInRange(a: Int, b: Int, c: Int): Boolean { // названия параметров должны быть говорящими
         return if (b > a) c >= a && c <= b else c >= b && c <= a
+        // можно кстати без if - читаться будет лучше
+        // return c >= min(a, b) && c <= max(a, b)
     }
 }

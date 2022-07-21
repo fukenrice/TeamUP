@@ -25,7 +25,7 @@ class ExecutorOfferEditActivity : AppCompatActivity() {
 
     private lateinit var save: SharedPreferences
 
-    private var token: String? = null
+    private var token: String? = null // Как уже писал - токен лучше отсюда убрать. перенести в репозиторий инициализировать 1 раз на приложение.
 
     private lateinit var offer: ExecutorOfferSetupModel
 
@@ -36,7 +36,7 @@ class ExecutorOfferEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_executor_offer)
-        save = getSharedPreferences("APP", MODE_PRIVATE)
+        save = getSharedPreferences("APP", MODE_PRIVATE) // это все должно уйти
         token = save.getString("token", "")
         setContent()
     }
@@ -46,20 +46,20 @@ class ExecutorOfferEditActivity : AppCompatActivity() {
 
         viewModel = ProfileViewModel(
             MainRepository(ApiHelper(ApiServiceImpl())),
-            save.getString("username", "").toString()
+            save.getString("username", "").toString() // репозиторий
         )
 
         setupProfileObserver()
 
         executorOfferConfimButton.setOnClickListener {
             if (executorOfferDescriptionTextEdit.text.isEmpty()) {
-                Toast.makeText(applicationContext, "Пожалуйста, заполните описание", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Пожалуйста, заполните описание", Toast.LENGTH_LONG).show() //strings.xml
                 return@setOnClickListener
             }
             if (executorOfferWorkingHoursTextEdit.text.isEmpty()) {
                 Toast.makeText(
                     applicationContext,
-                    "Пожалуйста, заполните желаемое количество часов",
+                    "Пожалуйста, заполните желаемое количество часов",  //strings.xml
                     Toast.LENGTH_LONG
                 ).show()
                 return@setOnClickListener

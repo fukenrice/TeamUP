@@ -41,6 +41,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // работу с sharedPreferences лучше вынести в репозиторий, а тут просто вызывать метод репозитория.
+        // Тогда реализацию хранения можно будет менять не изменяя код activity
         save = getSharedPreferences("APP", MODE_PRIVATE)
         AndroidNetworking.initialize(getApplicationContext());
         token = save.getString("token", "").toString()
@@ -49,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
         // Валидный ли токен
         setupUserViewModel()
         setUpUserObserver()
-        if (token == "" || username == "") {
+        if (token == "" || username == "") { // если из репозитория у тебя будет приходить объект содержащий поля token/username то эту логику можно инкапсулировать в нем в методе isAuthorized()
             setContent()
         } else {
             //setPreferences(token, username)
@@ -60,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    // в репозиторий
     private fun setPreferences(token: String, username: String) {
         val edit: SharedPreferences.Editor = save.edit()
         edit.putString("username", username)
@@ -132,6 +135,7 @@ class LoginActivity : AppCompatActivity() {
         )
     }
 
+    // может быть инициализирован с пустым токено. Вряд ли это то что нам нужно
     private fun setupUserViewModel() {
         userViewModel = LoginUserViewModel(
             MainRepository(ApiHelper(ApiServiceImpl())),

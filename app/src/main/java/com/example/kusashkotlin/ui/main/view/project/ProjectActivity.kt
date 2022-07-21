@@ -138,7 +138,7 @@ class ProjectActivity : AppCompatActivity() {
                     binding.project = it.data
 
                     val specializations: MutableList<String> =
-                        it.data?.requiredSpecialization?.let { it1 ->
+                        it.data?.requiredSpecialization?.let { it1 -> // лучше использовать говорящее название, например `indexes`
                             getSpecializationsListByIndex(
                                 it1
                             )

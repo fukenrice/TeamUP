@@ -4,6 +4,8 @@ import com.example.kusashkotlin.data.api.ApiHelper
 import com.example.kusashkotlin.data.model.*
 import io.reactivex.Single
 
+// Опять все в одну кучу и снова просто заглушка без какой то логики.
+// ApiService -> ApiHelper -> MainRepository - в такой релизации двае последних сущности не имеют смысла
 class MainRepository(private val apiHelper: ApiHelper) {
 
     fun getProfile(username: String): Single<Profile> {

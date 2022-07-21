@@ -30,6 +30,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_edit_project.*
 
+
+/// Не буду повторяться тут все тоже самое token, репоззиторий, константы, строки
 class EditActivity : AppCompatActivity() {
 
     lateinit var allSpecializations: List<SpecializationModel>

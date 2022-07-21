@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.profile_small_layout.view.*
 import kotlinx.android.synthetic.main.project_small_layout.view.*
 
 class ProjectAdapter(
-    private val onItemClicked: (position: Int) -> Unit,
+    private val onItemClicked: (position: Int) -> Unit, // лучше клики завязывать не на позиции а на модель (ProjectModel), в таком случае даже если теоретически список изменинтся асинхронно пока ты обрабатываешь onClick - будет обработана нужна модель
     private val projects: MutableList<ProjectModel>
 ) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
@@ -24,8 +24,8 @@ class ProjectAdapter(
             itemView.setOnClickListener(this)
         }
 
-        fun bind(project: ProjectModel) {
-            itemView.projectSmallTitleTextView.text = "Проект " + project.title
+        fun bind(project: ProjectModel) { // = with(itemView)
+            itemView.projectSmallTitleTextView.text = "Проект " + project.title // strings.xml
             itemView.projectSmallDescriptionTextView.text = project.description
         }
 

@@ -2,6 +2,7 @@ package com.example.kusashkotlin.data.model
 
 import com.google.gson.annotations.SerializedName
 
+// Хочется понять разницу с BelbinModel, из того что вижу только отсутсвие answer0
 data class MBTIQuestions(
     @SerializedName("answer1")
     var answer1: Int? = null,

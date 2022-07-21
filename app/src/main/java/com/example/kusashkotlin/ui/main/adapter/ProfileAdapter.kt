@@ -28,9 +28,9 @@ class ProfileAdapter(
 
         fun bind(profile: Profile) {
             itemView.profileSmallNameTextView.text =
-                profile.user.firstName + " " + profile.user.lastName
+                profile.user.firstName + " " + profile.user.lastName // формат тоже нужно в строки вынести, даже студия подсказывает -> "$s $s"
             itemView.profileSmallDescriptionTextView.text = profile.desctiption
-            itemView.profileSmallApplyButton.setOnClickListener { onApplyClick(profiles[adapterPosition].user.username, slotId) }
+            itemView.profileSmallApplyButton.setOnClickListener { onApplyClick(profile.user.username, slotId) } // зачем искать в списке с использованием deprecated метода, когда ты профиль передал в функцию
             itemView.profileSmallDenyButton.setOnClickListener { onDenyClick(profiles[adapterPosition].user.username, slotId) }
         }
 

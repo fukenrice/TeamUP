@@ -21,11 +21,12 @@ class ExecutorOfferAdapter(
             itemView.setOnClickListener(this)
         }
 
+        // тоже через with
         fun bind(offer: ExecutorOffer) {
             itemView.executorOfferSmallNameTextView.text = offer.username
             itemView.executorOfferSmallDescriptionTextView.text = offer.description
             itemView.executorOfferSmallSalaryTextView.text =
-                "Пердполагаемыя зарплата: ${offer.salary.toString()}"
+                "Пердполагаемыя зарплата: ${offer.salary.toString()}" // строки надо хранить в strings.xml
             itemView.executorOfferSmallHoursTextView.text =
                 "Хочет работать: ${offer.workHours.toString()}"
         }
