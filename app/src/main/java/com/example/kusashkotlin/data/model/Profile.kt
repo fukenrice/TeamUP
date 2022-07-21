@@ -2,9 +2,10 @@ package com.example.kusashkotlin.data.model
 
 import com.google.gson.annotations.SerializedName
 
+// Вообще модели дучше делать immutable, чтобы нельзя было значения менять. так безопаснее.
 data class Profile(
     @SerializedName("id")
-    var id: Int = 0,
+    var id: Int = 0, // в этом случае профайл валидный буудет? Если нет лучше на задавать для полей типа id значения по умолчанию.
 
     @SerializedName("remote")
     var remote: String = "",
@@ -34,7 +35,7 @@ data class Profile(
     var patronymic: String = "",
 
     @SerializedName("photo")
-    var photo: String = "",
+    var photo: String = "", // это url? тогда лучше назвать photoUrl - будет понятнее
 
     @SerializedName("description")
     var desctiption: String = "",
@@ -46,7 +47,7 @@ data class Profile(
     var city: String = "",
 
     @SerializedName("age")
-    var age: String = "",
+    var age: String = "", // String?
 
     @SerializedName("verified")
     var verified: Boolean = false,

@@ -32,6 +32,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_project.*
 
+/// Не буду повторяться тут все тоже самое token, репоззиторий, константы, строки
 class EditProjectActivity : AppCompatActivity() {
 
     lateinit var allBelbinRoles: List<RoleModel>
@@ -154,6 +155,7 @@ class EditProjectActivity : AppCompatActivity() {
             val project: ProjectModel
 
             val remote: Boolean?
+            // сохранить в переменную и сравнивать значение переменной - три раза один и тот же код
             if (projectEditRemoteRadioGroup.indexOfChild(
                     projectEditRemoteRadioGroup.findViewById(
                         projectEditRemoteRadioGroup.checkedRadioButtonId

@@ -13,7 +13,19 @@ import io.reactivex.Single
 import org.json.JSONObject
 import org.json.JSONStringer
 
+
+// интерфейс ApiService и его реализацию нужно бить по доменам. Не надо все запихивать в один огромный класс.
+
+// Работу с токенами лучше сделать по другому, сейчас у тебя каждый кто вызывает методы сервиса должен знать token, это лишнее
+// Его можно инкапсулировать тут или в ApiHelper - тогда в нем появляется какой-то смысл
+// ну и разносить на разные сервисы - один для авторизованной зоны - с токеном, другой для неавторизованной
+// Строковые значения, особенно те которые повторяются надо выносить в константы.
+// в этом случае как минимум: "Authorization",  "Token". но "username", "password" я бы тоже вынес
+
+
 class ApiServiceImpl : ApiService {
+    // так делать не надо, если хочется конфигурировать - лучше переменный положить в BuildConfig. И не надо будет делать хак с ресурсами
+    // Но если даже оставлять ресурсы как есть, то лучше их передавать через конструктор а не через инстанс App
     private val host = App.getAppResources().getString(R.string.host)
     private val protocol = App.getAppResources().getString(R.string.protocol)
     private val port = App.getAppResources().getString(R.string.port)

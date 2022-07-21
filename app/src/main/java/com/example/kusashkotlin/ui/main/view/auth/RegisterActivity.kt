@@ -44,11 +44,11 @@ class RegisterActivity : AppCompatActivity() {
                 editTextTextEmailAddress.text.isNullOrEmpty() ||
                 editTextTextRepeatPassword.text.isNullOrEmpty() ||
                 editTextTextPassword.text.isNullOrEmpty()) {
-                Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_LONG).show() // strings.xml
                 return@setOnClickListener
             }
             if (editTextTextPassword.text.toString() != editTextTextRepeatPassword.text.toString()) {
-                Toast.makeText(this, "Пароли должны совпадать", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Пароли должны совпадать", Toast.LENGTH_LONG).show() // strings.xml
             } else {
                 setupViewModel()
                 setUpObserver()
@@ -61,7 +61,7 @@ class RegisterActivity : AppCompatActivity() {
             when (it.status) {
                 Status.SUCCESS -> {
                     progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Вы успешно зарегистированы!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Вы успешно зарегистированы!", Toast.LENGTH_LONG).show()  // strings.xml
                     // startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                 }
@@ -76,6 +76,9 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
+    // ViewModel вообще лучше создавать сразу при создании экрана.
+    // Репозиторий можно инициализировать в конструкторе,  а параметры пердавать через функцию registerUser()
+    // подписать экран сразу на стейт LiveData и рендерит UI в соответсвии со стейтом.
     private fun setupViewModel() {
         viewModel = RegisterViewModel(
             MainRepository(ApiHelper(ApiServiceImpl())),

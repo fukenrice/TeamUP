@@ -8,7 +8,6 @@ import com.example.kusashkotlin.R
 import com.example.kusashkotlin.data.model.Profile
 import com.example.kusashkotlin.data.model.WorkerSlot
 import kotlinx.android.synthetic.main.applied_worker_slot_layout.view.*
-import kotlinx.android.synthetic.main.profile_small_layout.view.*
 
 class AppliedWorkerSlotAdapter(
     private val onApplyClick: (slotId: Int, position: Int) -> Unit,
@@ -17,6 +16,8 @@ class AppliedWorkerSlotAdapter(
     private val slots: MutableList<WorkerSlot>,
 ) : RecyclerView.Adapter<AppliedWorkerSlotAdapter.DataViewHolder>() {
 
+
+    // onItemClicked - не нужен в конструкторе, можно так же как и с остальными методами напрямую вызвать
     inner class DataViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
@@ -24,17 +25,15 @@ class AppliedWorkerSlotAdapter(
             itemView.setOnClickListener(this)
         }
 
-        fun bind(slot: WorkerSlot) {
-            itemView.appliedWorkerSlotProjectNameTextView.text =
-                slot.profile
-            itemView.appliedWorkerSlotDescriptionTextView.text = slot.description
-            itemView.appliedWorkerSlotApplyButton.setOnClickListener { slot.id?.let { it1 ->
-                onApplyClick(
-                    it1, adapterPosition)
+        // чтобы itemView каждый раз не пистаь, можно через with сделать
+        fun bind(slot: WorkerSlot) = with(itemView) {
+            appliedWorkerSlotProjectNameTextView.text = slot.profile
+            appliedWorkerSlotDescriptionTextView.text = slot.description
+            appliedWorkerSlotApplyButton.setOnClickListener { slot.id?.let { it1 ->
+                onApplyClick(it1, adapterPosition)
             } }
-            itemView.appliedWorkerSlotDenyButton.setOnClickListener { slot.id?.let { it1 ->
-                onDenyClick(
-                    it1, adapterPosition)
+            appliedWorkerSlotDenyButton.setOnClickListener { slot.id?.let { it1 ->
+                onDenyClick(it1, adapterPosition)
             } }
         }
 
