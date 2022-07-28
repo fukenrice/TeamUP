@@ -12,6 +12,9 @@ dependencyResolutionManagement {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url = java.net.URI.create("https://nexus.core.arrival.co/repository/all-maven/")
+        }
     }
 }
 rootProject.name = "kusashKotlin"
