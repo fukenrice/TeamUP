@@ -99,7 +99,7 @@ class EditProjectActivity : AppCompatActivity() {
         fetchProjectTitle()
 
         projectEditWorkerSlotsRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = WorkerSlotAdapter({position -> onClickWorkerSlot(position) }, mutableListOf())
+        adapter = WorkerSlotAdapter({id -> onClickWorkerSlot(id) }, mutableListOf())
         projectEditWorkerSlotsRecyclerView.adapter = adapter
         projectEditChangeBelbinButton.setOnClickListener {
             showChangeBelbinDialog()
@@ -388,10 +388,10 @@ class EditProjectActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    fun onClickWorkerSlot(position: Int) {
+    fun onClickWorkerSlot(id: Int) {
         val intent: Intent = Intent(this, EditWorkerSlotActivity::class.java)
         intent.putExtra("mode", "edit")
-        intent.putExtra("id", viewModel.getProject().value?.data?.team?.get(position)?.id)
+        intent.putExtra("id", id)
         startActivity(intent)
     }
 
