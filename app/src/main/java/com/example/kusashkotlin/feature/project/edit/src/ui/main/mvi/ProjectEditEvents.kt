@@ -7,9 +7,9 @@ object AddSlotEvent : Event
 
 data class ViewSlotEvent(val id : Int) : Event
 
-object DeleteProjectEvent : Event
+data class DeleteProjectEvent(val message : String?, val success : Boolean) : Event
 
-data class ConfirmChangesEvent(val project: ProjectModel?) : Event
+data class ConfirmChangesEvent(val message : String?, val success : Boolean) : Event
 
 data class DisplayChangeRolesDialog(val selectedIds : List<Int>) : Event
 

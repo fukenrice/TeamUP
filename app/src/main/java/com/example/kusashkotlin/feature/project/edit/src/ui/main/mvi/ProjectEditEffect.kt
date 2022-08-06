@@ -12,6 +12,6 @@ sealed class ProjectEditEffect {
     data class DisplayRoles(val roles: List<Int>) : ProjectEditEffect()
     object AddSlot : ProjectEditEffect()
     data class ViewSlot(val id: Int) : ProjectEditEffect()
-    object DeleteProject : ProjectEditEffect()
-    data class ConfirmChanges(val project: ProjectModel?) : ProjectEditEffect()
+    data class DeleteProject(val message: String?, val success : Boolean) : ProjectEditEffect()
+    data class ConfirmChanges(val message : String?,  val success : Boolean) : ProjectEditEffect()
 }

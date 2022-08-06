@@ -15,12 +15,12 @@ object ProjectEditReducer : MviReducer<ProjectEditEffect, ProjectEditState> {
             }
             is ProjectEditEffect.AddSlot -> previousState // Event, открыть новую активити, потом надо заново получить проджект, чтобы обновить слоты(или есть вариант лучше?)
             is ProjectEditEffect.DeleteProject -> previousState // Event удаления
-            is ProjectEditEffect.DisplayRoles -> previousState.copy(project = previousState.project.copy(requiredBelbin = effect.roles))
-            is ProjectEditEffect.DisplaySpec -> previousState.copy(project = previousState.project.copy(requiredSpecialization = effect.specializations))
+            is ProjectEditEffect.DisplayRoles -> previousState // Event открыть диалог
+            is ProjectEditEffect.DisplaySpec -> previousState // Event открыть диалог
             is ProjectEditEffect.ViewSlot -> previousState // Event, открыть активити редактирования слота, потом заново получить проект.
             is ProjectEditEffect.ConfirmChanges -> previousState // Event, отправить из текущего стейта проект.
-            is ProjectEditEffect.ChangeRoles -> previousState // Event, открыть диалог с выбранными ролями
-            is ProjectEditEffect.ChangeSpecializations -> previousState // Event, открыть диалог с выбранными специализациями
+            is ProjectEditEffect.ChangeRoles -> previousState.copy(project = previousState.project.copy(requiredBelbin = effect.selectedIds)) // Event, открыть диалог с выбранными ролями
+            is ProjectEditEffect.ChangeSpecializations -> previousState.copy(project = previousState.project.copy(requiredSpecialization = effect.selectedIds))
         }
     }
 }

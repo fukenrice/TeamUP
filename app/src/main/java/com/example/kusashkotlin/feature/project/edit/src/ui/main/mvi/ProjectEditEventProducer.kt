@@ -8,10 +8,10 @@ object ProjectEditEventProducer : EventProducer<ProjectEditEffect, Event> {
         return when (effect) {
             is ProjectEditEffect.AddSlot -> AddSlotEvent
             is ProjectEditEffect.ViewSlot -> ViewSlotEvent(effect.id)
-            is ProjectEditEffect.DeleteProject -> DeleteProjectEvent
-            is ProjectEditEffect.ConfirmChanges -> ConfirmChangesEvent(effect.project)
-            is ProjectEditEffect.ChangeRoles -> DisplayChangeRolesDialog(effect.selectedIds)
-            is ProjectEditEffect.ChangeSpecializations -> DisplayChangeSpecializationsDialog(effect.selectedIds)
+            is ProjectEditEffect.DeleteProject -> DeleteProjectEvent(effect.message, effect.success)
+            is ProjectEditEffect.ConfirmChanges -> ConfirmChangesEvent(effect.message, effect.success)
+            is ProjectEditEffect.DisplayRoles -> DisplayChangeRolesDialog(effect.roles)
+            is ProjectEditEffect.DisplaySpec -> DisplayChangeSpecializationsDialog(effect.specializations)
             else -> null
         }
     }
