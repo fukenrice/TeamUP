@@ -13,29 +13,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.rx2.await
 
 object ProjectEditBootstrap : MviBootstrap<ProjectEditEffect> {
 
     override fun invoke(): Flow<ProjectEditEffect> {
-
-
-        val response: Single<ProjectModel> =
-            MainRepository(ApiHelper(ApiServiceImpl())).getProject("234") // TODO: Из Intent получать название проекта и передавать его в конструктор вью модели
-
-        val f = MutableSharedFlow<ProjectEditEffect>()
-
-        response.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({ response ->
-                GlobalScope.launch { f.emit(ProjectEditEffect.BootstrapData(response)) } // Не из контекста корутины нельзя эмитить
-            }, { throwable ->
+        return flow<ProjectEditEffect> {
+            try {
+                val response = MainRepository(ApiHelper(ApiServiceImpl()))
+                    .getProject("234")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .await()
+                emit(ProjectEditEffect.BootstrapData(response))
+            } catch(throwable: Throwable) {
                 if (throwable is ANError && throwable.errorCode == 404) {
-                    GlobalScope.launch { f.emit(ProjectEditEffect.BootstrapData(ProjectModel(id = 322))) }
+                    ProjectEditEffect.BootstrapData(ProjectModel(id = 322))
                 } else {
-                    // TODO: Как правильно обрабатывать ошибки из-за плохого соединения и тд?
-                    GlobalScope.launch { f.emit(ProjectEditEffect.BootstrapData(ProjectModel(id = 321))) }
+                    ProjectEditEffect.BootstrapData(ProjectModel(id = 321))
                 }
-            })
-
-        return f
+            }
+        }
     }
 }
