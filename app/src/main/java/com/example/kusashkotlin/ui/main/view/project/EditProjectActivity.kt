@@ -3,6 +3,7 @@ package com.example.kusashkotlin.ui.main.view.project
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -42,10 +43,9 @@ class EditProjectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProjectBinding.inflate(layoutInflater).apply {
-            projectEditWorkerSlotsRecyclerView.apply {
-                adapter = adapter
-                layoutManager = LinearLayoutManager(context)
-            }
+            projectEditWorkerSlotsRecyclerView.adapter = adapter
+            projectEditWorkerSlotsRecyclerView.layoutManager = LinearLayoutManager(baseContext)
+
             projectEditSpecializationChangeButton.setOnClickListener {
                 viewModel.acceptAction(
                     ProjectEditAction.ChangeSpecialization
