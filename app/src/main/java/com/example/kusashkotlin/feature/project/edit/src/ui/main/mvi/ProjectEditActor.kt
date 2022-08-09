@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.rx2.await
 
 class ProjectEditActor(
     private val repository: MainRepository,
@@ -35,81 +36,68 @@ class ProjectEditActor(
             )
             is ProjectEditAction.ConfirmChanges -> {
                 return flow {
-                    repository.updateProject(
-                        previousState.project.copy(
-                            title = action.project.title,
-                            description = action.project.description,
-                            vacant = action.project.vacant,
-                            city = action.project.city,
-                            online = action.project.online
-                        ),
-                        preferencesRepository.getToken()
-                    )
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ response ->
-                            GlobalScope.launch {
-                                emit(
-                                    ProjectEditEffect.ConfirmChanges(
-                                        "Проект успешно изменен", true
-                                    )
+                    try {
+                        val response = repository.updateProject(
+                            previousState.project.copy(
+                                title = action.project.title,
+                                description = action.project.description,
+                                vacant = action.project.vacant,
+                                city = action.project.city,
+                                online = action.project.online
+                            ),
+                            preferencesRepository.getToken()
+                        )
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .await()
+                        emit(
+                            ProjectEditEffect.ConfirmChanges(
+                                "Проект успешно изменен", true
+                            )
+                        )
+                    } catch (throwable: Throwable) {
+                        if (throwable is ANError) {
+                            emit(
+                                ProjectEditEffect.ConfirmChanges(
+                                    throwable.errorBody, false
                                 )
-                            }
-                        }, { throwable ->
-                            if (throwable is ANError) {
-                                GlobalScope.launch {
-                                    emit(
-                                        ProjectEditEffect.ConfirmChanges(
-                                            throwable.message, false
-                                        )
-                                    )
-                                }
-                            } else {
-                                GlobalScope.launch {
-                                    // TODO: Log
-                                    emit(
-                                        ProjectEditEffect.ConfirmChanges(
-                                            "Что-то пошло не так", false
-                                        )
-                                    )
-                                }
-                            }
-                        })
+                            )
+                        } else {
+                            ProjectEditEffect.ConfirmChanges(
+                                "Что-то пошло не так", false
+                            )
+                        }
+                    }
                 }
             }
+
             is ProjectEditAction.DeleteProject -> {
                 return flow {
-                    repository.deleteProject(preferencesRepository.getToken())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ response ->
-                            GlobalScope.launch {
-                                emit(
-                                    ProjectEditEffect.DeleteProject(
-                                        "Проект успешно изменен", true
-                                    )
+                    try {
+                        val response = repository.deleteProject(preferencesRepository.getToken())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .await()
+                        emit(
+                            ProjectEditEffect.DeleteProject(
+                                "Проект успешно изменен", true
+                            )
+                        )
+                    } catch (throwable: Throwable) {
+                        if (throwable is ANError) {
+                            emit(
+                                ProjectEditEffect.DeleteProject(
+                                    throwable.message, false
                                 )
-                            }
-                        }, { throwable ->
-                            if (throwable is ANError) {
-                                GlobalScope.launch {
-                                    emit(
-                                        ProjectEditEffect.DeleteProject(
-                                            throwable.message, false
-                                        )
-                                    )
-                                }
-                            } else {
-                                GlobalScope.launch {
-                                    // TODO: Log
-                                    emit(
-                                        ProjectEditEffect.DeleteProject(
-                                            "Что-то пошло не так", false
-                                        )
-                                    )
-                                }
-                            }
-                        })
+                            )
+                        } else {
+                            emit(
+                                ProjectEditEffect.DeleteProject(
+                                    "Что-то пошло не так", false
+                                )
+                            )
+                        }
+                    }
                 }
             }
             is ProjectEditAction.ViewSlot -> flowOf(ProjectEditEffect.ViewSlot(id = action.id))
