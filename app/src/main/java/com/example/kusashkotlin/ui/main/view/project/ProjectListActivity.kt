@@ -22,6 +22,7 @@ import com.example.kusashkotlin.utils.Status
 import kotlinx.android.synthetic.main.activity_edit_worker_slot.*
 import kotlinx.android.synthetic.main.activity_project_list.*
 
+/// Не буду повторяться тут все тоже самое token, репоззиторий, константы, строки
 class ProjectListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ProjectListViewModel
@@ -29,7 +30,7 @@ class ProjectListActivity : AppCompatActivity() {
     private lateinit var projects: List<ProjectModel>
     private lateinit var allSpecializations: List<SpecializationModel>
     private lateinit var selectedSpecializations: BooleanArray
-    private var selectedSpecializationsIds: List<Int> = mutableListOf()
+    private var selectedSpecializationsIds: List<Int> = mutableListOf()  // все данные должны быть во вьюмодели
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,7 +116,7 @@ class ProjectListActivity : AppCompatActivity() {
                     newSpecialization.add(allSpecializations[i].id)
                 }
             }
-            selectedSpecializationsIds = newSpecialization
+            selectedSpecializationsIds = newSpecialization // данные и вся логика во вьюмодели, тут только рендер
             renderList(filterProjects(projects, selectedSpecializationsIds))
         }
         builderMultiply.show()

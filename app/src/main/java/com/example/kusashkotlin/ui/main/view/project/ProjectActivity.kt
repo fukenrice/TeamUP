@@ -71,7 +71,7 @@ class ProjectActivity : AppCompatActivity() {
 
     fun setupAdaprer() {
         projectViewWorkerSlotsRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = WorkerSlotAdapter({position -> onListItemClick(position)}, mutableListOf())
+        adapter = WorkerSlotAdapter({id -> onListItemClick(id)}, mutableListOf())
         projectViewWorkerSlotsRecyclerView.adapter = adapter
     }
 
@@ -138,7 +138,7 @@ class ProjectActivity : AppCompatActivity() {
                     binding.project = it.data
 
                     val specializations: MutableList<String> =
-                        it.data?.requiredSpecialization?.let { it1 ->
+                        it.data?.requiredSpecialization?.let { it1 -> // лучше использовать говорящее название, например `indexes`
                             getSpecializationsListByIndex(
                                 it1
                             )
@@ -168,9 +168,9 @@ class ProjectActivity : AppCompatActivity() {
         viewModel = ProjectViewModel(MainRepository(ApiHelper(ApiServiceImpl())), title)
     }
 
-    private fun onListItemClick(position: Int) {
+    private fun onListItemClick(id: Int) {
         val intent: Intent = Intent(this, WorkerSlotActivity::class.java)
-        intent.putExtra("id", viewModel.getProject().value?.data?.team?.get(position)?.id)
+        intent.putExtra("id", id)
         startActivity(intent)
     }
 

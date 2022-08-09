@@ -12,8 +12,6 @@ import com.example.kusashkotlin.data.api.ApiServiceImpl
 import com.example.kusashkotlin.data.model.WorkerSlot
 import com.example.kusashkotlin.data.repo.MainRepository
 import com.example.kusashkotlin.ui.main.adapter.RequestedWorkerSlotAdapter
-import com.example.kusashkotlin.ui.main.adapter.WorkerSlotAdapter
-import com.example.kusashkotlin.ui.main.viewmodel.ProjectViewModel
 import com.example.kusashkotlin.ui.main.viewmodel.RequestedWorkerSlotsViewModel
 import com.example.kusashkotlin.utils.Status
 import kotlinx.android.synthetic.main.activity_sent_requests_workers_slots.*

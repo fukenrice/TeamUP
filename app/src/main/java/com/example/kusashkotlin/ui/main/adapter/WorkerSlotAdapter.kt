@@ -13,17 +13,14 @@ import io.reactivex.Scheduler
 import kotlinx.android.synthetic.main.item_layout.view.*
 import kotlinx.android.synthetic.main.worker_slot_small_layout.view.*
 
+/// Аналогичные коментарии что и для других адаптеров
 class WorkerSlotAdapter(
-    private val onItemClicked: (position: Int) -> Unit,
+    private val onItemClicked: (id: Int) -> Unit,
     private val slots: MutableList<WorkerSlot>,
 ) : RecyclerView.Adapter<WorkerSlotAdapter.DataViewHolder>() {
 
-    class DataViewHolder(private val onItemClicked: (position: Int) -> Unit, itemView: View) :
-        RecyclerView.ViewHolder(itemView), View.OnClickListener {
-
-        init {
-            itemView.setOnClickListener(this)
-        }
+    class DataViewHolder(private val onItemClicked: (id: Int) -> Unit, itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
 
         fun bind(slot: WorkerSlot) {
             if (slot.profile == null) {
@@ -32,11 +29,7 @@ class WorkerSlotAdapter(
                 itemView.workerSlotSmallEmployeeName.text = slot.profile.toString()
             }
             itemView.workerSlotSmallDescriptionTextView.text = slot.description
-        }
-
-        override fun onClick(v: View?) {
-            val position = adapterPosition
-            onItemClicked(position)
+            itemView.setOnClickListener {  onItemClicked(slot.id!!)  }
         }
     }
 
