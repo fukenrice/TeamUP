@@ -15,22 +15,23 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.rx2.await
 
-object ProjectEditBootstrap : MviBootstrap<ProjectEditEffect> {
+class ProjectEditBootstrap(private val repository: MainRepository) :
+    MviBootstrap<ProjectEditEffect> {
 
     override fun invoke(): Flow<ProjectEditEffect> {
         return flow<ProjectEditEffect> {
             try {
-                val response = MainRepository(ApiHelper(ApiServiceImpl()))
+                val response = repository
                     .getProject("234")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .await()
                 emit(ProjectEditEffect.BootstrapData(response))
-            } catch(throwable: Throwable) {
+            } catch (throwable: Throwable) {
                 if (throwable is ANError && throwable.errorCode == 404) {
-                    ProjectEditEffect.BootstrapData(ProjectModel(id = 322))
+                    emit(ProjectEditEffect.BootstrapData(ProjectModel()))
                 } else {
-                    ProjectEditEffect.BootstrapData(ProjectModel(id = 321))
+                    emit(ProjectEditEffect.BootstrapData(ProjectModel()))
                 }
             }
         }

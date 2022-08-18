@@ -31,7 +31,8 @@ class EditProjectActivity : AppCompatActivity() {
         ProjectEditFeatureFactory(
             ProjectEditActor(
                 MainRepository(ApiHelper(ApiServiceImpl())), PreferencesRepository()
-            )
+            ),
+            ProjectEditBootstrap(MainRepository(ApiHelper(ApiServiceImpl())))
         )
     )
 
