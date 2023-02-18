@@ -63,8 +63,10 @@ class ProjectEditActor(
                                 )
                             )
                         } else {
-                            ProjectEditEffect.ConfirmChanges(
-                                "Что-то пошло не так", false
+                            emit(
+                                ProjectEditEffect.ConfirmChanges(
+                                    "Что-то пошло не так", false
+                                )
                             )
                         }
                     }
@@ -87,7 +89,7 @@ class ProjectEditActor(
                         if (throwable is ANError) {
                             emit(
                                 ProjectEditEffect.DeleteProject(
-                                    throwable.message, false
+                                    throwable.errorBody, false
                                 )
                             )
                         } else {
